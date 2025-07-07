@@ -1,0 +1,8 @@
+anteproyecto/
+documentos/
+memoria/build/
+__pycache__/
+src/dataset/*
+
+!src/dataset/resampling_binary_train.npz
+!src/dataset/resampling_binary_test.npz

@@ -1,0 +1,164 @@
+\chapter{Desarrollo y experimentación}
+\label{ch:desarrollo}
+
+\section{Selección del conjunto de datos}
+\label{sec:select_dataset}
+
+En lo que a \textit{malware} se refiere, \textit{BODMAS} \cite{bodmas} es uno de los conjuntos de datos más completos en la actualidad, con la ventaja para este proyecto de ya estar procesado y tener una amplia bibliografía. Otra opción interesante puede ser \textit{VirusShare} \cite{virusshare}, ya que cuenta con más de 99 millones de muestras de \textit{malware} actualizadas pero tiene varios inconvenientes para este proyecto. El primero es que no incluye muestras de \textit{software} no malicioso y el segundo que necesita un procesamiento previo para extraer las características. Todo esto conlleva un aumento considerable para la realización del proyecto. Otra de las opciones estudiadas ha sido \textit{theZoo} \cite{thezoo}. En cuanto a este repositorio hemos podido observar que tiene los mismos inconvenientes que \textit{VirusShare} y no tiene sus ventajas. Por último tenemos \textit{Microsoft Malware Classification} \cite{malware-classification}. En este caso tenemos un conjunto de datos muy amplio con casi medio \textit{terabyte}, pero además de los inconvenientes ya comentados en los anteriores conjuntos, solo incluye \textit{malware} que afecta a equipos \textit{Windows}, lo que limitaría considerablemente el alcance del estudio.
+
+\vspace{1em}
+
+Teniendo en cuenta todo lo comentado hasta ahora sobre los distintos conjuntos de datos considerados, hemos decidido usar \textit{BODMAS}, ya que es el que mejor se adapta a las necesidades del estudio
+
+\newpage
+\section{Procesamiento del conjunto de datos}
+\label{sec:proc_dataset}
+
+Dadas las limitaciones \textit{hardware} y la cantidad de datos, aproximadamente 135000 patrones y 2400 atributos por cada patrón, es necesario hacer un procesamiento previo del conjunto de datos. Para ello hemos tenido en cuenta varios enfoques. Por un lado, \textit{BODMAS} nos permite hacer una distinción entre clasificación binaria y clasificación multiclase, pero para ello es necesario reordenar los datos, ya que se encuentran distribuidos en varios archivos. Por otro lado, es necesario reducir la cantidad de datos. A continuación veremos los distintos enfoques.
+
+\subsection{Clasificación multiclase}
+\label{subsec:multiclass}
+
+El conjunto de datos seleccionado se divide en varios archivos:
+
+\begin{itemize}
+	\item \textit{bodmas.npz}: incluye la matriz de patrones de entrada en formato de matriz de \textit{python} y la matriz de salidas deseadas.
+	\item \textit{bodmas\_metadata.csv}: la información relevante para nuestro problema es la columna \textit{sha} que contiene la función \textit{hash} de todo el conjunto de datos.
+	\item \textit{bodmas\_malware\_category.csv}: contiene la función \textit{hash} del \textit{malware} y la categoría a la que pertenece.
+\end{itemize}
+
+Dado que las distintas categorías se encuentran en formato texto, es necesario codificarlas para poder trabajar con ellas. La codificación elegida ha sido la representada en la tabla \ref{tabla:codificacion_malware}.
+
+\vspace{1em}
+
+\begin{table}[th]
+	\centering
+	\begin{tabular}{ |m{4cm}|c| }
+		\hline
+		\rowcolor{LightCyan}
+		Categoría                   & Codificación \\
+		\hline
+		\textit{benign}             & 0            \\
+		\textit{trojan}             & 1            \\
+		\textit{worm}               & 2            \\
+		\textit{backdoor}           & 3            \\
+		\textit{downloader}         & 4            \\
+		\textit{informationstealer} & 5            \\
+		\textit{dropper}            & 6            \\
+		\textit{ransomware}         & 7            \\
+		\textit{rootkit}            & 8            \\
+		\textit{cryptominer}        & 9            \\
+		\textit{pua}                & 10           \\
+		\textit{exploit}            & 11           \\
+		\textit{virus}              & 12           \\
+		\textit{worm}               & 13           \\
+		\textit{trojan-gamethief}   & 14           \\
+		\hline
+	\end{tabular}
+	\caption{Codificación de las clases \textit{malware}.}
+	\label{tabla:codificacion_malware}
+\end{table}
+
+Para obtener una nueva matriz de salidas deseadas que incluya los tipos de \textit{malware}, una vez cargados los datos en sus correspondiente variables de \textit{python}, usamos la función \textit{merge} \cite{merge} perteneciente a la clase \textit{pandas.DataFrame} para incluir en \textit{metadata} los datos de \textit{mw\_category['category']} en las entradas donde coincide la columna \textit{sha}.
+
+\vspace{1em}
+
+Antes de codificar necesitamos darle una etiqueta a los datos vacíos, los cuales significan que esa muestra es benigna. Para ello usamos la función \textit{pandas.DataFrame.fillna} \cite{fillna}, que nos permite completar datos vacíos de distintas formas. Para nuestro caso usamos la etiqueta \textit{benign}. También eliminamos las columnas que no vamos a necesitar, dejando solo la categoría a la que pertenece cada muestra.
+
+\vspace{1em}
+
+Ahora podemos codificar los datos usando la función \textit{pandas.DataFrame.map} \cite{map}. Este método aplica una función que acepta y devuelve un valor escalar a cada elemento del DataFrame, lo que permite asignar un valor numérico a cada clase.
+
+\vspace{1em}
+
+El código utilizado para esta tarea se encuentra en el Anexo \ref{sec:codificacion}.
+
+\subsection{Reducción del conjunto de datos}
+\label{subsec:red_dataset}
+
+Reducir el número de datos con el que vamos a trabajar tiene el objetivo de principal de disminuir el tiempo que los algoritmos van a necesitar para procesar la información sin perjudicar la integridad de los datos, ya que los resultados del estudio podrían verse afectados y llevar a unas conclusiones erróneas. Esta tarea se puede enfrentar desde dos planteamientos distintos: condensar el número de patrones o el número de características. Ambos planteamientos se han estudiado de forma teórica en esta memoria en las secciones \ref{subsec:balanceo} y \ref{subsec:red_dim} respectivamente. Las técnicas elegidas son \textit{undersampling} por simplicidad y \textit{PCA} porque según el estudio \textit{A Low Complexity ML-Based Methods for Malware Classification} \cite{red_dim_pca} se obtienen unos resultados algo más precisos que con otros métodos.
+
+\vspace{1em}
+
+El código utilizado se encuentra en el anexo \ref{sec:red_dim}. A continuación se explicarán los pasos seguidos.
+
+\subsubsection{Número de patrones}
+\label{subsubsec:num_patrones}
+
+Como ya hemos estudiado en la sección \ref{subsubsec:undersampling}, el submuestreo o \textit{undersampling} en inglés, es una técnica para abordar el desbalance de clases en un conjunto de datos, especialmente cuando una de las clases tiene muchos más patrones que la otra. En nuestro caso, el desbalance no es demasiado grande ya que \textit{BODMAS} contiene 57293 muestras \textit{malware} y 77142 muestras benignas.
+
+\vspace{1em}
+
+El método \textit{RandomUnderSampler} \cite{randundersampler} de la librería \textit{Imbalanced learn} nos permite varias formas de actuar, siendo la que nos interesa para este estudio la que nos permite elegir manualmente el número de patrones de cada clase. Hemos elegido una cantidad de 15000 patrones en por clase.
+
+\subsubsection{Número de características}
+\label{subsubsec:num_caract}
+
+Este método, también conocido como reducción de la dimensionalidad, consiste en reducir el número de variables de las que consta el problema. Para aplicar el método matemático-estadístico de análisis de componentes principales, \textit{PCA} por sus siglas en inglés, usamos la clase \textit{PCA} \cite{sklearn_pca} perteneciente a \textit{sklearn.decomposition}. Esta clase nos permite entrenar el modelo y transformar el conjunto de datos tanto para el conjunto de entrenamiento como para el de test. Para ello será necesario separar previamente los datos, ya que \textit{BODMAS} no cuenta con esta división.
+
+\subsubsection{Elección final del nuevo conjunto de datos}
+\label{subsubsec:eleccion_dataset}
+
+Para poder decidir como será el conjunto de entrenamiento final se han hecho distintos conjuntos de datos sobre los que se probarán algunos algoritmos. Los conjuntos son los siguientes:
+
+\begin{itemize}
+	\item Clasificación binaria con \textit{PCA}.
+	\item Clasificación binaria con \textit{PCA} y \textit{Undersampling} con 15000 patrones por clase.
+	\item Clasificación multiclase con \textit{PCA}.
+\end{itemize}
+
+Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca}, \ref{tabla:binary_under} y \ref{tabla:multi_pca} respectivamente.
+
+\begin{table}[th]
+	\centering
+	\begin{tabular}{ |m{4cm}|c|c| }
+		\hline
+		\rowcolor{LightCyan}
+		Clasificador & Precisión & Tiempo (s) \\
+		\hline
+		\textit{Decission tree} & 0.89  & 0.91  \\
+		\textit{Random forest}  & 0.90  & 24.82 \\
+		\textit{K-NN}           & 0.954 & 0.088 \\
+		\hline
+	\end{tabular}
+	\caption{Clasificación binaria con \textit{PCA}.}
+	\label{tabla:binary_pca}
+\end{table}
+
+\begin{table}[th]
+	\centering
+	\begin{tabular}{ |m{4cm}|c|c| }
+		\hline
+		\rowcolor{LightCyan}
+		Clasificador & Precisión & Tiempo (s) \\
+		\hline
+		\textit{Decission tree} & 0.90  & 0.17  \\
+		\textit{Random forest}  & 0.94  & 4.54  \\
+		\textit{K-NN}           & 0.928 & 0.016 \\
+		\hline
+	\end{tabular}
+	\caption{Clasificación binaria con \textit{PCA} y \textit{Undersampling}.}
+	\label{tabla:binary_under}
+\end{table}
+
+\begin{table}[th]
+	\centering
+	\begin{tabular}{ |m{4cm}|c|c| }
+		\hline
+		\rowcolor{LightCyan}
+		Clasificador & Precisión & Tiempo (s)  \\
+		\hline
+		\textit{Decission tree} & 0.77 & 1.05  \\
+		\textit{Random forest}  & 0.84 & 28.90 \\
+		\textit{K-NN}           & 0.91 & 0.090 \\
+		\hline
+	\end{tabular}
+	\caption{Clasificación multiclase con \textit{PCA}}
+	\label{tabla:multi_pca}
+\end{table}
+
+En cuanto a la clasificación binaria, hemos decidido usar el conjunto de datos en el que se ha aplicado tanto \textit{PCA} como \textit{undersampling}, ya que, aunque los resultados son similares en ambos conjuntos, el tiempo es considerablemente más bajo y dadas las limitaciones del equipo disponible puede ser beneficioso a la hora de probar algoritmos más complejos.
+
+\vspace{1em}
+
+Para la clasificación multiclase hay varios métodos que podemos usar para reducir el tamaño del conjunto de datos, como el \textit{clustering} o variantes del método de \textit{undersampling} ya utilizado en clasificación binaria. A pesar de ello, estos métodos tienen una mayor complejidad de aplicación y la reducción de las dimensiones no es el objeto de este estudio. La decisión final ha sido elegir el conjunto con el que se han hecho las pruebas previas ya que los resultados han sido buenos, aunque no tanto como en clasificación binaria.
