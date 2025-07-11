@@ -12,14 +12,9 @@ from lib.utils import save
 	help = "Name of the file with training data.",
 )
 @click.option(
-	"-t", "--train",
+	"-n", "--new_dataset",
 	default = None, type = str, required = True,
-	help = "Name of the file with new train dataset.",
-)
-@click.option(
-	"-T", "--test",
-	default = None, type = str, required = True,
-	help = "Name of the file with new test dataset.",
+	help = "Name of the file with new dataset.",
 )
 @click.option(
 	"-u", "--undersampling",
@@ -28,28 +23,23 @@ from lib.utils import save
 )
 def main(
 	dataset: str,
-	test: str,
-	train: str,
+	new_dataset: str,
 	undersampling: bool
 ):
 	if not os.path.isfile(dataset):
 		raise click.UsageError(f"El archivo '{dataset}' no existe.")
 
-	if not os.path.isdir(os.path.dirname(test)):
-		raise click.UsageError(f"El directorio '{os.path.dirname(test)}' no existe.")
-
-	if not os.path.isdir(os.path.dirname(train)):
+	if not os.path.isdir(os.path.dirname(new_dataset)):
 		raise click.UsageError(f"El directorio '{os.path.dirname(train)}' no existe.")
 
 	print("Cargando datos...")
 	X, y = load(dataset)
 
 	print("Reduciendo la dimensionalidad...")
-	X_train, X_test, y_train, y_test = resampling(X, y, u = undersampling)
+	X, y = resampling(X, y, u = undersampling)
 
 	print("Guardando datos...")
-	save(train, X_train, y_train)
-	save(test, X_test, y_test)
+	save(new_dataset, X, y)
 
 if __name__ == "__main__":
 	main()
