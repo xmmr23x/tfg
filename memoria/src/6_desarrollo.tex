@@ -33,26 +33,26 @@ Dado que las distintas categorías se encuentran en formato texto, es necesario 
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |m{4cm}|c| }
+	\begin{tabular}{ |m{4cm}|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Categoría                   & Codificación \\
+		Categoría                   & Codificación & Nº de patrones \\
 		\hline
-		\textit{benign}             & 0            \\
-		\textit{trojan}             & 1            \\
-		\textit{worm}               & 2            \\
-		\textit{backdoor}           & 3            \\
-		\textit{downloader}         & 4            \\
-		\textit{informationstealer} & 5            \\
-		\textit{dropper}            & 6            \\
-		\textit{ransomware}         & 7            \\
-		\textit{rootkit}            & 8            \\
-		\textit{cryptominer}        & 9            \\
-		\textit{pua}                & 10           \\
-		\textit{exploit}            & 11           \\
-		\textit{virus}              & 12           \\
-		\textit{worm}               & 13           \\
-		\textit{trojan-gamethief}   & 14           \\
+		\textit{benign}             & 0            & 77142 \\
+		\textit{trojan}             & 1            & 29972 \\
+		\textit{worm}               & 2            & 16697 \\
+		\textit{backdoor}           & 3            & 7331  \\
+		\textit{downloader}         & 4            & 1031  \\
+		\textit{informationstealer} & 5            & 448   \\
+		\textit{dropper}            & 6            & 715   \\
+		\textit{ransomware}         & 7            & 821   \\
+		\textit{rootkit}            & 8            & 3     \\
+		\textit{cryptominer}        & 9            & 20    \\
+		\textit{pua}                & 10           & 29    \\
+		\textit{exploit}            & 11           & 12    \\
+		\textit{virus}              & 12           & 192   \\
+		\textit{p2p-worm}           & 13           & 16    \\
+		\textit{trojan-gamethief}   & 14           & 6     \\
 		\hline
 	\end{tabular}
 	\caption{Codificación de las clases \textit{malware}.}
@@ -111,14 +111,17 @@ Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca}, \ref{
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |m{4cm}|c|c| }
+	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Precisión & Tiempo (s) \\
+		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
 		\hline
-		\textit{Decission tree} & 0.89  & 0.91  \\
-		\textit{Random forest}  & 0.90  & 24.82 \\
-		\textit{K-NN}           & 0.954 & 0.088 \\
+		\rowcolor{LightCyan}
+		&            & Acc & MS & F1 & Acc & MS & F1 \\
+		\hline
+		\textit{Decission tree} & 0.885 & 1.000 & 1.000 & 1.000 & 0.972 & 0.971 & 1.000 \\
+		\textit{Random forest}  & 25.91 & 1.000 & 1.000 & 1.000 & 0.984 & 0.976 & 1.000 \\
+		\textit{K-NN}           & 0.095 & 0.973 & 0.970 & 1.000 & 0.963 & 0.963 & 1.000 \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación binaria con \textit{PCA}.}
@@ -127,14 +130,17 @@ Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca}, \ref{
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |m{4cm}|c|c| }
+	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Precisión & Tiempo (s) \\
+		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
 		\hline
-		\textit{Decission tree} & 0.90  & 0.17  \\
-		\textit{Random forest}  & 0.94  & 4.54  \\
-		\textit{K-NN}           & 0.928 & 0.016 \\
+		\rowcolor{LightCyan}
+		&            & Acc & MS & F1 & Acc & MS & F1 \\
+		\hline
+		\textit{Decission tree} & 0.184 & 1.000 & 1.000 & 1.000 & 0.945 & 0.936 & 1.000 \\
+		\textit{Random forest}  & 4.926 & 1.000 & 1.000 & 1.000 & 0.963 & 0.957 & 1.000 \\
+		\textit{K-NN}           & 0.016 & 0.954 & 0.948 & 1.000 & 0.938 & 0.931 & 1.000 \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación binaria con \textit{PCA} y \textit{Undersampling}.}
@@ -143,14 +149,17 @@ Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca}, \ref{
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |m{4cm}|c|c| }
+	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Precisión & Tiempo (s)  \\
+		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
 		\hline
-		\textit{Decission tree} & 0.77 & 1.05  \\
-		\textit{Random forest}  & 0.84 & 28.90 \\
-		\textit{K-NN}           & 0.91 & 0.090 \\
+		\rowcolor{LightCyan}
+		& & Acc & MS & F1 & Acc & MS & F1 \\
+		\hline
+		\textit{Decission tree} & 1.059 & 0.999 & 0.895 & 0.999 & 0.939 & 0.000 & 0.976 \\
+		\textit{Random forest}  & 30.04 & 0.999 & 0.895 & 0.999 & 0.955 & 0.000 & 0.981 \\
+		\textit{K-NN}           & 0.088 & 0.951 & 0.000 & 0.981 & 0.936 & 0.000 & 0.975 \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación multiclase con \textit{PCA}}
@@ -161,4 +170,94 @@ En cuanto a la clasificación binaria, hemos decidido usar el conjunto de datos 
 
 \vspace{1em}
 
-Para la clasificación multiclase hay varios métodos que podemos usar para reducir el tamaño del conjunto de datos, como el \textit{clustering} o variantes del método de \textit{undersampling} ya utilizado en clasificación binaria. A pesar de ello, estos métodos tienen una mayor complejidad de aplicación y la reducción de las dimensiones no es el objeto de este estudio. La decisión final ha sido elegir el conjunto con el que se han hecho las pruebas previas ya que los resultados han sido buenos, aunque no tanto como en clasificación binaria.
+Para la clasificación multiclase hay varios métodos que podemos usar para reducir el tamaño del conjunto de datos, como el \textit{clustering} o variantes del método de \textit{undersampling} ya utilizado en clasificación binaria. A pesar de ello, estos métodos tienen una mayor complejidad de aplicación y la reducción de las dimensiones no es el objeto de este estudio. Por otro lado, esta decisión puede suponer algunos problemas al usar técnicas como \textit{GridSearchCV} o la validación cruzada, ya que incrementan considerablemente el tiempo de entrenamiento.
+
+\vspace{1em}
+
+También en referencia a la clasificación multiclase, podemos ver en la tabla \ref{tabla:multi_pca} que la métrica de mínima sensibilidad es 0 para todos los casos de test. Como ya se ha explicado en esta memoria, mide cómo de bien se clasifica la clase peor clasificada y un valor de 0 indica que alguna de las clases no se ha clasificado bien. Como podemos ver en la matriz de confusión representada en la imagen \ref{fig:confusion}, algunas de las clases con menos patrones tienen dificultades para obtener una buena clasificación debido a la falta de información en el entrenamiento. Algunos clasificadores tienen la opción de asignar un peso a los patrones de cada clase inversamente proporcional al número de patrones de la clase, de manera que todas las clases tengan el mismo peso en el entrenamiento, pero no se consiguen mejores resultados. 
+
+\begin{figure}[H]
+	\centering
+	% include first image
+	\includegraphics[width=1.2\linewidth]{Imagenes/confusion_multiclase}
+	\caption[Titulo de la figura para el índice de figuras. En este no se deben poner referencias a citas]{Título de la figura para el texto}
+	\label{fig:confusion}
+\end{figure}
+
+Según el estudio \textit{Malware Behavior Analysis: Learning and Understanding Current Malware Threats} \cite{mba}, algunos de los tipos de \textit{malware} que tenemos con menos patrones, se pueden agrupar en algunas de las clases más representadas de nuestro conjunto de datos. En este estudio se comenta que \textit{p2p-worm} añade un comportamiento específico al comportamiento de un gusano, generando problemas de red y de pérdida de datos. Algo similar pasa con \textit{Gamethief trojan}. De esta forma podemos agrupar estos patrones a sus respectivas clases similares sin perder efectividad a la hora de clasificar y además eliminar así dos de las clases que nos pueden dar problemas por falta de información.
+
+\vspace{1em}
+
+Por otro lado, se han planteado dos formas de solucionar este problema, aunque ambas presentan inconvenientes:
+
+\begin{itemize}
+	\item Eliminar las clases menos representadas. Tiene el riesgo de no reconocer un nuevo patrón si es de un tipo distinto de \textit{malware}.
+	\item Agruparlas en una nueva clase que represente varios tipos de \textit{malware}. En este caso estamos suponiendo que los patrones agrupados tienen unas características similares.
+\end{itemize}
+
+\vspace{1em}
+
+Finalmente hemos decidido agrupar las clases con menos de 30 patrones en una nueva categoría \textit{otros}. Por número de patrones sería recomendable agrupar también la clase \textit{virus}, pero podría tener demasiado peso en la categoría otros y hemos considerado que es lo suficientemente relevante como para estudiarla por separado. En la tabla \ref{tabla:multi_new} podemos ver que, aunque mejoramos la mínima sensibilidad, no se producen unas mejoras significativas en la precisión de clasificación pero dada la alta precisión presentada por los modelos y la mejora en la mínima sensibilidad puede considerarse una buena actualización. Podemos ver la nueva codificación en la tabla \ref{tabla:nueva_codificacion_malware}
+
+\begin{table}[th]
+	\centering
+	\begin{tabular}{ |m{4cm}|c|c| }
+		\hline
+		\rowcolor{LightCyan}
+		Categoría                   & Codificación & Nº de patrones \\
+		\hline
+		\textit{benign}             & 0            & 77142 \\
+		\textit{trojan}             & 1            & 29978 \\
+		\textit{worm}               & 2            & 16713 \\
+		\textit{backdoor}           & 3            & 7331  \\
+		\textit{downloader}         & 4            & 1031  \\
+		\textit{informationstealer} & 5            & 448   \\
+		\textit{dropper}            & 6            & 715   \\
+		\textit{ransomware}         & 7            & 821   \\
+		\textit{virus}              & 8            & 192   \\
+		\textit{otros}              & 9            & 64    \\
+		\hline
+	\end{tabular}
+	\caption{Nueva codificación de las clases \textit{malware}.}
+	\label{tabla:nueva_codificacion_malware}
+\end{table}
+
+\begin{table}[th]
+	\centering
+	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
+		\hline
+		\rowcolor{LightCyan}
+		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
+		\hline
+		\rowcolor{LightCyan}
+		&            & Acc & MS & F1 & Acc & MS & F1 \\
+		\hline
+		\textit{Decission tree} & 1.220  & 0.998 & 0.992 & 0.998 & 0.938 & 0.670 & 0.975 \\
+		\textit{Random forest}  & 31.201 & 0.998 & 0.993 & 0.998 & 0.953 & 0.670 & 0.980 \\
+		\textit{K-NN}           & 0.083  & 0.951 & 0.431 & 0.980 & 0.936 & 0.333 & 0.974 \\
+		\hline
+	\end{tabular}
+	\caption{Clasificación multiclase con la nueva codificación.}
+	\label{tabla:multi_new}
+\end{table}
+
+
+\vspace{1em}
+
+Por último, se han considerado otras opciones para mejorar la clasificación de las clases minoritarias, pero podrían exceder la complejidad de este proyecto:
+
+\begin{itemize}
+	\item Utilizar métodos de sobremuestreo, ya mencionados en la sección \ref{subsubsec:oversampling}, que consisten en aumentar la cantidad de patrones de estas clases de forma sintética.
+	\item Utilizar métodos jerárquicos que primero clasifiquen usando la categoría \textit{otros}, para después dividirla en sus diferentes clases y entrenar un modelo específico.
+\end{itemize}
+
+\section{Experimentación}
+\label{sec:exp}
+
+\subsection{Clasificación binaria}
+\label{sec:clas_binaria}
+
+\subsubsection{Árboles de decisión}
+\label{sec:dec_tree}
+
+\input{Tablas/6_desarrollo/decisiontree_bin}

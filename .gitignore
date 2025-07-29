@@ -3,6 +3,7 @@ documentos/
 memoria/build/
 __pycache__/
 src/dataset/*
+category
 
 !src/dataset/resampling_binary_train.npz
 !src/dataset/resampling_binary_test.npz

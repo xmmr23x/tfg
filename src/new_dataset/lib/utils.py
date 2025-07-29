@@ -5,8 +5,12 @@ import seaborn as sns
 from sklearn.decomposition import PCA
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
 
+# matriz de confusion
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.metrics import confusion_matrix
 
 def load(filename):
 	data = np.load(filename)
@@ -37,3 +41,22 @@ def resampling(X, y, n_components = 5, size = 15000, u = False):
 	X   = pca.fit_transform(X)
 
 	return X, y
+
+def confussionMatrix(y_true, y_pred, title = 'Matriz de Confusión'):
+	cm = confusion_matrix(y_true, y_pred)
+
+	plt.figure(figsize=(6, 5))
+	sns.heatmap(
+		cm,
+		annot = True,
+		fmt = 'd',
+		cmap = 'Blues',
+		xticklabels = np.unique(y_true),
+		yticklabels = np.unique(y_true)
+	)
+
+	plt.xlabel('Predicción')
+	plt.ylabel('Real')
+	plt.title(title)
+
+	plt.show()

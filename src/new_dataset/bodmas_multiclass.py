@@ -22,8 +22,8 @@ def main():
 	category = {
 		'benign': 0, 'trojan': 1, 'worm': 2, 'backdoor': 3,
 		'downloader': 4, 'informationstealer': 5, 'dropper': 6,
-		'ransomware': 7, 'rootkit': 8, 'cryptominer': 9, 'pua': 10,
-		'exploit': 11, 'virus': 12, 'p2p-worm': 13, 'trojan-gamethief': 14
+		'ransomware': 7, 'rootkit': 9, 'cryptominer': 9, 'pua': 9,
+		'exploit': 9, 'virus': 8, 'p2p-worm': 2, 'trojan-gamethief': 1
 	}
 
 	# print(mw_category.value_counts())
@@ -32,7 +32,7 @@ def main():
 
 	y = mw_category.to_numpy()
 
-	# save('bodmas/bodmas_multiclass.npz', X, y)
+	save('../dataset/menos_clases.npz', X, y)
 
 if __name__ == '__main__':
 	main()

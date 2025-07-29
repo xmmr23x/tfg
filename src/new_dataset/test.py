@@ -12,12 +12,14 @@ from dlordinal.metrics import minimum_sensitivity
 from dlordinal.metrics import accuracy_off1
 
 from lib.utils import load
+from lib.utils import confussionMatrix
 
 def main():
-	file = {"pca_binary", "under_pca_binary", "pca_multiclass"}
+	# file = {"pca_binary", "under_pca_binary", "pca_multiclass"}
+	file = {"menos_clases", "pca_multiclass"}
 	clf  = None
 
-	print("clasificador,dataset,n patrones,n caracteristicas,accuracy,tiempo,ms,f1")
+	print("clasificador,dataset,n patrones,n caracteristicas,tiempo,accuracy train,ms train,f1 train,accuracy test,ms test,f1 test")
 
 	for train_file in file:
 		X, y = load('../dataset/' + train_file + '.npz')
@@ -26,9 +28,9 @@ def main():
 		 	X, y, test_size = 0.25, random_state = 1
 		)
 
-		for i in range(1):
-			if i == 0: clf = DecisionTreeClassifier()
-			elif i == 1: clf = RandomForestClassifier()
+		for i in range(3):
+			if i == 0: clf = DecisionTreeClassifier(class_weight = "balanced")
+			elif i == 1: clf = RandomForestClassifier(class_weight = "balanced")
 			else: clf = KNeighborsClassifier()
 
 			# Entrenar el modelo
@@ -50,7 +52,9 @@ def main():
 			ms_test       = minimum_sensitivity(y_test, y_pred_test)
 			f1_test       = accuracy_off1(y_test, y_pred_test)
 
-			print(f"{i},{train_file},{X.shape},{accuracy_train:.3f},{accuracy_test:.3f},{tiempo:.3f},{ms_train:.3f},{f1_train:.3f},{ms_test:.3f},{f1_test:.3f}")
+			print(f"{i},{train_file},{X.shape},{tiempo:.5f},{accuracy_train:.5f},{ms_train:.5f},{f1_train:.5f},{accuracy_test:.5f},{ms_test:.5f},{f1_test:.5f}")
+
+		# confussionMatrix(y_test, y_pred_test)
 
 if __name__ == "__main__":
     main()
