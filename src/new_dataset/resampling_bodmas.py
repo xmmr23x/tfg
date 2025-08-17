@@ -36,7 +36,7 @@ def main(
 	X, y = load(dataset)
 
 	print("Reduciendo la dimensionalidad...")
-	X, y = resampling(X, y, u = undersampling)
+	X, y = resampling(X, y, 5, 2000, undersampling)
 
 	print("Guardando datos...")
 	save(new_dataset, X, y)

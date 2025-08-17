@@ -1,35 +1,112 @@
 \chapter{Estado de la técnica}
 \label{ch:estado_tecnica}
 
+
+
 \section{Aprendizaje automático}
 \label{sec:aprend_auto}
+
+
 
 \subsection{Balanceo de datos}
 \label{subsec:balanceo}
 
+
+
 \subsubsection{Sobremuestreo}
 \label{subsubsec:oversampling}
+
+
 
 \subsubsection{Submuestreo}
 \label{subsubsec:undersampling}
 
+
+
 \subsection{Reducción de la dimensionalidad}
 \label{subsec:red_dim}
+
+
 
 \subsubsection{Análisis de componentes principales}
 \label{subsubsec:pca}
 
+
+
 \subsubsection{Análisis factorial}
 \label{subsubsec:fa}
+
+
 
 \subsubsection{Descomposición en valores singulares}
 \label{subsubsec:svd}
 
+
+
+\subsection{Métricas de evaluación}
+\label{subsec:2_metricas}
+
+La elección de métricas de evaluación adecuadas es esencial para valorar de forma precisa el rendimiento de los modelos. No todas las métricas ofrecen la misma información. En esta sección se revisan las métricas más empleadas en la literatura especializada, destacando su utilidad, limitaciones y el tipo de información que aportan para la comparación de modelos.
+
+\subsubsection{Exactitud}
+\label{subsubsec:acc}
+
+La exactitud o \textit{Accuracy} se corresponde con el porcentaje de aciertos que se han producido, es decir, los patrones clasificados correctamente respecto al total. Se calcula como la suma de verdaderos positivos (TP) y verdaderos negativos (TN) respecto al número total de patrones de entrada (N) \cite{metrics}.
+
+\begin{equation}
+	\label{eq:accuracy}
+	\text{CCR} = \frac{TP+TN}{N}
+\end{equation}
+
+\subsubsection{Precisión}
+\label{subsubsec:prec}
+
+La precisión es una métrica que evalúa la proporción de patrones clasificados como positivas que realmente pertenecen a la clase positiva, es decir, mide como de confiable es el modelo cuando predice un positivo. Es muy relevante cuando el coste de clasificar erróneamente un negativo como positivo es alto.
+
+\begin{equation}
+	\text{Precisión} = \frac{TP}{TP + FP}
+	\label{eq:precision}
+\end{equation}
+
+Donde \(TP\) representa el número de verdaderos positivos, y \(FP\) corresponde al número de falsos positivos.
+
+\subsubsection{Sensibilidad}
+\label{subsubsec:sens}
+
+También conocida como exhaustividad o \textit{recall} en inglés, mide la capacidad del modelo para detectar correctamente los positivos de un conjunto de datos. Como se muestra en la ecuación \ref{eq:recall}, se calcula como la proporción entre el número de verdaderos positivos (TP) y la suma de verdaderos positivos y falsos negativos (FN) \cite{metrics}. Un valor alto de sensibilidad indica que se han obtenido pocos falsos negativos.
+
+\begin{equation}
+	\label{eq:recall}
+	\text{Sensibilidad} = \frac{TP}{TP + FN}
+\end{equation}
+
+\subsubsection{Mínima sensibilidad}
+\label{subsubsec:ms}
+
+La mínima sensibilidad mide cómo de bien se clasifica la clase peor clasificada. Es útil en clasificación multiclase o con conjuntos de datos desbalanceados, ya que permite identificar si existe alguna clase que el modelo no está clasificando correctamente. Un valor alto indica que el modelo mantiene un buen rendimiento en todas las clases, mientras que un valor bajo revela que, al menos, una de ellas presenta un bajo grado de acierto. Si el modelo se deja una clase sin clasificar, el valor será 0.
+
+\vspace{1em}
+
+Sea \( S_i \) la sensibilidad de la clase \( i \), con \( n \) el número total de clases, la mínima sensibilidad se calcula como se muestra en la ecuación \ref{eq:ms}.
+
+\begin{equation}
+	MS = \min_{i \in \{1, 2, \dots, n\}} S_i
+	\label{eq:ms}
+\end{equation}
+
+Donde la sensibilidad de cada clase \( S_i \) se obtiene mediante la ecuación \ref{eq:recall}
+
+\subsubsection{Valor-F}
+\label{subsubsec:f1}
+
+El valor-F o \textit{F1-score} mide el equilibrio entre la precisión y la sensibilidad \cite{metrics}. Se calcula como la media armónica entre ambas, lo que penaliza de forma más severa los valores extremos y proporciona una medida equilibrada del rendimiento del modelo. Es especialmente útil en problemas con clases desbalanceadas, ya que evita que un alto rendimiento en una sola métrica distorsione la evaluación global.
+
 \section{Ciberseguridad}
 \label{sec:ciberseguridad}
 
+El MS es la mínima sensibilidad calculada por clases. Es decir, mide cómo de bien se clasifica la clase peor clasificada. Es interesante porque un valor alto indica que el modelo es capaz de clasificar correctamente todas las clases. En el momento en el que haya una clase que se clasifique mal, el valor será bajo. Si por ejemplo el modelo se deja una clase sin clasificar, el valor sería 0.
+
 \subsection{\textit{Malware}}
 \label{subsec:malware}
-
 
 

@@ -1,16 +1,32 @@
 \chapter{Desarrollo y experimentación}
 \label{ch:desarrollo}
 
-\section{Selección del conjunto de datos}
-\label{sec:select_dataset}
-
-En lo que a \textit{malware} se refiere, \textit{BODMAS} \cite{bodmas} es uno de los conjuntos de datos más completos en la actualidad, con la ventaja para este proyecto de ya estar procesado y tener una amplia bibliografía. Otra opción interesante puede ser \textit{VirusShare} \cite{virusshare}, ya que cuenta con más de 99 millones de muestras de \textit{malware} actualizadas pero tiene varios inconvenientes para este proyecto. El primero es que no incluye muestras de \textit{software} no malicioso y el segundo que necesita un procesamiento previo para extraer las características. Todo esto conlleva un aumento considerable para la realización del proyecto. Otra de las opciones estudiadas ha sido \textit{theZoo} \cite{thezoo}. En cuanto a este repositorio hemos podido observar que tiene los mismos inconvenientes que \textit{VirusShare} y no tiene sus ventajas. Por último tenemos \textit{Microsoft Malware Classification} \cite{malware-classification}. En este caso tenemos un conjunto de datos muy amplio con casi medio \textit{terabyte}, pero además de los inconvenientes ya comentados en los anteriores conjuntos, solo incluye \textit{malware} que afecta a equipos \textit{Windows}, lo que limitaría considerablemente el alcance del estudio.
+En esta fase se lleva a cabo la implementación práctica del estudio, haciendo uso de los modelos de aprendizaje automático implementados principalmente en la librería \textit{Scikit-Learn} de \textit{python}. Para ello se realiza un procesamiento de los datos, necesario para obtener un conjunto reducido y otro apto para la clasificación multiclase. Además, se configuran los entornos necesarios para su entrenamiento y evaluación, se establecen las métricas de rendimiento, los procedimientos de prueba y los escenarios de experimentación que permitirán obtener resultados consistentes y comparables. El objetivo es verificar, mediante pruebas controladas, la efectividad de cada método en la detección de \textit{malware}.
 
 \vspace{1em}
 
-Teniendo en cuenta todo lo comentado hasta ahora sobre los distintos conjuntos de datos considerados, hemos decidido usar \textit{BODMAS}, ya que es el que mejor se adapta a las necesidades del estudio
+La parte experimental se aborda desde dos perspectivas complementarias. En primer lugar, se evalúa la capacidad de los modelos para la detección de \textit{malware} mediante pruebas de clasificación binaria, determinando si un patrón corresponde a software malicioso o legítimo. En segundo lugar, se analiza la viabilidad de realizar una clasificación multinivel sobre esos mismos patrones, identificando el tipo específico de \textit{malware} al que pertenecen, lo que permite un análisis más detallado y aplicable a entornos de ciberseguridad avanzada.
 
-\newpage
+\section{Modelos utilizados}
+\label{sec:modelos_utilizados}
+
+En este proyecto se han empleado diversos algoritmos de aprendizaje automático, seleccionados en función de los criterios mencionados en el capitulo \ref{ch:metodologia} y con el objetivo de representar diferentes enfoques.
+
+Se han utilizado los siguientes modelos implementados en \textit{scikit-learn} y \textit{LightGBM}:
+
+\begin{itemize}
+	\item \textit{DecisionTreeClassifier}
+	\item \textit{RandomForestClassifier}
+	\item \textit{KNeighborsClassifier}
+	\item \textit{RidgeClassifier}
+	\item \textit{MLPClassifier}
+	\item \textit{SVC}
+	\item \textit{LGBMClassifier} (de \textit{LightGBM})
+\end{itemize}
+
+Todos los modelos se han ajustado y evaluado utilizando \textit{GridSearchCV}, lo que permite explorar sistemáticamente distintas combinaciones de hiperparámetros y asegurar comparaciones consistentes entre los distintos métodos de clasificación. La descripción teórica de estos modelos se presenta en el capítulo \ref{ch:estado_tecnica}.
+
+
 \section{Procesamiento del conjunto de datos}
 \label{sec:proc_dataset}
 
@@ -174,13 +190,13 @@ Para la clasificación multiclase hay varios métodos que podemos usar para redu
 
 \vspace{1em}
 
-También en referencia a la clasificación multiclase, podemos ver en la tabla \ref{tabla:multi_pca} que la métrica de mínima sensibilidad es 0 para todos los casos de test. Como ya se ha explicado en esta memoria, mide cómo de bien se clasifica la clase peor clasificada y un valor de 0 indica que alguna de las clases no se ha clasificado bien. Como podemos ver en la matriz de confusión representada en la imagen \ref{fig:confusion}, algunas de las clases con menos patrones tienen dificultades para obtener una buena clasificación debido a la falta de información en el entrenamiento. Algunos clasificadores tienen la opción de asignar un peso a los patrones de cada clase inversamente proporcional al número de patrones de la clase, de manera que todas las clases tengan el mismo peso en el entrenamiento, pero no se consiguen mejores resultados. 
+También en referencia a la clasificación multiclase, podemos ver en la tabla \ref{tabla:multi_pca} que la métrica de mínima sensibilidad es 0 para todos los casos de test. Como ya se ha explicado en esta memoria, mide cómo de bien se clasifica la clase peor clasificada y un valor de 0 indica que alguna de las clases no se ha clasificado bien. Como podemos ver en la matriz de confusión representada en la imagen \ref{fig:confusion}, algunas de las clases con menos patrones tienen dificultades para obtener una buena clasificación debido a la falta de información en el entrenamiento. Algunos clasificadores tienen la opción de asignar un peso a los patrones de cada clase inversamente proporcional al número de patrones de la clase, de manera que todas las clases tengan el mismo peso en el entrenamiento, pero no se consiguen mejores resultados.
 
 \begin{figure}[H]
 	\centering
 	% include first image
 	\includegraphics[width=1.2\linewidth]{Imagenes/confusion_multiclase}
-	\caption[Titulo de la figura para el índice de figuras. En este no se deben poner referencias a citas]{Título de la figura para el texto}
+	\caption[Matriz de confusión para la clasificación multicase]{Matriz de confusión para la clasificación multicase}
 	\label{fig:confusion}
 \end{figure}
 
@@ -241,7 +257,6 @@ Finalmente hemos decidido agrupar las clases con menos de 30 patrones en una nue
 	\label{tabla:multi_new}
 \end{table}
 
-
 \vspace{1em}
 
 Por último, se han considerado otras opciones para mejorar la clasificación de las clases minoritarias, pero podrían exceder la complejidad de este proyecto:
@@ -251,13 +266,98 @@ Por último, se han considerado otras opciones para mejorar la clasificación de
 	\item Utilizar métodos jerárquicos que primero clasifiquen usando la categoría \textit{otros}, para después dividirla en sus diferentes clases y entrenar un modelo específico.
 \end{itemize}
 
-\section{Experimentación}
-\label{sec:exp}
+\section{Preparación del entorno}
+\label{sec:prep_entorno}
 
-\subsection{Clasificación binaria}
-\label{sec:clas_binaria}
+En esta sección se describe el entorno de trabajo utilizado por el alumno para la implementación de los modelos y la realización de las pruebas. El entorno se debe preparar de forma correcta, ya que puede afectar a la ejecución de los algoritmos y a la reproducibilidad de los experimentos. A continuación, se explican elementos del entorno como el lenguaje de programación, las librerías y las características del equipo.
 
-\subsubsection{Árboles de decisión}
-\label{sec:dec_tree}
+\subsection{Herramientas y librerías}
+\label{subsec:herramientas}
 
-\input{Tablas/6_desarrollo/decisiontree_bin}
+El desarrollo y la experimentación de este proyecto se han llevado a cabo empleando un conjunto de herramientas y librerías muy utilizadas en la ciencia de datos. \textit{Python} ha sido el lenguaje de programación de este trabajo, ya que ofrece una fácil implementación de modelos, manipulación de datos y visualización de resultados. Su popularidad en se debe a su sintaxis sencilla, escalabilidad y amplia variedad de herramientas y bibliotecas \cite{python_ml}.
+
+\vspace{1em}
+
+En este proyecto se ha utilizado la versión 3.12 de \textit{Python}, elegida principalmente por su compatibilidad con las librerías empleadas, en particular, con \textit{GridSearchCV}, que aprovechan la paralelización de procesos para mejorar el rendimiento. El problema encontrado es que los hilos no se cierran correctamente, es un comportamiento típico asociado a lo que en programación concurrente se denomina \textit{thread leakage} o hilos huérfanos. provoca que la memoria \textit{RAM} y la \textit{CPU} sigan siendo consumidas incluso después de que la ejecución haya terminado. En teoría, este problema no afecta al rendimiento de los clasificadores, pero puede afectar al tiempo de ejecución.
+
+\vspace{1em}
+
+Las librerías utilizadas para construir un modelo y analizar los datos son \textit{Scikit-learn}, \textit{DLOrdinal}, \textit{Matplotlib}, \textit{NumPy}, \textit{Pandas}, \textit{LightGBM} y \textit{Seaborn}.
+
+% TODO: sklearn, dlordinal, matplotlib, numpy, pandas, lightgbm, seaborn
+
+\subsubsection{\textit{Scikit-learn}}
+\label{subsubsec:sklearn}
+
+\textit{Scikit-learn} es un paquete de código abierto en \textit{Python} que ofrece una gran variedad de métodos de aprendizaje automático rápidos y eficientes, gracias a que usan bibliotecas compiladas en lenguajes como \textit{C++}, \textit{C} o \textit{Fortran}. Tiene detrás una comunidad activa que mantiene la documentación, corrige errores y asegura la calidad. Aunque no incluye todos los algoritmos usados en este proyecto, es una herramienta muy recomendable si necesitamos: transformación de datos, aprendizaje supervisado o evaluación de modelos \cite{hao2019scikit}.
+
+\subsubsection{\textit{DLOrdinal}}
+\label{subsubsec:dlordinal}
+
+dlordinal \cite{dlordinal}
+
+\subsubsection{\textit{Matplotlib}}
+\label{subsubsec:matplotlib}
+
+
+
+\subsubsection{\textit{NumPy}}
+\label{subsubsec:numpy}
+
+
+
+\subsubsection{\textit{Pandas}}
+\label{subsubsec:pandas}
+
+
+
+\subsubsection{\textit{LightGBM}}
+\label{subsubsec:lightgbm}
+
+
+
+\subsubsection{\textit{Seaborn}}
+\label{subsubsec:seaborn}
+
+
+
+\subsection{Hardware}
+\label{subsec:hw_usado}
+
+El entrenamiento y evaluación de los modelos se ha realizado en el equipo del estudiante con las siguientes características: procesador \textit{Intel Core i7-4712MQ}, tarjeta gráfica \textit{NVIDIA GeForce 920M}, 16 GB de \textit{RAM} DDR3 y almacenamiento compuesto por un \textit{SSD Crucial MX500} de 250 GB y un \textit{HDD} de 1 TB. Este hardware permite la paralelización de los algoritmos en múltiples núcleos del procesador, lo que reduce significativamente los tiempos de entrenamiento, pero se encuentra muy limitado respecto al conjunto utilizado para clasificación multiclase y modelos más costosos como puede ser \textit{SVM}.
+
+\subsection{Métricas de evaluación}
+\label{subsec:6_metricas}
+
+Para evaluar la efectividad de los modelos implementados, se han utilizado las siguientes métricas, cuya descripción teórica se encuentra en la sección \ref{subsec:2_metricas}:
+
+\begin{itemize}
+	\item \textbf{\textit{Accuracy}}: proporción de predicciones correctas sobre el total de patrones.
+	\item \textbf{Mínima Sensibilidad}: sensibilidad de la clase peor clasificada.
+	\item \textbf{\textit{F1-score}}: media armónica entre precisión y sensibilidad.
+\end{itemize}
+
+\subsection{Protocolo de experimentación y validación}
+\label{subsec:protocolo_exper}
+
+texto
+
+\section{Implementación y pruebas}
+\label{sec:implementacion}
+
+\subsection{Estructura del código}
+\label{subsec:estructura_codigo}
+% TODO: Se describe cómo se organizan los scripts y módulos, indicando la función de cada uno en el flujo de entrenamiento, evaluación y análisis de resultados.
+
+\subsection{Procedimiento de entrenamiento y evaluación}
+\label{subsec:procedimiento}
+% TODO: Se explica el proceso seguido para entrenar los modelos, incluyendo el uso de GridSearchCV, parámetros ajustados, número de repeticiones y semillas empleadas para garantizar resultados reproducibles.
+
+\subsection{Preparación y uso de los conjuntos de datos}
+\label{subsec:datos_experimentales}
+% TODO: Se detalla cómo se cargan, transforman y dividen los conjuntos de datos para las pruebas, así como la normalización o reducción de características si procede.
+
+\subsection{Métricas y análisis de resultados}
+\label{subsec:metricas_pruebas}
+% TODO: Se explica cómo se calculan las métricas definidas en el capítulo \ref{ch:estado_tecnica}, y cómo se presentan los resultados para la comparación entre modelos.
+

@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import RidgeClassifier
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
@@ -16,7 +17,7 @@ from lib.utils import confussionMatrix
 
 def main():
 	# file = {"pca_binary", "under_pca_binary", "pca_multiclass"}
-	file = {"menos_clases", "pca_multiclass"}
+	file = {"under_pca_binary"}
 	clf  = None
 
 	print("clasificador,dataset,n patrones,n caracteristicas,tiempo,accuracy train,ms train,f1 train,accuracy test,ms test,f1 test")
@@ -28,8 +29,8 @@ def main():
 		 	X, y, test_size = 0.25, random_state = 1
 		)
 
-		for i in range(3):
-			if i == 0: clf = DecisionTreeClassifier(class_weight = "balanced")
+		for i in range(1):
+			if i == 0: clf = RidgeClassifier(class_weight = "balanced")
 			elif i == 1: clf = RandomForestClassifier(class_weight = "balanced")
 			else: clf = KNeighborsClassifier()
 

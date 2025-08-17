@@ -1,2 +1,85 @@
 \chapter{Resultados y discusión}
 \label{ch:resultados}
+
+% TODO: ESCRIBIR INTRODUCCION
+
+\section{Clasificación binaria}
+\label{sec:clas_binaria}
+
+% TODO: escribir introducción para clasificaicon binaria, este texto es de experimentacion
+En esta fase se lleva a cabo la implementación práctica del estudio, haciendo uso de los modelos de aprendizaje automático implementados principalmente en la librería \textit{Scikit-Learn} de \textit{python} y descritos en el capítulo \ref{ch:metodologia}. Para ello se configuran los entornos necesarios para su entrenamiento y evaluación, se establecen las métricas de rendimiento, los procedimientos de prueba y los escenarios de experimentación que permitirán obtener resultados consistentes y comparables. El objetivo es verificar, mediante pruebas controladas, la efectividad de cada método en la detección de \textit{malware}.
+
+La parte experimental de este proyecto se estudiará desde dos enfoques distintos. Por un lado se evaluarán los modelos seleccionados en la detección de \textit{malware}, es decir, se realizarán pruebas de clasificación binaria donde se estudiará sin un un patrón corresponde a un programa malicioso o no. Por otro, se estudiará si, para estos mismos patrones, es posible realizar una clasificación más exhaustiva y reconocer con que tipo de \textit{malware} se corresponde cada patrón.
+
+\subsection{Árboles de decisión}
+\label{subsec:dt_bin}
+
+\input{Tablas/6_desarrollo/dt_bin}
+
+\subsection{\textit{Random forest}}
+\label{subsec:rf_bin}
+
+\input{Tablas/6_desarrollo/rf_bin}
+
+\subsection{\textit{K-NN}}
+\label{subsec:knn_bin}
+
+\input{Tablas/6_desarrollo/knn_bin}
+
+\subsection{Máquinas de vectores de soporte}
+\label{subsec:svm_bin}
+
+\input{Tablas/6_desarrollo/svm_bin}
+
+\subsection{\textit{Ridge}}
+\label{subsec:ridge_bin}
+
+\input{Tablas/6_desarrollo/ridge_bin}
+
+\subsection{Redes neuronales: Perceptrón multicapa}
+\label{subsec:mlp_bin}
+
+\input{Tablas/6_desarrollo/mlp_bin}
+
+\subsection{\textit{Light Gradient Boosting Machine}}
+\label{subsec:lgbm_bin}
+
+\input{Tablas/6_desarrollo/lgbm_bin}
+
+\section{Clasificación multiclase}
+\label{sec:clas_multi}
+
+\subsection{Árboles de decisión}
+\label{subsec:dt_multi}
+
+\input{Tablas/6_desarrollo/dt_multi}
+
+\subsection{\textit{Random forest}}
+\label{subsec:rf_multi}
+
+\input{Tablas/6_desarrollo/rf_multi}
+
+\subsection{\textit{K-NN}}
+\label{subsec:knn_multi}
+
+\input{Tablas/6_desarrollo/knn_multi}
+
+\subsection{Máquinas de vectores de soporte}
+\label{subsec:svm_multi}
+
+En este caso, el proceso de entrenamiento presentó una mayor complejidad y dificultad para obtener resultados comparables con los de otros modelos evaluados, principalmente debido a las limitaciones del equipo utilizado. El elevado tiempo requerido para el entrenamiento sin ajuste de parámetros, junto con los resultados poco satisfactorios obtenidos para las dos semillas empleadas ---con una precisión aproximada del 20\%---, motivaron la decisión de no continuar con las máquinas de vectores de soporte para la clasificación multiclase. No obstante, estos resultados no indican que el modelo sea inadecuado para el problema planteado, sino que tiene una mayor exigencia en cuanto a los recursos necesarios para su entrenamiento.
+
+\subsection{\textit{Ridge}}
+\label{subsec:ridge_multi}
+
+\input{Tablas/6_desarrollo/ridge_multi}
+
+\subsection{Redes neuronales: Perceptrón multicapa}
+\label{subsec:mlp_multi}
+
+\input{Tablas/6_desarrollo/mlp_multi}
+
+\subsection{\textit{Light Gradient Boosting Machine}}
+\label{subsec:lgbm_multi}
+
+\input{Tablas/6_desarrollo/lgbm_multi}
