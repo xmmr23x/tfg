@@ -92,3 +92,38 @@ for i in range(3):
 		print(f'{i},{train_file},{X_train.shape},{accuracy:.3f},{tiempo:.3f}')
 
 \end{lstlisting}
+
+\newpage
+\section{Control de la validación cruzada}
+\label{sec:func_cv}
+
+\lstset{style=codestyle, language=Python}
+\begin{lstlisting}[frame=single]
+def cv(y, crossval):
+	y_ = min(pd.DataFrame(y).value_counts())
+
+	if y_ < crossval:
+		return y_
+
+	return crossval
+\end{lstlisting}
+
+\section{Ejemplo de salida de la información}
+\label{sec:info}
+
+\lstset{style=codestyle, language=Python}
+\begin{lstlisting}[frame=single]
+      acc train  ms train  f1 train  acc test   ms test  f1 test
+0      0.648800  0.548712       1.0  0.648133  0.530019      1.0
+1      0.645200  0.558267       1.0  0.655200  0.568564      1.0
+2      0.652400  0.572655       1.0  0.644667  0.563784      1.0
+3      0.648578  0.566829       1.0  0.653467  0.569664      1.0
+4      0.650933  0.573087       1.0  0.650933  0.573003      1.0
+5      0.647289  0.562228       1.0  0.647867  0.558393      1.0
+6      0.647867  0.556000       1.0  0.650267  0.572533      1.0
+7      0.650667  0.570983       1.0  0.649600  0.572906      1.0
+8      0.650711  0.564155       1.0  0.638800  0.551123      1.0
+9      0.649911  0.563205       1.0  0.645200  0.550628      1.0
+Mean   0.649236  0.563612       1.0  0.648413  0.561062      1.0
+STD    0.002112  0.007797       0.0  0.004713  0.013867      0.0
+\end{lstlisting}

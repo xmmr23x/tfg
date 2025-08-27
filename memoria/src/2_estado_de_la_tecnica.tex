@@ -1,47 +1,47 @@
 \chapter{Estado de la técnica}
 \label{ch:estado_tecnica}
 
-
+% TODO: 
 
 \section{Aprendizaje automático}
 \label{sec:aprend_auto}
 
-
+% TODO: 
 
 \subsection{Balanceo de datos}
 \label{subsec:balanceo}
 
-
+% TODO: 
 
 \subsubsection{Sobremuestreo}
 \label{subsubsec:oversampling}
 
-
+% TODO: 
 
 \subsubsection{Submuestreo}
 \label{subsubsec:undersampling}
 
-
+% TODO: 
 
 \subsection{Reducción de la dimensionalidad}
 \label{subsec:red_dim}
 
-
+% TODO: 
 
 \subsubsection{Análisis de componentes principales}
 \label{subsubsec:pca}
 
-
+% TODO: 
 
 \subsubsection{Análisis factorial}
 \label{subsubsec:fa}
 
-
+% TODO: 
 
 \subsubsection{Descomposición en valores singulares}
-\label{subsubsec:svd}
+	\label{subsubsec:svd}
 
-
+% TODO: 
 
 \subsection{Métricas de evaluación}
 \label{subsec:2_metricas}
@@ -101,12 +101,139 @@ Donde la sensibilidad de cada clase \( S_i \) se obtiene mediante la ecuación \
 
 El valor-F o \textit{F1-score} mide el equilibrio entre la precisión y la sensibilidad \cite{metrics}. Se calcula como la media armónica entre ambas, lo que penaliza de forma más severa los valores extremos y proporciona una medida equilibrada del rendimiento del modelo. Es especialmente útil en problemas con clases desbalanceadas, ya que evita que un alto rendimiento en una sola métrica distorsione la evaluación global.
 
+\subsubsection{Matriz de confusión}
+\label{subsubsec:matrix}
+% TODO: 
+
+
+
+\subsection{Técnicas de validación}
+\label{subsec:validacion}
+% TODO: 
+
+
+
+\subsubsection{Validación cruzada}
+\label{subsubsec:cv}
+% TODO: 
+
+
+
+\subsubsection{Validación estratificada}
+\label{subsubsec:ev}
+% TODO: 
+
+
+
+\subsubsection{Problemas de entrenamiento}
+\label{subsubsec:overunderfit}
+% TODO:  overfitting y underfitting
+
+\subsection{Preprocesamiento de datos}
+\label{subsec:}
+% TODO: 
+
+
+
+\subsubsection{}
+\label{subsubsec:}
+% TODO: 
+
+
+
+
+\subsection{Algoritmos de clasificación}
+\label{subsec:}
+% TODO: 
+
+
+
+\subsubsection{}
+\label{subsubsec:}
+% TODO: 
+
+
+
+\subsection{}
+\label{subsec:}
+% TODO: 
+
+
+
+\subsubsection{}
+\label{subsubsec:}
+% TODO: 
+
+
+
+
+
+
+
+
 \section{Ciberseguridad}
 \label{sec:ciberseguridad}
 
-El MS es la mínima sensibilidad calculada por clases. Es decir, mide cómo de bien se clasifica la clase peor clasificada. Es interesante porque un valor alto indica que el modelo es capaz de clasificar correctamente todas las clases. En el momento en el que haya una clase que se clasifique mal, el valor será bajo. Si por ejemplo el modelo se deja una clase sin clasificar, el valor sería 0.
+La ciberseguridad es la protección de la infraestructura informática y la información que hay en ella, abarcando \textit{software}, \textit{hardware} y redes. Para garantizar la seguridad, es esencial combinar estrategias de prevención con métodos de protección efectivos. Las estrategias de prevención, como el uso de \textit{firewalls}, \textit{software} antivirus actualizado y educación en ciberseguridad para los usuarios, se centra en identificar y mitigar posibles amenazas antes de que ocurran. Por otro lado, la protección se enfoca en responder a los incidentes y minimizar sus efectos, mediante herramientas como los sistemas de detección de intrusiones. Con esto, podemos llegar a la conclusión de que el objetivo de la seguridad es minimizar los riesgos de recibir un ataque y reducir el impacto en caso recibirlo \cite{ciberseguridad_def}. En esta sección nos centraremos en la ciberseguridad \textit{software}, concretamente en los aspectos relacionados con la detección y clasificación de malware.
+
+\subsection{Conceptos generales}
+\label{subsec:ciberseguridad_general}
+% TODO: Breve introducción a la ciberseguridad, importancia en la sociedad digital, principales objetivos (confidencialidad, integridad, disponibilidad) y amenazas comunes.
 
 \subsection{\textit{Malware}}
 \label{subsec:malware}
+% TODO: Definición de malware, evolución histórica, relevancia actual.
+
+\subsubsection{Tipos de \textit{Malware}}
+\label{subsubsec:tipos_malware}
+El \textit{software} malicioso o \textit{malware} es cualquier tipo de \textit{software} que se introduce de manera encubierta con el objetivo de comprometer la confidencialidad, integridad o disponibilidad de la información o el sistema \cite{def_malware}. El \textit{malware} se ha convertido en una de las amenazas externas más relevantes debido al daño que puede llegar a causar en una organización. Podemos clasificar el \textit{malware} en diferentes categorías \cite{categoriamw} según su propósito:
+
+\begin{itemize}
+	\item Virus. Tienen como objetivo infectar archivos y sistemas informáticos. Se propagan cuando los usuarios comparten archivos o ejecutan programas infectados.
+	\item Gusanos. Se propagan a través de las redes sin que tenga que intervenir el usuario.
+	\item Troyanos. Se presentan como un \textit{software} legítimo. De esta forma intentan engañar al usuario para que lo descargue, instale y ejecute.
+	\item \textit{Adware}. Muestra anuncios de forma intrusiva. Puede ser incrustada en una página web mediante gráficos, carteles, ventanas flotantes, o durante la instalación de algún programa al usuario, con el fin de generar lucro a sus autores.
+	\item \textit{Spyware}. Trata de conseguir información de un equipo sin conocimiento ni consentimiento del usuario. Después transmite esta información a una entidad externa.
+	\item \textit{Ransomware}. Conocido como secuestro de datos en español. Está diseñado para restringir el acceso a archivos o partes de un sistema y pedir un rescate para quitar la restricción.
+	\item \textit{Rootkit}. Es un conjunto de \textit{software} que permite al atacante un acceso de privilegio a un ordenador, manteniendo presencia inicialmente oculta al control de los administradores.
+	\item \textit{Keylogger}. Se encarga de registrar las pulsaciones que se realizan en el teclado, para memorizarlas en un fichero o enviarlas a través de Internet.
+	\item \textit{Exploit}. Aprovecha un error o una vulnerabilidad de una aplicación o sistema para provocar un comportamiento involuntario.
+	\item \textit{Backdoor}. Puerta trasera en español. Este tipo de \textit{software} permite un acceso no autorizado al sistema, evitando pasar por los métodos de autenticación.
+\end{itemize}
+
+\subsection{Técnicas de detección de \textit{Malware}}
+\label{subsec:deteccion_malware}
+% TODO: 
+
+Ningún método de detección es infalible y los principales antivirus comerciales pueden combinar distintas técnicas en función de las necesidades. La detección basada en firmas siguen siendo el método más usado en términos absolutos porque son rápidas, eficientes y fáciles de implementar. Este método consiste en comparar archivos con una base de datos de patrones conocidos. Otros mecanismos son: la detección heurística, por comportamiento, \textit{sandbox} e inteligencia artificial \cite{antivirus}.
+
+\vspace{1em}
+
+Existen varias limitaciones de los métodos tradicionales frente a nuevas amenazas. Por ejemplo, para evadir la detección basada en firmas se generaba una cadena de bits única cada vez que se codificaba. Esto se denomina polimorfismo. Gracias a la heurística no era necesaria una coincidencia exacta con las firmas almacenadas, pero debido a la gran cantidad de variaciones que surgen a diario, su efectividad y la de otros mecanismos se ve comprometida \cite{limitaciones}. A continuación se estudiarán algunas de las técnicas más usadas.
+
+\subsubsection{Detección basada en firmas}
+\label{subsubsec:firmas}
+% TODO: 
+
+\subsubsection{Detección heurística y análisis estático}
+\label{subsubsec:heuristica}
+% TODO: 
+
+\subsubsection{Detección basada en comportamiento (análisis dinámico)}
+\label{subsubsec:comportamiento}
+% TODO: 
+
+\subsubsection{Métodos híbridos}
+\label{subsubsec:hibridos}
+% TODO: 
+
+\subsubsection{Detección mediante aprendizaje automático}
+\label{subsubsec:ml}
+% TODO: Algoritmos de clasificación, extracción de características y métricas más usadas.
+
+
+\subsection{Retos y tendencias}
+\label{subsec:retos_tendencias}
+% TODO: Limitaciones de las técnicas clásicas, evasión mediante ofuscación, necesidad de datasets representativos y uso creciente de IA y aprendizaje profundo en ciberseguridad.
 
 

@@ -1,7 +1,7 @@
 \chapter{Desarrollo y experimentación}
 \label{ch:desarrollo}
 
-En esta fase se lleva a cabo la implementación práctica del estudio, haciendo uso de los modelos de aprendizaje automático implementados principalmente en la librería \textit{Scikit-Learn} de \textit{python}. Para ello se realiza un procesamiento de los datos, necesario para obtener un conjunto reducido y otro apto para la clasificación multiclase. Además, se configuran los entornos necesarios para su entrenamiento y evaluación, se establecen las métricas de rendimiento, los procedimientos de prueba y los escenarios de experimentación que permitirán obtener resultados consistentes y comparables. El objetivo es verificar, mediante pruebas controladas, la efectividad de cada método en la detección de \textit{malware}.
+En esta fase se lleva a cabo la implementación práctica del estudio, haciendo uso de los modelos de aprendizaje automático implementados principalmente en la biblioteca \textit{Scikit-Learn} de \textit{python}. Para ello se realiza un procesamiento de los datos, necesario para obtener un conjunto reducido y otro apto para la clasificación multiclase. Además, se configuran los entornos necesarios para su entrenamiento y evaluación, se establecen las métricas de rendimiento, los procedimientos de prueba y los escenarios de experimentación que permitirán obtener resultados consistentes y comparables. El objetivo es verificar, mediante pruebas controladas, la efectividad de cada método en la detección de \textit{malware}.
 
 \vspace{1em}
 
@@ -105,7 +105,7 @@ Como ya hemos estudiado en la sección \ref{subsubsec:undersampling}, el submues
 
 \vspace{1em}
 
-El método \textit{RandomUnderSampler} \cite{randundersampler} de la librería \textit{Imbalanced learn} nos permite varias formas de actuar, siendo la que nos interesa para este estudio la que nos permite elegir manualmente el número de patrones de cada clase. Hemos elegido una cantidad de 15000 patrones en por clase.
+El método \textit{RandomUnderSampler} \cite{randundersampler} de la biblioteca \textit{Imbalanced learn} nos permite varias formas de actuar, siendo la que nos interesa para este estudio la que nos permite elegir manualmente el número de patrones de cada clase. Hemos elegido una cantidad de 15000 patrones en por clase.
 
 \subsubsection{Número de características}
 \label{subsubsec:num_caract}
@@ -269,22 +269,20 @@ Por último, se han considerado otras opciones para mejorar la clasificación de
 \section{Preparación del entorno}
 \label{sec:prep_entorno}
 
-En esta sección se describe el entorno de trabajo utilizado por el alumno para la implementación de los modelos y la realización de las pruebas. El entorno se debe preparar de forma correcta, ya que puede afectar a la ejecución de los algoritmos y a la reproducibilidad de los experimentos. A continuación, se explican elementos del entorno como el lenguaje de programación, las librerías y las características del equipo.
+En esta sección se describe el entorno de trabajo utilizado por el alumno para la implementación de los modelos y la realización de las pruebas. El entorno se debe preparar de forma correcta, ya que puede afectar a la ejecución de los algoritmos y a la reproducibilidad de los experimentos. A continuación, se explican elementos del entorno como el lenguaje de programación, las bibliotecas y las características del equipo.
 
-\subsection{Herramientas y librerías}
+\subsection{Herramientas y bibliotecas}
 \label{subsec:herramientas}
 
-El desarrollo y la experimentación de este proyecto se han llevado a cabo empleando un conjunto de herramientas y librerías muy utilizadas en la ciencia de datos. \textit{Python} ha sido el lenguaje de programación de este trabajo, ya que ofrece una fácil implementación de modelos, manipulación de datos y visualización de resultados. Su popularidad en se debe a su sintaxis sencilla, escalabilidad y amplia variedad de herramientas y bibliotecas \cite{python_ml}.
+El desarrollo y la experimentación de este proyecto se han llevado a cabo empleando un conjunto de herramientas y bibliotecas muy utilizadas en la ciencia de datos. \textit{Python} ha sido el lenguaje de programación de este trabajo, ya que ofrece una fácil implementación de modelos, manipulación de datos y visualización de resultados. Su popularidad en se debe a su sintaxis sencilla, escalabilidad y amplia variedad de herramientas y bibliotecas \cite{python_ml}.
 
 \vspace{1em}
 
-En este proyecto se ha utilizado la versión 3.12 de \textit{Python}, elegida principalmente por su compatibilidad con las librerías empleadas, en particular, con \textit{GridSearchCV}, que aprovechan la paralelización de procesos para mejorar el rendimiento. El problema encontrado es que los hilos no se cierran correctamente, es un comportamiento típico asociado a lo que en programación concurrente se denomina \textit{thread leakage} o hilos huérfanos. provoca que la memoria \textit{RAM} y la \textit{CPU} sigan siendo consumidas incluso después de que la ejecución haya terminado. En teoría, este problema no afecta al rendimiento de los clasificadores, pero puede afectar al tiempo de ejecución.
+En este proyecto se ha utilizado la versión 3.12 de \textit{Python}, elegida principalmente por su compatibilidad con las bibliotecas empleadas, en particular, con \textit{GridSearchCV}, que aprovechan la paralelización de procesos para mejorar el rendimiento. El problema encontrado es que los hilos no se cierran correctamente, es un comportamiento típico asociado a lo que en programación concurrente se denomina \textit{thread leakage} o hilos huérfanos. provoca que la memoria \textit{RAM} y la \textit{CPU} sigan siendo consumidas incluso después de que la ejecución haya terminado. En teoría, este problema no afecta al rendimiento de los clasificadores, pero puede afectar al tiempo de ejecución.
 
 \vspace{1em}
 
-Las librerías utilizadas para construir un modelo y analizar los datos son \textit{Scikit-learn}, \textit{DLOrdinal}, \textit{Matplotlib}, \textit{NumPy}, \textit{Pandas}, \textit{LightGBM} y \textit{Seaborn}.
-
-% TODO: sklearn, dlordinal, matplotlib, numpy, pandas, lightgbm, seaborn
+Las bibliotecas utilizadas para construir un modelo y analizar los datos son \textit{Scikit-learn}, \textit{DLOrdinal}, \textit{Matplotlib}, \textit{NumPy}, \textit{Pandas}, \textit{LightGBM} y \textit{Seaborn}.
 
 \subsubsection{\textit{Scikit-learn}}
 \label{subsubsec:sklearn}
@@ -294,70 +292,138 @@ Las librerías utilizadas para construir un modelo y analizar los datos son \tex
 \subsubsection{\textit{DLOrdinal}}
 \label{subsubsec:dlordinal}
 
-dlordinal \cite{dlordinal}
+La biblioteca dlordinal incluye muchas de las metodologías más recientes de clasificación ordinal usando técnicas avanzadas de aprendizaje profundo. El enfoque ordinal de esta herramienta tiene el objetivo de aprovechar la información de orden presente en la variable objetivo usando funciones de pérdida, diversas capas de salida y otras estrategias \cite{dlordinal}. El módulo de dlordinal que nos ha resultado de utilidad para este proyecto ha sido la el conjunto de métricas que incluye para evaluar los modelos utilizados, ya que cuenta con algunas de las métricas que finalmente hemos usado: mínima sensibilidad y valor-F.
 
 \subsubsection{\textit{Matplotlib}}
 \label{subsubsec:matplotlib}
 
-
+Para una mejor visualización de los datos obtenidos en los modelos utilizados, se ha usado la biblioteca Matplotlib, ya que incluye una gran cantidad de recursos para la representación gráfica de la información \cite{matplotlib}. Se ha usado, en combinación con \textit{Seaborn}, descrita en la sección \ref{subsubsec:seaborn}.
 
 \subsubsection{\textit{NumPy}}
 \label{subsubsec:numpy}
 
-
+La biblioteca \textit{NumPy} tiene como objetivo principal dar soporte a la creación de vectores y matrices de grandes dimensiones, junto con una colección de funciones matemáticas con las que operar \cite{numpy}. Ha sido de gran utilidad en el desarrollo del proyecto, ya que el conjunto de datos con el que se ha trabajado es de un tamaño considerable, aunque no ha sido necesario hacer uso de las funciones que proporciona porque la mayor parte de los cálculos necesarios se hacen de manera interna en los modelos utilizados.
 
 \subsubsection{\textit{Pandas}}
 \label{subsubsec:pandas}
 
-
+Pandas es una herramienta muy potente para el manejo, análisis y manipulación de datos. Incluye una amplia variedad de herramientas para: leer y escribir datos, reestructuración y segmentación, inserción y eliminación de columnas, mezcla y unión de datos y muchas funcionalidades más \cite{pandas}. Varias de ellas se han utilizado durante el desarrollo y la preparación del conjunto de datos.
 
 \subsubsection{\textit{LightGBM}}
 \label{subsubsec:lightgbm}
 
-
+La biblioteca \textit{Light Gradient-Boosting Machine} por su nombre en inglés, es una infraestructura de aprendizaje automático basada en modelos de árboles de decisión \cite{lgbm}. Se puede usar en diferentes tareas, pero la importante para el análisis realizado el la de clasificación. Los principales algoritmos soportados son: \textit{Gradient Boosting Decision Trees (GBDT)}, el cual utiliza \textit{LGBMClassifier}, clasificador usado durante la experimentación, \textit{Dropouts meet Multiple Additive Regression Trees (Dart)} y \textit{Gradient-based One-Side Sampling (Goss)} \cite{lgbm_alg}.
 
 \subsubsection{\textit{Seaborn}}
 \label{subsubsec:seaborn}
 
-
+Basada en \textit{Matplotlib}, \textit{Seaborn} proporciona una interfaz de alto nivel para generar gráficos estadisticos \cite{seaborn}. Es posible usar ambas bibliotecas de forma combinada para una mayor capacidad de visualización. Mientras que \textit{Matplotlib} ofrece un control detallado sobre cada elemento de la figura, \textit{Seaborn} simplifica la creación de visualizaciones complejas, incorporando estilos predefinidos y funciones específicas para el análisis de datos.
 
 \subsection{Hardware}
 \label{subsec:hw_usado}
 
 El entrenamiento y evaluación de los modelos se ha realizado en el equipo del estudiante con las siguientes características: procesador \textit{Intel Core i7-4712MQ}, tarjeta gráfica \textit{NVIDIA GeForce 920M}, 16 GB de \textit{RAM} DDR3 y almacenamiento compuesto por un \textit{SSD Crucial MX500} de 250 GB y un \textit{HDD} de 1 TB. Este hardware permite la paralelización de los algoritmos en múltiples núcleos del procesador, lo que reduce significativamente los tiempos de entrenamiento, pero se encuentra muy limitado respecto al conjunto utilizado para clasificación multiclase y modelos más costosos como puede ser \textit{SVM}.
 
-\subsection{Métricas de evaluación}
-\label{subsec:6_metricas}
+\subsection{Protocolo de experimentación y validación}
+\label{subsec:protocolo_exper}
+
+En esta sección se establecen las condiciones de evaluación del rendimiento de los modelos mencionados en la sección \ref{sec:modelos_utilizados} y se explican los procedimientos seguidos, las técnicas de validación usadas y los criterios que permiten medir de forma objetiva la calidad de las predicciones. Todo esto tiene objetivo de minimizar posibles sesgos, evitar el sobreajuste y obtener conclusiones fiables.
+
+\subsubsection{Diseño experimental}
+\label{subsubsec:diseño}
+
+Inicialmente se han planteado tres formas de estructurar el diseño experimental y como se evaluarán posteriormente las pruebas. La primera ha sido comparar distintos modelos para cada tipo de clasificación. La segunda, comparar, clasificación binaria y multiclase para cada clasificador. Por último, se ha planteado la posibilidad de una combinación de ambas comparaciones. Este último caso se ha descarta porque, aunque puede ser interesante la comparación combinada por proporcionar una amplia visión del problema, duplica la carga de trabajo y puede exceder la complejidad del proyecto.
+
+\vspace{1em}
+
+La segunda opción planteada puede servir para comparar el rendimiento de uno o varios modelos según la naturaleza del problema y realizar un análisis de coste computacional. Son aspectos interesantes a estudiar, pero no entran dentro de los objetivos de este estudio.
+
+\vspace{1em}
+
+Finalmente se ha seleccionado la primera opción. Aunque el problema de la detección de malware puede enfocarse tanto para la simple detección de un programa malicioso como para identificar a que tipo pertenece, los problemas de clasificación binaria y multiclase tienen enfoques muy diferentes. Por otro lado, el conjunto de datos usado para clasificación multiclase contiene varias clases con muy pocos patrones y la comparación podría no ser justa.
+
+\subsubsection{Validación de resultados}
+\label{subsubsec:validacion}
+
+Para evitar sesgos y resultados poco concluyentes se han empleado varias técnicas.
+
+\begin{itemize}
+	\item \textbf{Validación cruzada}: Se ha usado el parámetro \textit{cv} de \textit{GridSearchCV}. En general se han usado 5, aunque en algunos casos ha sido necesario ajustarlo por tiempo.
+	\item \textbf{Validación cruzada estratificada adaptativa}: la función \textit{cv()} que encontramos en el Anexo \ref{sec:func_cv} ajusta el numero de particiones en caso de que una clase tenga menos muestras que particiones indicadas.
+	\item \textbf{Particion entrenamiento/prueba}: se ha dividido el conjunto de datos en un 75-25 para entrenamiento y pruebas respectivamente usando la variable \textit{random\_state} con la semilla usada en las pruebas.
+	\item \textbf{Repetición con semillas aleatorias}: para repetir los experimentos y tener una visión más amplia.
+	\item \textbf{Ajuste de pesos de clase}: mediante \texttt{class\_weight = "balanced"} en los clasificadores en los que se encuentra disponible.
+\end{itemize}
+
+A pesar de todas estas técnicas, es bastante probable que las clases extremadamente minoritarias del conjunto de datos para la clasificación multiclase pueden tener una influencia muy limitada.
+
+\subsubsection{Reproducibilidad}
+\label{subsubsec:reproducibilidad}
+
+Durante el desarrollo del código y de las pruebas, se han adoptado diferentes medidas para garantizar que las comparaciones entre modelos sean justas.
+
+\begin{enumerate}
+	\item \textbf{Fijación de semillas:}\\
+		Se ha hecho uso de una semilla controlada dentro de un bucle para repetir el experimento. Con ella se controla:
+
+		\begin{itemize}
+			\item La partición aleatoria de test y entrenamiento.
+			\item la inicialización interna de los clasificadores que aceptan \textit{randon\_state}.
+		\end{itemize}
+	\item \textbf{Número de repeticiones:}\\
+		Si bien el número de repeticiones es ajustable dentro del código utilizado, para asegurar una justa comparación y por las limitaciones del equipo, se han usado 10 semillas en todos los experimentos. Esto permite obtener la media y la desviación típica de las métricas y reducir la variabilidad.
+	\item \textbf{Control de parámetros:}\\
+		Los hiperparámetros se optimizan con \textit{GridSearchCV} usando la misma rejilla para todas las semillas para poder tener una comparación coherente.
+\end{enumerate}
+
+Estas medidas permiten obtener los mismo resultados si se usan las mismas semillas, configuraciones y conjunto de datos.
+
+\subsubsection{Control de parámetros}
+\label{subsubsec:control}
+
+Para la optimización de hiperparámetros hemos usado búsqueda en rejilla de \textit{GridSearchCV}. Esta técnica hace pruebas con todas las combinaciones posibles de los parámetros proporcionados y usa validación cruzada para garantizar la robustez de los resultados. El problema con esta técnica es el elevado número de pruebas, ya que se prueban todas las combinaciones de parámetros posibles en cada uno de los conjuntos de la validación cruzada, lo que eleva el tiempo necesario de manera considerable.
+
+\vspace{1em}
+
+Una opción considerada y probada para evitar esta limitación es la búsqueda aleatoria de \textit{RandomizedSearchCV}, que permite establecer un número máximo de combinaciones a probar y puede reducir considerablemente el número de combinaciones evaluadas. El inconveniente que ha surgido con esta técnica es que al disponer de un \textit{Hardware} muy limitado, la cantidad de combinaciones usadas es pequeña y limitar aun más con la búsqueda aleatoria puede suponer que los resultados sean menos representativos.
+
+\vspace{1em}
+
+La rejilla se ha establecido para cada modelo en función de las limitaciones del equipo, el tiempo necesario para el entrenamiento de cada modelo y cuanto influye ese parámetro en el tiempo de entrenamiento y el peso que tiene en los resultados.
+
+\subsubsection{Criterios de evaluación}
+\label{subsubsec:evaluacion}
 
 Para evaluar la efectividad de los modelos implementados, se han utilizado las siguientes métricas, cuya descripción teórica se encuentra en la sección \ref{subsec:2_metricas}:
 
 \begin{itemize}
 	\item \textbf{\textit{Accuracy}}: proporción de predicciones correctas sobre el total de patrones.
 	\item \textbf{Mínima Sensibilidad}: sensibilidad de la clase peor clasificada.
-	\item \textbf{\textit{F1-score}}: media armónica entre precisión y sensibilidad.
+	\item \textbf{\textit{F1-score}}: media armónica entre precisión y sensibilidad. En este documento se ha hecho referencia a ella como valor-F.
 \end{itemize}
-
-\subsection{Protocolo de experimentación y validación}
-\label{subsec:protocolo_exper}
-
-texto
 
 \section{Implementación y pruebas}
 \label{sec:implementacion}
+
+En esta sección se describe, principalmente, la estructura del código empleado para realizar los experimentos y el procedimiento seguido dentro del mismo para entrenar y evaluar los modelos seleccionados. Además se va a tratar la preparación del conjunto de datos, es decir, cómo se cargan y cómo se divide la información para realizar el entrenamiento y las pruebas. Por último, se tratará la forma que hemos seguido para presentar los resultados y las métricas que se han mencionado en la sección \ref{subsubsec:evaluacion}
 
 \subsection{Estructura del código}
 \label{subsec:estructura_codigo}
 % TODO: Se describe cómo se organizan los scripts y módulos, indicando la función de cada uno en el flujo de entrenamiento, evaluación y análisis de resultados.
 
+
+
 \subsection{Procedimiento de entrenamiento y evaluación}
 \label{subsec:procedimiento}
-% TODO: Se explica el proceso seguido para entrenar los modelos, incluyendo el uso de GridSearchCV, parámetros ajustados, número de repeticiones y semillas empleadas para garantizar resultados reproducibles.
+
+El planteamiento seguido para entrenar los diferentes modelos ha sido usar \textit{GridSearchCV} para ajustar los modelos de clasificación con los mejores parámetros posibles. Para obtener una visión más amplia y más justa del problema, se ha repetido el entrenamiento, con las mismas 10 semillas para todos los modelos. Con esto conseguimos que el experimento sea controlado y reproducible, ya que para un mismo modelo, una misma semilla y la misma rejilla de parámetros, obtendremos siempre los mismos resultados. Una vez calculadas las métricas seleccionadas en la sección \ref{subsubsec:evaluacion}, se calcula la media y la desviación típica de todas ellas para usarlas como valor final de comparación entre modelos.
 
 \subsection{Preparación y uso de los conjuntos de datos}
 \label{subsec:datos_experimentales}
-% TODO: Se detalla cómo se cargan, transforman y dividen los conjuntos de datos para las pruebas, así como la normalización o reducción de características si procede.
+
+Además del tratamiento previo del conjunto de datos realizado en la sección \ref{sec:proc_dataset}, es necesario procesar la información antes de entrenar. Con la función \textit{load}, cargamos el conjunto de datos en dos matrices de \textit{Numpy}, la matriz de información y la matriz de clases. La matriz de patrones de entrada se normaliza haciendo uso de la clase \textit{MinMaxScaler} del módulo \textit{preprocessing} de \textit{Scikit-Learn}. Por último, haciendo uso de la función \textit{train\_test\_split}, dividimos el conjunto de datos en test y entrenamiento. Esto se hace dentro del bucle y para cada semilla con el objetivo de tener una evaluación más robusta, ya que permite tener una división distinta y controlada para cada semilla.
 
 \subsection{Métricas y análisis de resultados}
 \label{subsec:metricas_pruebas}
-% TODO: Se explica cómo se calculan las métricas definidas en el capítulo \ref{ch:estado_tecnica}, y cómo se presentan los resultados para la comparación entre modelos.
 
+Para calcular las métricas se han usado las funciones \textit{accuracy\_off1} y \textit{minimum\_sensitivity} para las métricas valor-F y mínima sensibilidad respectivamente. Estas se encuentran disponibles en el módulo \textit{metrics} de la librería \textit{dlordinal}. Para calcular la exactitud o \textit{accuracy} del entrenamiento, se ha usado la función \textit{accuracy\_score} disponible en el módulo \textit{metrics} de la librería \textit{Scikit-Learn}. Finalmente, una vez calculados los resultados para todas las semillas, se guardan en un objeto \textit{DataFrame} de \textit{Pandas} con el formato que se muestra en el ejemplo del Anexo \ref{sec:info}. Haciendo uso de los métodos \textit{mean} y \textit{std} de esta clase, se obtiene la media y la desviación típica de todas las semillas.
