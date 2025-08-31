@@ -1,21 +1,71 @@
 \chapter{Metodología de trabajo}
 \label{ch:metodologia}
 
-\section{Enfoque metodológico}
+Este capítulo describe la metodología seguida para el desarrollo del proyecto. Se explican los enfoques, técnicas y herramientas utilizadas para alcanzar los objetivos. Además, se expone el tipo de estudio realizado y la selección del conjunto de datos y los modelos. El propósito es ofrecer una guía clara del proceso seguido.
 
-% TODO: Explica el tipo de estudio realizado (comparativo, experimental, descriptivo) y justifica por qué este enfoque es el más adecuado para los objetivos del proyecto. (experimental, descriptivo, comparativo, etc.).
+\section{Enfoque metodológico}
+\label{sec:enfoque}
+
+Existen varios enfoques aplicables al tipo de proyecto que estamos tratando, pero dado el carácter planteado inicialmente en los objetivos, se centrará en un estudio comparativo y experimental de distintos algoritmos de aprendizaje automático en la detección de \textit{malware}. Se combina la experimentación práctica sobre conjuntos de datos reales con análisis estadísticos sobre los resultado obtenidos en las distintas pruebas realizadas. Cada modelo se somete a unas pruebas controladas en escenarios de clasificación binaria y multiclase, utilizando conjuntos de datos públicos y representativos.
+
+\vspace{1em}
+
+Esta metodología permite identificar los algoritmos que presentan mejor equilibrio y adaptación a nuevos patrones de datos. También se podrán detectar posibles limitaciones y áreas de mejora para futuras investigaciones. Este enfoque proporciona un marco sistemático para el análisis comparativo de modelos, facilitando la interpretación de resultados y la toma de decisiones fundamentadas sobre el rendimiento de cada algoritmo.
 
 \section{Procedimiento seguido}
+\label{sec:porcedimiento}
 
 % TODO: Detalla la secuencia de actividades, desde la recolección y preparación de datos hasta la obtención y análisis de resultados, especificando el orden lógico de ejecución.
 
 \section{Técnicas y herramientas empleadas}
+\label{sec:herramientas}
 
-% TODO: Describe el software, librerías, lenguajes de programación y hardware utilizados, así como su función específica dentro del desarrollo del proyecto.
+En esta sección se describe el software, bibliotecas y lenguajes de programación, así como su función específica dentro del desarrollo del proyecto.
 
-\section{Criterios de selección de datos y modelos.}
+\subsubsection{\textit{Python}}
+\label{subsubsec:python}
 
-\subsection{Selección del conjunto de datos}
+
+
+\subsubsection{\textit{Scikit-learn}}
+\label{subsubsec:sklearn}
+
+\textit{Scikit-learn} es un paquete de código abierto en \textit{Python} que ofrece una gran variedad de métodos de aprendizaje automático rápidos y eficientes, gracias a que usan bibliotecas compiladas en lenguajes como \textit{C++}, \textit{C} o \textit{Fortran}. Tiene detrás una comunidad activa que mantiene la documentación, corrige errores y asegura la calidad. Aunque no incluye todos los algoritmos usados en este proyecto, es una herramienta muy recomendable si necesitamos: transformación de datos, aprendizaje supervisado o evaluación de modelos \cite{hao2019scikit}.
+
+\subsubsection{\textit{DLOrdinal}}
+\label{subsubsec:dlordinal}
+
+La biblioteca dlordinal incluye muchas de las metodologías más recientes de clasificación ordinal usando técnicas avanzadas de aprendizaje profundo. El enfoque ordinal de esta herramienta tiene el objetivo de aprovechar la información de orden presente en la variable objetivo usando funciones de pérdida, diversas capas de salida y otras estrategias \cite{dlordinal}. El módulo de dlordinal que nos ha resultado de utilidad para este proyecto ha sido la el conjunto de métricas que incluye para evaluar los modelos utilizados, ya que cuenta con algunas de las métricas que finalmente hemos usado: mínima sensibilidad y valor-F.
+
+\subsubsection{\textit{Matplotlib}}
+\label{subsubsec:matplotlib}
+
+Para una mejor visualización de los datos obtenidos en los modelos utilizados, se ha usado la biblioteca Matplotlib, ya que incluye una gran cantidad de recursos para la representación gráfica de la información \cite{matplotlib}. Se ha usado, en combinación con \textit{Seaborn}, descrita en la sección \ref{subsubsec:seaborn}.
+
+\subsubsection{\textit{NumPy}}
+\label{subsubsec:numpy}
+
+La biblioteca \textit{NumPy} tiene como objetivo principal dar soporte a la creación de vectores y matrices de grandes dimensiones, junto con una colección de funciones matemáticas con las que operar \cite{numpy}. Ha sido de gran utilidad en el desarrollo del proyecto, ya que el conjunto de datos con el que se ha trabajado es de un tamaño considerable, aunque no ha sido necesario hacer uso de las funciones que proporciona porque la mayor parte de los cálculos necesarios se hacen de manera interna en los modelos utilizados.
+
+\subsubsection{\textit{Pandas}}
+\label{subsubsec:pandas}
+
+Pandas es una herramienta muy potente para el manejo, análisis y manipulación de datos. Incluye una amplia variedad de herramientas para: leer y escribir datos, reestructuración y segmentación, inserción y eliminación de columnas, mezcla y unión de datos y muchas funcionalidades más \cite{pandas}. Varias de ellas se han utilizado durante el desarrollo y la preparación del conjunto de datos.
+
+\subsubsection{\textit{LightGBM}}
+\label{subsubsec:lightgbm}
+
+La biblioteca \textit{Light Gradient-Boosting Machine} por su nombre en inglés, es una infraestructura de aprendizaje automático basada en modelos de árboles de decisión \cite{lgbm}. Se puede usar en diferentes tareas, pero la importante para el análisis realizado el la de clasificación. Los principales algoritmos soportados son: \textit{Gradient Boosting Decision Trees (GBDT)}, el cual utiliza \textit{LGBMClassifier}, clasificador usado durante la experimentación, \textit{Dropouts meet Multiple Additive Regression Trees (Dart)} y \textit{Gradient-based One-Side Sampling (Goss)} \cite{lgbm_alg}.
+
+\subsubsection{\textit{Seaborn}}
+\label{subsubsec:seaborn}
+
+Basada en \textit{Matplotlib}, \textit{Seaborn} proporciona una interfaz de alto nivel para generar gráficos estadisticos \cite{seaborn}. Es posible usar ambas bibliotecas de forma combinada para una mayor capacidad de visualización. Mientras que \textit{Matplotlib} ofrece un control detallado sobre cada elemento de la figura, \textit{Seaborn} simplifica la creación de visualizaciones complejas, incorporando estilos predefinidos y funciones específicas para el análisis de datos.
+
+\section{Selección de datos y modelos.}
+\label{sec:select}
+
+\subsection{Conjunto de datos}
 \label{subsec:select_dataset}
 
 En lo que a \textit{malware} se refiere, \textit{BODMAS} \cite{bodmas} es uno de los conjuntos de datos más completos en la actualidad, con la ventaja para este proyecto de ya estar procesado y tener una amplia bibliografía. Otra opción interesante puede ser \textit{VirusShare} \cite{virusshare}, ya que cuenta con más de 99 millones de muestras de \textit{malware} actualizadas pero tiene varios inconvenientes para este proyecto. El primero, es que no incluye muestras de \textit{software} no malicioso y el segundo, que necesita un procesamiento previo para extraer las características. Todo esto conlleva un aumento de tiempo considerable para la realización del proyecto. Otra de las opciones estudiadas ha sido \textit{theZoo} \cite{thezoo}. En cuanto a este repositorio hemos podido observar que tiene los mismos inconvenientes que \textit{VirusShare} y no tiene sus ventajas. Por último tenemos \textit{Microsoft Malware Classification} \cite{malware-classification}. En este caso tenemos un conjunto de datos muy amplio con casi medio \textit{terabyte}, pero además de los inconvenientes ya comentados en los anteriores conjuntos, solo incluye \textit{malware} que afecta a equipos \textit{Windows}, lo que limitaría considerablemente el alcance del estudio.
@@ -24,7 +74,7 @@ En lo que a \textit{malware} se refiere, \textit{BODMAS} \cite{bodmas} es uno de
 
 Teniendo en cuenta todo lo comentado hasta ahora sobre los distintos conjuntos de datos considerados, hemos decidido usar \textit{BODMAS}, ya que es el que mejor se adapta a las necesidades del estudio
 
-\subsection{Selección de los modelos}
+\subsection{Modelos}
 \label{subsec:select_model}
 
 
