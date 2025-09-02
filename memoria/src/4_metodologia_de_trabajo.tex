@@ -17,6 +17,8 @@ Esta metodología permite identificar los algoritmos que presentan mejor equilib
 
 % TODO: Detalla la secuencia de actividades, desde la recolección y preparación de datos hasta la obtención y análisis de resultados, especificando el orden lógico de ejecución.
 
+
+
 \section{Técnicas y herramientas empleadas}
 \label{sec:herramientas}
 
@@ -25,7 +27,7 @@ En esta sección se describe el software, bibliotecas y lenguajes de programaci�
 \subsubsection{\textit{Python}}
 \label{subsubsec:python}
 
-
+Se ha elegido \textit{Python} como lenguaje para este proyecto ya que ofrece una fácil implementación de modelos, manipulación de datos y visualización de resultados, además de una amplia variedad de modelos y bibliotecas orientadas al aprendizaje automático y el estudio estadístico de conjuntos de datos. Una de las principales ventajas de \textit{Python} es que la mayor parte de sus modelos se aprendizaje automático están desarrolladas en lenguajes compilados y optimizadas para usar los recursos de la mejor forma posible. Por ejemplo, muchos de los modelos permiten la paralelización de sus tareas o incluso procesamiento en \textit{GPU}, si el modelo disponible está soportado, para reducir el tiempo necesario de entrenamiento. Se ha elegido la versión 3.12, ya que garantiza la compatibilidad con las bibliotecas empleadas y un menor numero de errores, a diferencia de otras versiones que presentan fallos en la paralelización.
 
 \subsubsection{\textit{Scikit-learn}}
 \label{subsubsec:sklearn}
@@ -60,10 +62,7 @@ La biblioteca \textit{Light Gradient-Boosting Machine} por su nombre en inglés,
 \subsubsection{\textit{Seaborn}}
 \label{subsubsec:seaborn}
 
-Basada en \textit{Matplotlib}, \textit{Seaborn} proporciona una interfaz de alto nivel para generar gráficos estadisticos \cite{seaborn}. Es posible usar ambas bibliotecas de forma combinada para una mayor capacidad de visualización. Mientras que \textit{Matplotlib} ofrece un control detallado sobre cada elemento de la figura, \textit{Seaborn} simplifica la creación de visualizaciones complejas, incorporando estilos predefinidos y funciones específicas para el análisis de datos.
-
-\section{Selección de datos y modelos.}
-\label{sec:select}
+Basada en \textit{Matplotlib}, \textit{Seaborn} proporciona una interfaz de alto nivel para generar gráficos estadísticos \cite{seaborn}. Es posible usar ambas bibliotecas de forma combinada para una mayor capacidad de visualización. Mientras que \textit{Matplotlib} ofrece un control detallado sobre cada elemento de la figura, \textit{Seaborn} simplifica la creación de visualizaciones complejas, incorporando estilos predefinidos y funciones específicas para el análisis de datos.
 
 \subsection{Conjunto de datos}
 \label{subsec:select_dataset}
@@ -77,4 +76,46 @@ Teniendo en cuenta todo lo comentado hasta ahora sobre los distintos conjuntos d
 \subsection{Modelos}
 \label{subsec:select_model}
 
+Existe una gran variedad de modelos de aprendizaje automático implementados en las diferentes bibliotecas de \textit{Python}. Aunque habría sido interesante hacer una comparación con el mayor número posible de ellos, por limitaciones de equipo y tiempo se ha hecho una pequeña selección siguiendo los siguientes criterios:
 
+\begin{itemize}
+	\item Diversidad en los enfoques de aprendizaje: Modelos rápidos como los árboles, otros más robustos, modelos lineales como referencia, métodos basados en distancia, redes neuronales y máquinas de vectores soporte por su capacidad de trabajar la optimización de márgenes.
+	\item Equilibrio entre interpretabilidad y complejidad, usando modelos simples y algunos complejos pero que suelen ofrecer mejores resultados.
+	\item Se han incluido tanto modelos que toleran bien el desbalanceo y otros más sensibles.
+	\item Escalabilidad y coste computacional, usando desde algunos modelos ligeros a otros más costosos. Esto permite evaluar la viabilidad práctica de cada modelo en escenarios reales
+\end{itemize}
+
+\subsubsection{\textit{DecisionTreeClassifier}}
+\label{subsubsec:decisiontreeclassifier}
+
+\textit{DecisionTreeClassifier} es un clasificador basado en árboles de decisión. Se incluido en este estudio por ser sencillo, interpretable y rápido a la hora de entrenar. Este modelo es una buena referencia inicial a pesar de que los tienden a sobreajustar los datos si no se aplican mecanismos de regularización adecuados. Su bajo coste computacional y capacidad para manejar tanto variables categóricas como continuas lo convierten en una herramienta útil para contrastar con modelos más complejos y ofrece un punto de partida sencillo para identificar patrones relevantes.
+
+\subsubsection{\textit{RandomForestClassifier}}
+\label{subsubsec:tandomforestclassifier}
+
+Este clasificador se destaca por su robustez y capacidad de generalización frente al sobreajuste. \textit{RandomForestClassifier} es un conjunto de árboles de decisión entrenados sobre subconjuntos aleatorios de datos y características. Esto aprovecha la diversidad entre los distintos árboles para reducir la varianza del modelo y mejorar su rendimiento en comparación con un único árbol de decisión. Tiene la ventaja de ser uno de los algoritmos de aprendizaje más certeros para un conjunto de datos lo suficientemente grande, pero puede sobreajustar para tareas ruidosas \cite{rf}. Para problemas de clasificación de alta dimensionalidad ofrece un equilibrio entre precisión, estabilidad y coste computacional moderado.
+
+\subsubsection{\textit{KNeighborsClassifier}}
+\label{subsubsec:kneighborsclassifier}
+
+El clasificador \textit{KNeighborsClassifier} tiene un enfoque diferente al de los modelos anteriores. Su funcionamiento se basa en la proximidad entre muestras en el espacio de características, asignando la clase mayoritaria de los vecinos más cercanos. Aunque no realiza un proceso de entrenamiento tradicional, requiere el uso del conjunto de entrenamiento para almacenar las instancias y calcular las distancias durante la predicción.
+
+\subsubsection{\textit{RidgeClassifier}}
+\label{subsubsec:ridgeclassifier}
+
+El clasificador \textit{RidgeClassifier} es un modelo lineal, aportando un enfoque interpretable y computacionalmente eficiente. A diferencia de otros algoritmos más complejos, este clasificador aplica una regularización de tipo L2 que penaliza los coeficientes de gran magnitud, lo cual ayuda a mitigar el sobreajuste.
+
+\subsubsection{\textit{MLPClassifier}}
+\label{subsubsec:mlpclassifier}
+
+Este clasificador se basa en el perceptrón multicapa y funciona como red neuronal. Es capaz de capturar relaciones no lineales y complejas en los datos, lo que lo hace interesante en problemas donde los patrones pueden ser heterogéneos. Requiere un mayor coste computacional y un ajuste más cuidadoso de hiperparámetros pero es flexible y puede aproximar funciones no lineales que permiten explorar enfoques más avanzados frente a métodos tradicionales. Además, facilita analizar la diferencia de rendimiento entre modelos simples y redes neuronales.
+
+\subsubsection{\textit{SVC}}
+\label{subsubsec:svc}
+
+\textit{SVC} (\textit{Support Vector Classifier}) permite optimizar los márgenes de separación entre clases y funciona muy bien en problemas de clasificación complejos. Su fortaleza reside en el uso de funciones \textit{kernel}, que permiten transformar los datos en espacios de mayor dimensión y separar clases que no son linealmente separables. En la detección de \textit{malware}, donde las fronteras entre software benigno y malicioso pueden ser difusas, esto resulta especialmente útil. El principal inconveniente es que su coste computacional puede ser elevado en conjuntos de datos grandes.
+
+\subsubsection{\textit{LGBMClassifier}}
+\label{subsubsec:lgbmclassifier}
+
+El clasificador \textit{LGBMClassifier}, perteneciente a la biblioteca \textit{LightGBM}, es muy eficiente en problemas de clasificación con grandes volúmenes de datos y un número elevado de características. Se basa en el método de \textit{gradient boosting}, pero introduce optimizaciones como el uso de histogramas y técnicas de reducción de memoria que lo hacen más rápido y escalable que otros métodos similares. \textit{LightGBM} ha mostrado resultados competitivos estudios recientes \cite{estudio_lgbm}.
