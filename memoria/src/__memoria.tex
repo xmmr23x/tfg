@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt]{book}
+\documentclass[a4paper, 12pt, openany]{book}
 \usepackage[spanish,es-tabla]{babel}
 \usepackage[utf8]{inputenc}
 
@@ -128,7 +128,7 @@
 \mbox{}
 $\ $
 \thispagestyle{empty} % para que no se numere esta pagina
-\newpage
+% \newpage
 $\ $
 \thispagestyle{empty} % para que no se numere esta pagina
 
@@ -161,10 +161,12 @@ $\ $
 
 \tableofcontents
 
-\cleardoublepage
+% \cleardoublepage
+\newpage
 \listoffigures
 
-\cleardoublepage
+% \cleardoublepage
+\newpage
 \listoftables
 
 % Descomentar las siguientes líneas si tienes pensado añadir diagramas de flujo.
@@ -173,12 +175,12 @@ $\ $
 % \addcontentsline{toc}{chapter}{Índice de diagramas de flujo}
 % \listofdiagrams
 
-\cleardoublepage
+%\cleardoublepage
 %\phantomsection
-\addcontentsline{toc}{chapter}{Lista de Acrónimos}
+%\addcontentsline{toc}{chapter}{Lista de Acrónimos}
 
-\include{lista_acronimos}
-\printglossary[type=\acronymtype, title={Acrónimos}]
+%\include{lista_acronimos}
+%\printglossary[type=\acronymtype, title={Acrónimos}]
 
 %---------------------%
 %	CUERPO DE TEXTO   %
