@@ -7,6 +7,7 @@ En esta fase se lleva a cabo la implementación práctica del estudio, haciendo 
 
 La parte experimental se aborda desde dos perspectivas complementarias. En primer lugar, se evalúa la capacidad de los modelos para la detección de \textit{malware} mediante pruebas de clasificación binaria, determinando si un patrón corresponde a software malicioso o legítimo. En segundo lugar, se analiza la viabilidad de realizar una clasificación multinivel sobre esos mismos patrones, identificando el tipo específico de \textit{malware} al que pertenecen, lo que permite un análisis más detallado y aplicable a entornos de ciberseguridad avanzada.
 
+\newpage
 \section{Modelos utilizados}
 \label{sec:modelos_utilizados}
 
@@ -32,6 +33,7 @@ Todos los modelos se han ajustado y evaluado utilizando \textit{GridSearchCV}, l
 
 Dadas las limitaciones \textit{hardware} y la cantidad de datos, aproximadamente 135000 patrones y 2400 atributos por cada patrón, es necesario hacer un procesamiento previo del conjunto de datos. Para ello hemos tenido en cuenta varios enfoques. Por un lado, \textit{BODMAS} nos permite hacer una distinción entre clasificación binaria y clasificación multiclase, pero para ello es necesario reordenar los datos, ya que se encuentran distribuidos en varios archivos. Por otro lado, es necesario reducir la cantidad de datos. A continuación veremos los distintos enfoques.
 
+\newpage
 \subsection{Clasificación multiclase}
 \label{subsec:multiclass}
 
@@ -370,13 +372,7 @@ Para evaluar la efectividad de los modelos implementados, se han utilizado las s
 \section{Implementación y pruebas}
 \label{sec:implementacion}
 
-En esta sección se describe, principalmente, la estructura del código empleado para realizar los experimentos y el procedimiento seguido dentro del mismo para entrenar y evaluar los modelos seleccionados. Además se va a tratar la preparación del conjunto de datos, es decir, cómo se cargan y cómo se divide la información para realizar el entrenamiento y las pruebas. Por último, se tratará la forma que hemos seguido para presentar los resultados y las métricas que se han mencionado en la sección \ref{subsubsec:evaluacion}
-
-\subsection{Estructura del código}
-\label{subsec:estructura_codigo}
-% TODO: Se describe cómo se organizan los scripts y módulos, indicando la función de cada uno en el flujo de entrenamiento, evaluación y análisis de resultados.
-
-
+En esta sección se describe, principalmente, la estructura del código empleado para realizar los experimentos y el procedimiento seguido dentro del mismo para entrenar y evaluar los modelos seleccionados. Además se va a tratar la preparación del conjunto de datos, es decir, cómo se cargan y cómo se divide la información para realizar el entrenamiento y las pruebas. Por último, se tratará la forma que hemos seguido para presentar los resultados y las métricas que se han mencionado en la sección \ref{subsubsec:evaluacion}.
 
 \subsection{Procedimiento de entrenamiento y evaluación}
 \label{subsec:procedimiento}

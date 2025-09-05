@@ -12,13 +12,6 @@ Existen varios enfoques aplicables al tipo de proyecto que estamos tratando, per
 
 Esta metodología permite identificar los algoritmos que presentan mejor equilibrio y adaptación a nuevos patrones de datos. También se podrán detectar posibles limitaciones y áreas de mejora para futuras investigaciones. Este enfoque proporciona un marco sistemático para el análisis comparativo de modelos, facilitando la interpretación de resultados y la toma de decisiones fundamentadas sobre el rendimiento de cada algoritmo.
 
-\section{Procedimiento seguido}
-\label{sec:porcedimiento}
-
-% TODO: Detalla la secuencia de actividades, desde la recolección y preparación de datos hasta la obtención y análisis de resultados, especificando el orden lógico de ejecución.
-
-
-
 \section{Técnicas y herramientas empleadas}
 \label{sec:herramientas}
 
@@ -59,6 +52,7 @@ Pandas es una herramienta muy potente para el manejo, análisis y manipulación 
 
 La biblioteca \textit{Light Gradient-Boosting Machine} por su nombre en inglés, es una infraestructura de aprendizaje automático basada en modelos de árboles de decisión \cite{lgbm}. Se puede usar en diferentes tareas, pero la importante para el análisis realizado el la de clasificación. Los principales algoritmos soportados son: \textit{Gradient Boosting Decision Trees (GBDT)}, el cual utiliza \textit{LGBMClassifier}, clasificador usado durante la experimentación, \textit{Dropouts meet Multiple Additive Regression Trees (Dart)} y \textit{Gradient-based One-Side Sampling (Goss)} \cite{lgbm_alg}.
 
+\newpage
 \subsubsection{\textit{Seaborn}}
 \label{subsubsec:seaborn}
 
@@ -91,7 +85,7 @@ Existe una gran variedad de modelos de aprendizaje automático implementados en 
 \textit{DecisionTreeClassifier} es un clasificador basado en árboles de decisión. Se incluido en este estudio por ser sencillo, interpretable y rápido a la hora de entrenar. Este modelo es una buena referencia inicial a pesar de que los tienden a sobreajustar los datos si no se aplican mecanismos de regularización adecuados. Su bajo coste computacional y capacidad para manejar tanto variables categóricas como continuas lo convierten en una herramienta útil para contrastar con modelos más complejos y ofrece un punto de partida sencillo para identificar patrones relevantes.
 
 \subsubsection{\textit{RandomForestClassifier}}
-\label{subsubsec:tandomforestclassifier}
+\label{subsubsec:randomforestclassifier}
 
 Este clasificador se destaca por su robustez y capacidad de generalización frente al sobreajuste. \textit{RandomForestClassifier} es un conjunto de árboles de decisión entrenados sobre subconjuntos aleatorios de datos y características. Esto aprovecha la diversidad entre los distintos árboles para reducir la varianza del modelo y mejorar su rendimiento en comparación con un único árbol de decisión. Tiene la ventaja de ser uno de los algoritmos de aprendizaje más certeros para un conjunto de datos lo suficientemente grande, pero puede sobreajustar para tareas ruidosas \cite{rf}. Para problemas de clasificación de alta dimensionalidad ofrece un equilibrio entre precisión, estabilidad y coste computacional moderado.
 
@@ -100,6 +94,7 @@ Este clasificador se destaca por su robustez y capacidad de generalización fren
 
 El clasificador \textit{KNeighborsClassifier} tiene un enfoque diferente al de los modelos anteriores. Su funcionamiento se basa en la proximidad entre muestras en el espacio de características, asignando la clase mayoritaria de los vecinos más cercanos. Aunque no realiza un proceso de entrenamiento tradicional, requiere el uso del conjunto de entrenamiento para almacenar las instancias y calcular las distancias durante la predicción.
 
+\newpage
 \subsubsection{\textit{RidgeClassifier}}
 \label{subsubsec:ridgeclassifier}
 

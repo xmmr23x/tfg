@@ -1,47 +1,84 @@
 \chapter{Estado de la técnica}
 \label{ch:estado_tecnica}
 
-% TODO: 
+En este capítulo se presentan los fundamentos teóricos más relevantes que sirven como base para el desarrollo de este proyecto. Se revisan conceptos clave relacionados con el aprendizaje automático y su aplicación en la detección de \textit{malware}, así como las nociones generales de ciberseguridad y los enfoques más utilizados en la identificación de software malicioso.
 
 \section{Aprendizaje automático}
 \label{sec:aprend_auto}
 
-% TODO: 
+El aprendizaje automático se puede entender como <<la creación de algoritmos y modelos que permiten a los ordenadores aprender y hacer predicciones sin ser específicamente programados>> \cite{mwclass}.
+
+\vspace{1em}
+
+Inicialmente, los cálculos estadísticos se resolvían con máquinas electromecánicas, como la máquina tabuladora, desarrollada en 1890 por Herman Hollerith \cite{maquina_tabuladora}. Años más tarde, se presentó la neurona de McCulloch-Pitts, el primer modelo matemático de una neurona biológica, considerado por muchos como el punto de partida para el aprendizaje automático y la base de importantes modelos de cálculo \cite{inproceedings}. Hoy en día, el aprendizaje automático es esencial en diferentes ámbitos, como la investigación o los negocios, y emplea algoritmos avanzados capaces de hacer predicciones muy precisas sobre datos desconocidos.
+
+\vspace{1em}
+
+Los algoritmos desarrollados se pueden dividir en aprendizaje supervisado, no supervisado, semisupervisado y por refuerzo, entre otros. A su vez, y de manera independiente a la clasificación anterior, se pueden dividir en técnicas de clasificación y regresión, siendo las primeros las que nos ocupan en este proyecto. Algunas de las principales técnicas de clasificación ordinal son: árboles de decisión, redes neuronales artificiales, máquinas de vectores de soporte (SVM, por sus siglas en inglés) y algoritmos de agrupamiento.
+
+\vspace{1em}
+
+Todas estas técnicas se pueden adaptar a las necesidades actuales de la ciberseguridad. Los tipos de ataques, \textit{malware} o vulnerabilidades de los sistemas se están haciendo cada vez más frecuentes, no solo aumentando en cantidad, sino también en complejidad. Estos algoritmos pueden predecir si un \textit{software} es malicioso, si tiene vulnerabilidades o si un correo electrónico puede considerarse un intento de \textit{phishing}.
+
+\vspace{1em}
+
+A continuación se comentarán algunas de las principales técnicas y modelos que podrían llegar a aplicarse en este estudio si fuera necesario.
 
 \subsection{Balanceo de datos}
 \label{subsec:balanceo}
 
-% TODO: 
+Es muy habitual que los conjuntos de datos se encuentren desbalanceados. Esto significa que la cantidad de patrones pertenecientes a una o varias clases son significativamente menores a la clase mayoritaria. Por ejemplo, como veremos más adelante en la tabla \ref{tabla:codificacion_malware}, la clase de patrones no malicionsos representa aproximadamente la mitad del total de patrones, en torno a 150000 patrones, mientras que la clase exploit solo tiene 12 patrones \cite{balanceo}. Debido a este desbalanceo es probable que la capacidad de generalización del modelo se vea afectada.
+
+\vspace{1em}
+
+Para mitigar estos problemas, las dos principales técnicas son el sobremuestreo y el submuestreo, \textit{oversampling} y \textit{undersampling} por sus términos en inglés.
 
 \subsubsection{Sobremuestreo}
 \label{subsubsec:oversampling}
 
-% TODO: 
+Las técnicas de sobremuestreo, \textit{oversampling} en inglés, buscan aumentar la representación de la clase minoritaria generando nuevas instancias a partir de los casos existentes. El problema que presenta esta técnica es el riesgo de introducir información no real \cite{resamplig}. Entre los métodos de \textit{oversampling} más destacados se encuentran:
+
+\begin{enumerate}
+	\item \textbf{\textit{Random oversampling.}} \\
+		Es la técnica más sencilla, ya que copia los patrones de la clase minoritaria hasta alcanzar la cantidad deseada. Es habitual que se haga hasta igualar a la clase mayoritaria \cite{resamplig}.
+	\item \textbf{\textit{Synthetic Minority Oversampling Technique (SMOTE).}.} \\
+		Genera instancias sintéticas de la clase minoritaria en lugar de replicar ejemplos existentes. Para ello, selecciona un ejemplo de la clase minoritaria y crea nuevos puntos interpolando con sus vecinos más cercanos \cite{ELREEDY201932}.
+	\item \textbf{\textit{Adaptative Synthetic Sampling (ADASYN).}} \\
+		Es una extensión de SMOTE que genera más instancias sintéticas en las zonas donde la clase minoritaria es más difícil de aprender, es decir, donde está menos representada respecto a la mayoritaria \cite{ADASYN}.
+\end{enumerate}
 
 \subsubsection{Submuestreo}
 \label{subsubsec:undersampling}
 
-% TODO: 
+El \textit{undersampling} engloba las técnicas que tratan de igualar las distribuciones de datos desbalanceados eliminando muestras de la clase mayoritaria respetando la distribución de la clase minoritaria. Las soluciones a este problema pueden cambiar en función del algoritmo que decide los patrones a eliminar \cite{resamplig}. Las principales técnicas de \textit{undersampling} son:
 
+\begin{enumerate}
+	\item \textbf{\textit{Random undersampling.}} \\
+		Es el método más sencillo, ya que solo se encarga de eliminar patrones de forma aleatoria de la clase mayoritaria. Lo habitual, y la técnica empleada en este estudio para la clasificación binaria, es igualar el número de patrones para cada clase. Su principal punto en contra es que puede eliminar datos útiles \cite{rundersampling}.
+	\item \textbf{\textit{Condensed nearest neighbours}.} \\
+		Es un algoritmo no paramétrico basado en instancias, donde la clasificación se determina a partir de los k casos más cercanos al punto. Es una técnica local que utiliza medidas de distancia para identificar la similitud entre observaciones \cite{cnn}.
+	\item \textbf{\textit{Tomek links.}} \\
+		Consiste en identificar pares de instancias pertenecientes a clases distintas que son mutuamente los vecinos más cercanos entre sí. Suelen encontrarse en las zonas de solapamiento entre clases y representan casos ruidosos. Se elimina del conjunto de datos la instancia perteneciente a la clase mayoritaria en cada par, reduciendo así el desbalanceo \cite{tomeklinks}.
+	\item \textbf{\textit{Edited nearest neighbours.}} \\
+		Consiste en revisar cada instancia del conjunto de datos y clasificarla según la regla de los k vecinos más cercanos. Si la instancia no coincide con la clase mayoritaria de sus vecinos, se considera ruidosa o mal ubicada y se elimina del conjunto \cite{enn}.
+\end{enumerate}
+
+\newpage
 \subsection{Reducción de la dimensionalidad}
 \label{subsec:red_dim}
 
-% TODO: 
+En estadística, la reducción de la dimensionalidad es el proceso por el cual se reduce el número de variables aleatorias. Si aplicamos esto al aprendizaje automático, el objetivo a reducir es el número de características de cada patrón. Generalmente se aplica antes de la clasificación para evitar los efectos de la maldición de la dimensionalidad, que se ha comentado en la sección \ref{subsubsec:problemas}. La principal ventaja que aportan estas técnicas es reducir el tiempo de entrenamiento y la memoria utilizada en el mismo \cite{reddim}. A continuación, estudiaremos algunos de los principales métodos.
 
-\subsubsection{Análisis de componentes principales}
-\label{subsubsec:pca}
+\begin{enumerate}
+	\item \textbf{Análisis de componentes principales} \\
+		El análisis de componentes principales se usa para describir un conjunto de datos en términos de nuevas características no correlacionadas, buscando la proyección donde los datos queden mejor representados según el método de mínimos cuadrados \cite{pca}.
 
-% TODO: 
+	\item \textbf{Análisis factorial} \\
+		Tiene el objetivo es identificar un conjunto reducido de factores latentes que explican la mayor parte de la varianza observada en los datos para descubrir las estructuras que generan las correlaciones entre las variables \cite{fa}.
 
-\subsubsection{Análisis factorial}
-\label{subsubsec:fa}
-
-% TODO: 
-
-\subsubsection{Descomposición en valores singulares}
-	\label{subsubsec:svd}
-
-% TODO: 
+	\item \textbf{Descomposición en valores singulares} \\
+		Es una técnica algebraica que descompone una matriz en tres componentes: $U$, $\Sigma$ y $V^T$ \cite{dvs}.Esta descomposición permite representar los datos en un espacio reducido preservando la mayor parte de la información relevante.
+\end{enumerate}
 
 \subsection{Métricas de evaluación}
 \label{subsec:2_metricas}
@@ -96,6 +133,7 @@ Sea \( S_i \) la sensibilidad de la clase \( i \), con \( n \) el número total 
 
 Donde la sensibilidad de cada clase \( S_i \) se obtiene mediante la ecuación \ref{eq:recall}
 
+\newpage
 \subsubsection{Valor-F}
 \label{subsubsec:f1}
 
@@ -103,9 +141,8 @@ El valor-F o \textit{F1-score} mide el equilibrio entre la precisión y la sensi
 
 \subsubsection{Matriz de confusión}
 \label{subsubsec:matrix}
-% TODO: 
 
-
+Una matriz de confusión permite visualizar el rendimiento de un algoritmo de clasificación, normalmente supervisado. Cada fila representa las instancias en una clase real, mientras que cada columna representa las instancias en una clase predicha (o viceversa). La diagonal de la matriz representa las instancias correctamente clasificadas \cite{confmat}. Las matrices de confusión pueden utilizarse con cualquier algoritmo clasificador.
 
 \subsection{Técnicas de validación}
 \label{subsec:validacion}
@@ -126,8 +163,8 @@ El valor-F o \textit{F1-score} mide el equilibrio entre la precisión y la sensi
 
 
 \subsubsection{Problemas de entrenamiento}
-\label{subsubsec:overunderfit}
-% TODO:  overfitting y underfitting
+\label{subsubsec:problemas}
+% TODO:  overfitting y underfitting, maldicion de la dimensionalidad
 
 \subsection{Preprocesamiento de datos}
 %\label{subsec:}
@@ -146,30 +183,40 @@ El valor-F o \textit{F1-score} mide el equilibrio entre la precisión y la sensi
 %\label{subsec:}
 % TODO: 
 
+\subsubsection{Árboles de decisión}
+\label{subsubsec:arboles}
 
-
-\subsubsection{}
-%\label{subsubsec:}
 % TODO: 
 
+\subsubsection{\textit{Random forest}}
+\label{subsubsec:randomforest}
 
-
-\subsection{}
-%\label{subsec:}
 % TODO: 
 
+\subsubsection{\textit{K-NN}}
+\label{subsubsec:kneighbors}
 
-
-\subsubsection{}
-%\label{subsubsec:}
 % TODO: 
 
+\subsubsection{\textit{Ridge}}
+\label{subsubsec:ridge}
 
+% TODO: 
 
+\subsubsection{Perceptrón multicapa}
+\label{subsubsec:mlp}
 
+% TODO: 
 
+\subsubsection{Máquinas de vectores de soporte}
+\label{subsubsec:svm}
 
+% TODO: 
 
+\subsubsection{\textit{Light Gradient-Boosting Machine}}
+\label{subsubsec:lgbm}
+
+% TODO: 
 
 \section{Ciberseguridad}
 \label{sec:ciberseguridad}
