@@ -67,7 +67,7 @@ El \textit{undersampling} engloba las técnicas que tratan de igualar las distri
 \subsection{Reducción de la dimensionalidad}
 \label{subsec:red_dim}
 
-En estadística, la reducción de la dimensionalidad es el proceso por el cual se reduce el número de variables aleatorias. Si aplicamos esto al aprendizaje automático, el objetivo a reducir es el número de características de cada patrón. Generalmente se aplica antes de la clasificación para evitar los efectos de la maldición de la dimensionalidad, que se ha comentado en la sección \ref{subsubsec:problemas}. La principal ventaja que aportan estas técnicas es reducir el tiempo de entrenamiento y la memoria utilizada en el mismo \cite{reddim}. A continuación, estudiaremos algunos de los principales métodos.
+En estadística, la reducción de la dimensionalidad es el proceso por el cual se reduce el número de variables aleatorias. Si aplicamos esto al aprendizaje automático, el objetivo a reducir es el número de características de cada patrón. Generalmente se aplica antes de la clasificación para evitar los efectos de la maldición de la dimensionalidad. Esta maldición implica que cuando aumenta la dimensionalidad, el volumen del espacio aumenta exponencialmente haciendo que los datos se vuelvan dispersos \cite{maldicion}. La principal ventaja que aportan estas técnicas es reducir el tiempo de entrenamiento y la memoria utilizada en el mismo \cite{reddim}. A continuación, estudiaremos algunos de los principales métodos.
 
 \begin{enumerate}
 	\item \textbf{Análisis de componentes principales} \\
@@ -144,43 +144,30 @@ El valor-F o \textit{F1-score} mide el equilibrio entre la precisión y la sensi
 
 Una matriz de confusión permite visualizar el rendimiento de un algoritmo de clasificación, normalmente supervisado. Cada fila representa las instancias en una clase real, mientras que cada columna representa las instancias en una clase predicha (o viceversa). La diagonal de la matriz representa las instancias correctamente clasificadas \cite{confmat}. Las matrices de confusión pueden utilizarse con cualquier algoritmo clasificador.
 
-\subsection{Técnicas de validación}
+\subsection{Validación cruzada}
 \label{subsec:validacion}
-% TODO: 
 
+La validación es esencial en la experimentación con modelos de aprendizaje automático, ya que permite evaluar de manera fiable la capacidad de generalización del modelo, reduciendo el sesgo que podría aparecer al hacer una única partición entrenamiento/prueba. A continuación, se estudian las dos principales estrategias para este propósito.
 
+\vspace{1em}
 
-\subsubsection{Validación cruzada}
-\label{subsubsec:cv}
-% TODO: 
+Se usa para para evaluar los resultados de un análisis estadístico y garantizar que son independientes de la partición entre datos de entrenamiento y prueba. Para ello hay que calcular la media aritmética obtenida de las medidas de evaluación sobre diferentes particiones. Este método es habitual cuando el objetivo es la predicción y se quiere estimar la precisión de los modelos que se van a utilizar \cite{crossval}. A continuación, se estudian las principales estrategias de validación cruzada.
 
+\begin{enumerate}
+	\item \textbf{Validación cruzada de K iteraciones} \\
+		Los datos en k subconjuntos, usando en cada iteración uno como prueba y los restantes (k-1) como entrenamiento. El proceso se repite k veces y los resultados se promedian para obtener una única estimación del rendimiento. Ofrece mucha precisión, pero es muy costoso computacionalmente \cite{crossval1}.
+	\item \textbf{Validación cruzada aleatoria} \\
+		En este caso se eligen aleatoriamente los datos que pertenecen a cada partición de entrenamiento y prueba. El resultado es la media aritmética de los valores obtenidos para las métricas en cada iteración \cite{crossval2}.
+	\item \textbf{Validación cruzada dejando uno fuera} \\
+		En este tipo de validación se separan los datos de forma que tenemos una sola muestra para los datos de prueba, mientras que para los de entrenamiento tenemos el resto de patrones del conjunto de datos. Se realizan tantas iteraciones como muestras (N) tenga el conjunto de datos, calculando el error para cada una de ellas como evaluación y se obtiene la media aritmética de todas ellas \cite{crossval3}.
 
-
-\subsubsection{Validación estratificada}
-\label{subsubsec:ev}
-% TODO: 
-
-
-
-\subsubsection{Problemas de entrenamiento}
-\label{subsubsec:problemas}
-% TODO:  overfitting y underfitting, maldicion de la dimensionalidad
-
-\subsection{Preprocesamiento de datos}
-%\label{subsec:}
-% TODO: 
-
-
-
-\subsubsection{}
-%\label{subsubsec:}
-% TODO: 
-
-
-
+		\[
+			E = \frac{1}{N} \sum_{i=1}^{N} E_{i}
+		\]
+\end{enumerate}
 
 \subsection{Algoritmos de clasificación}
-%\label{subsec:}
+\label{subsec:clasificacion}
 % TODO: 
 
 \subsubsection{Árboles de decisión}
@@ -221,19 +208,46 @@ Una matriz de confusión permite visualizar el rendimiento de un algoritmo de cl
 \section{Ciberseguridad}
 \label{sec:ciberseguridad}
 
-La ciberseguridad es la protección de la infraestructura informática y la información que hay en ella, abarcando \textit{software}, \textit{hardware} y redes. Para garantizar la seguridad, es esencial combinar estrategias de prevención con métodos de protección efectivos. Las estrategias de prevención, como el uso de \textit{firewalls}, \textit{software} antivirus actualizado y educación en ciberseguridad para los usuarios, se centra en identificar y mitigar posibles amenazas antes de que ocurran. Por otro lado, la protección se enfoca en responder a los incidentes y minimizar sus efectos, mediante herramientas como los sistemas de detección de intrusiones. Con esto, podemos llegar a la conclusión de que el objetivo de la seguridad es minimizar los riesgos de recibir un ataque y reducir el impacto en caso recibirlo \cite{ciberseguridad_def}. En esta sección nos centraremos en la ciberseguridad \textit{software}, concretamente en los aspectos relacionados con la detección y clasificación de malware.
+La ciberseguridad es la protección de la infraestructura informática y la información que hay en ella, abarcando \textit{software}, \textit{hardware} y redes. Para garantizar la seguridad, es esencial combinar estrategias de prevención con métodos de protección efectivos. Las estrategias de prevención, como el uso de \textit{firewalls}, \textit{software} antivirus actualizado y educación en ciberseguridad para los usuarios, se centra en identificar y mitigar posibles amenazas antes de que ocurran. Por otro lado, la protección se enfoca en responder a los incidentes y minimizar sus efectos, mediante herramientas como los sistemas de detección de intrusiones. Con esto, podemos llegar a la conclusión de que el objetivo de la seguridad es minimizar los riesgos de recibir un ataque y reducir el impacto en caso recibirlo \cite{ciberseguridad_def}. En esta sección nos centraremos en la ciberseguridad \textit{software}, concretamente en los aspectos relacionados con la detección y clasificación de \textit{malware}.
 
 \subsection{Conceptos generales}
 \label{subsec:ciberseguridad_general}
-% TODO: Breve introducción a la ciberseguridad, importancia en la sociedad digital, principales objetivos (confidencialidad, integridad, disponibilidad) y amenazas comunes.
 
+La ciberseguridad constituye un pilar esencial en la sociedad digital actual, donde cada vez más actividades cotidianas, económicas y sociales dependen de sistemas informáticos y redes de comunicación. Su importancia radica en garantizar que la información y los servicios digitales sean fiables y estén protegidos frente a accesos indebidos o manipulaciones maliciosas.
+
+\vspace{1em}
+
+Los principales objetivos de la ciberseguridad se articulan en torno a la denominada tríada CIA \cite{triadacia}:
+
+\begin{itemize}
+	\item \textbf{Confidencialidad}: asegura que los datos solo sean accesibles por usuarios autorizados.
+	\item \textbf{Integridad}: garantiza que la información no sea alterada de forma no autorizada.
+	\item \textbf{Disponibilidad}: busca que los sistemas y servicios estén siempre accesibles.
+\end{itemize}
+
+En este contexto, las organizaciones y usuarios se enfrentan a amenazas comunes como que se comentarán superficialmente por su falta de relación con el proyecto. Algunas de las amenazas más frecuentes son:
+
+\begin{enumerate}
+	\item \textbf{\textit{Phishing}}: Correos electrónicos, mensajes o enlaces fraudulentos que buscan engañar al usuario para que revele información confidencial \cite{phishing}.
+	\item \textbf{\textit{Malware}}: Software malicioso que diseñado para dañar sistemas, robar información o tomar control de dispositivos. Se explicará en profundidad en la sección \ref{subsec:malware}.
+	\item \textbf{Denegación de servicio}: Inundación de sistemas con tráfico para interrumpir su funcionamiento y dejar servicios inaccesibles \cite{dos}.
+	\item \textbf{Robo de credenciales/fuerza bruta}: Intentos de acceder a cuentas mediante contraseñas robadas, adivinación sistemática o explotación de vulnerabilidades de autenticación.
+\end{enumerate}
+
+\newpage
 \subsection{\textit{Malware}}
 \label{subsec:malware}
-% TODO: Definición de malware, evolución histórica, relevancia actual.
+
+El \textit{software} malicioso o \textit{malware} es cualquier tipo de \textit{software} que se introduce sin el consentimiento del usuario con el objetivo de dañar o comprometer la confidencialidad, integridad o disponibilidad de la información o el sistema \cite{def_malware}. Su objetivo puede ir desde la interrupción del funcionamiento de sistemas hasta el robo de información sensible o la obtención de control remoto sobre dispositivos.
+
+\vspace{1em}
+
+Los primeros ejemplos de \textit{malware} surgieron en las décadas de 1970 y 1980 como experimentos de laboratorio o programas con fines demostrativos. Actualmente se ha convertido en una de las amenazas externas más relevantes debido al daño que puede llegar a causar y afectando tanto a usuarios individuales como a grandes corporaciones y entidades gubernamentales. Su relevancia se ha incrementado con la expansión de la digitalización y el uso masivo de Internet, donde ataques automatizados y campañas de \textit{malware} buscan constantemente vulnerabilidades en sistemas y redes, además de posibles descuidos de los usuarios.
 
 \subsubsection{Tipos de \textit{Malware}}
 \label{subsubsec:tipos_malware}
-El \textit{software} malicioso o \textit{malware} es cualquier tipo de \textit{software} que se introduce de manera encubierta con el objetivo de comprometer la confidencialidad, integridad o disponibilidad de la información o el sistema \cite{def_malware}. El \textit{malware} se ha convertido en una de las amenazas externas más relevantes debido al daño que puede llegar a causar en una organización. Podemos clasificar el \textit{malware} en diferentes categorías \cite{categoriamw} según su propósito:
+
+Podemos clasificar el \textit{malware} en diferentes categorías \cite{categoriamw} según su propósito:
 
 \begin{itemize}
 	\item Virus. Tienen como objetivo infectar archivos y sistemas informáticos. Se propagan cuando los usuarios comparten archivos o ejecutan programas infectados.
@@ -250,7 +264,6 @@ El \textit{software} malicioso o \textit{malware} es cualquier tipo de \textit{s
 
 \subsection{Técnicas de detección de \textit{Malware}}
 \label{subsec:deteccion_malware}
-% TODO: 
 
 Ningún método de detección es infalible y los principales antivirus comerciales pueden combinar distintas técnicas en función de las necesidades. La detección basada en firmas siguen siendo el método más usado en términos absolutos porque son rápidas, eficientes y fáciles de implementar. Este método consiste en comparar archivos con una base de datos de patrones conocidos. Otros mecanismos son: la detección heurística, por comportamiento, \textit{sandbox} e inteligencia artificial \cite{antivirus}.
 
@@ -260,27 +273,52 @@ Existen varias limitaciones de los métodos tradicionales frente a nuevas amenaz
 
 \subsubsection{Detección basada en firmas}
 \label{subsubsec:firmas}
-% TODO: 
 
-\subsubsection{Detección heurística y análisis estático}
+La detección de intrusiones basada en firmas compara la actividad del sistema con patrones conocidos de ataques para identificar comportamientos maliciosos. El código del \textit{Malware} de compila como cualquier programa, y este código se puede cifrar para crear una firma única. Otras formas de crear una firma son sus acciones en memoria o los archivos específicos que generan en ubicaciones específicas. En los casos más modernos se comunican a través de Internet hacia direcciones IP o dominios, lo que permite a los sistemas de defensa y prevención detectarlas y alertar \cite{firmas1}.
+
+\vspace{1em}
+
+Las firmas habitualmente son generadas y almacenadas por los proveedores comerciales de estos servicios, como pueden ser \textit{ESTET} \cite{eset} o \textit{Bitdefender} \cite{bitdefender}, aunque algunas pueden ser abiertas o colaborativas, como es el caso de \textit{VirusTotal} \cite{virustotal}.
+
+\vspace{1em}
+
+\paragraph*{\textbf{Ventajas.}}
+Las detección basada en firmas es un sistema muy preciso, ya que si el autor del \textit{Malware} no realiza cambios en el código, la firma no cambia y la detección es casi inmediata. Esto implica que el sistema de detección proporcione muy pocos falsos positivos \cite{firmas1}.
+
+\vspace{1em}
+
+\paragraph*{\textbf{Inconvenientes.}}
+El principal inconveniente de la detección basada en firmas es que para poder actuar, la amenaza debe ser conocida. Esto significa que no tienen forma de detectar las amenazas de tipo \textit{zero day}, es decir, que acaban de ser descubiertas y que aún no tienen una firma \cite{zeroday}.
+
+\noindent Como se ha comentado en las ventajas, es casi infalible si no se modifica el código del programa, pero la firma queda completamente inservible con un pequeño cambio que se introduzca \cite{firmas}.
+
+\subsubsection{Detección heurística}
 \label{subsubsec:heuristica}
-% TODO: 
 
-\subsubsection{Detección basada en comportamiento (análisis dinámico)}
+En la detección de \textit{Malware}, se conoce como heurística al conjunto de técnicas que se usan para identificar aplicaciones maliciosas que no se encuentran en la base de datos de firmas \cite{heu}. Surge de la necesidad de combatir las nuevas amenazas y es uno de los pocos métodos capaces de combatir los \textit{Malware} polimórficos, que cambian su código constantemente \cite{kp_heu}
+
+\vspace{1em}
+
+\paragraph*{\textbf{Ventajas.}}
+La principal ventaja de la detección heurística es su capacidad para identificar nuevas amenazas desconocidas. Al no depender exclusivamente de firmas previas, resulta eficaz para reconocer modificaciones de \textit{Malware} existente o ataques que todavía no han sido documentados. Esto amplía la cobertura de protección frente a amenazas emergentes \cite{fortinet_heu}.
+
+\paragraph*{\textbf{Inconvenientes.}}
+Este tipo de análisis trata de detectar el comportamiento conocido, por lo que si un programa no realiza ninguna acción conocida, es probable que no sea detectado \cite{fortinet_heu}.
+
+\subsubsection{Detección basada en comportamiento}
 \label{subsubsec:comportamiento}
-% TODO: 
 
-\subsubsection{Métodos híbridos}
-\label{subsubsec:hibridos}
-% TODO: 
+Esta técnica es clave frente a amenazas que pueden evitar ser detectadas por los métodos tradicionales. Los atacantes, para evitar ser detectados, ofuscan el código, práctica que ``consiste en transformar el código fuente de un programa en una forma más compleja y difícil de comprender, sin alterar su funcionalidad'' \cite{ofuscacion}.
+
+\vspace{1em}
+
+La detección basada en comportamiento analiza las actividades y patrones de ejecución de programas para identificar posibles amenazas y descubrir comportamientos anómalos que puedan indicar una intrusión, incluso cuando se trata de ataques desconocidos o de tipo \textit{zero day}. Es capaz de identificar amenazas desconocidas, ya que no depende de bases de datos de firmas previas pero suele generar un mayor número de falsos positivos.
 
 \subsubsection{Detección mediante aprendizaje automático}
 \label{subsubsec:ml}
-% TODO: Algoritmos de clasificación, extracción de características y métricas más usadas.
 
+Los modelos de aprendizaje automático tienen la capacidad de extraer conocimiento a partir de grandes cantidades de información y reconocer tanto patrones complejos como inusuales. Examina entradas como registros del sistema, tráfico de red, procesos en ejecución o secuencias de instrucciones para localizar conductas anómalas. Además, pueden ajustarse de forma continua incorporando nuevas muestras, lo que incrementa su efectividad frente a variantes no identificadas \cite{s2grupo}.
 
-\subsection{Retos y tendencias}
-\label{subsec:retos_tendencias}
-% TODO: Limitaciones de las técnicas clásicas, evasión mediante ofuscación, necesidad de datasets representativos y uso creciente de IA y aprendizaje profundo en ciberseguridad.
+\vspace{1em}
 
-
+En este caso, si un atacante realiza cambios en el código, lo ofusca o es un programa no conocido, no tiene por qué engañar al modelo. Esto hace que sea uno de los métodos de detección de \textit{malware} más potentes y con proyección de futuro \cite{ml_mw}.
