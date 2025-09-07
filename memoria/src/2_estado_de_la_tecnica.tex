@@ -168,22 +168,60 @@ Se usa para para evaluar los resultados de un análisis estadístico y garantiza
 
 \subsection{Algoritmos de clasificación}
 \label{subsec:clasificacion}
-% TODO: 
+
+En esta sección se presentan algunos algoritmos de clasificación más comunes, entre ellos, los que se van a usar en el estudio. Los clasificadores son modelos de aprendizaje automático capaces de asignar una etiqueta a cada instancia de datos en función de sus características. Se describen tanto modelos simples y rápidos, que facilitan la interpretación de los resultados, como modelos más complejos, que ofrecen un mayor potencial de generalización y precisión.
 
 \subsubsection{Árboles de decisión}
 \label{subsubsec:arboles}
 
-% TODO: 
+Son modelos de aprendizaje supervisado que representan las decisiones mediante una estructura jerárquica de nodos y ramas. Cada nodo interno evalúa un atributo de los datos y realiza una bifurcación según el valor de dicho atributo, mientras que los nodos hoja asignan la clase final. Normalmente usando criterios como la ganancia de información o el índice Gini \cite{dt_ibm}.
+
+\paragraph*{\textbf{Ventajas.}}
+\begin{itemize}
+	\item La estructura del árbol es visual y fácil de entender.
+	\item Una vez construido, clasificar nuevas instancias es muy rápido.
+	\item Puede manejar datos categóricos y continuos sin necesidad de gran preprocesamiento.
+	\item No asume ninguna distribución particular de los datos, adaptándose a distintas formas de patrones.
+\end{itemize}
+
+\paragraph*{\textbf{Inconvenientes.}}
+\begin{itemize}
+	\item Los árboles pueden crecer demasiado y memorizar el conjunto de entrenamiento, perdiendo capacidad de generalización.
+	\item Cambios leves en los datos pueden alterar la estructura del árbol de manera significativa.
+	\item Limitada capacidad predictiva para relaciones complejas.
+\end{itemize}
+\cite{dt_sklearn}
 
 \subsubsection{\textit{Random forest}}
 \label{subsubsec:randomforest}
 
-% TODO: 
+\textit{Random forest} es un método de ensamblado que construye múltiples árboles de decisión sobre distintas muestras del conjunto de datos y combinando aleatoriamente subconjuntos de características. Cada árbol individual realiza su predicción, y el bosque final decide por mayoría de votos (en clasificación) o promedio (en regresión). Esta estrategia reduce la varianza y mejora la capacidad de generalización respecto a un único árbol de decisión, manteniendo robustez frente al ruido y al sobreajuste \cite{rf_sklearn}.
+
+\paragraph*{\textbf{Ventajas.}}
+\begin{itemize}
+	\item Es uno de los clasificadores más certeros.
+	\item Suele obtener mejores resultados que un árbol individual.
+	\item Maneja variables categóricas y continuas y tolera datos faltantes.
+	\item Permite identificar qué atributos contribuyen más a la predicción.
+\end{itemize}
+\cite{rf_wiki1}
+
+\paragraph*{\textbf{Inconvenientes.}}
+\begin{itemize}
+	\item Al estar compuesto por muchos árboles, es difícil interpretar.
+	\item Entrenar y almacenar múltiples árboles requiere más recursos que un árbol único.
+	\item Puede sobreajustar en ciertas tareas de clasificación o regresión.
+\end{itemize}
+\cite{rf_wiki2}
 
 \subsubsection{\textit{K-NN}}
 \label{subsubsec:kneighbors}
 
-% TODO: 
+El método de los k vecinos más cercanos es un método de clasificación supervisada no paramétrico que estima la probabilidad de que un patrón pertenezca a una clase. Es un tipo de aprendizaje vago, donde la función se aproxima localmente y el cálculo se hace en la clasificación \cite{knn_wiki}.
+
+\vspace{1em}
+
+Funciona asignando a un archivo o programa nuevo la categoría de sus vecinos más cercanos en un conjunto de datos previamente etiquetado. Es decir, compara el nuevo caso con las muestras conocidas y lo clasifica según la mayoría de etiquetas entre los más similares. La cercanía se mide normalmente usando la distancia euclidiana \cite{knn_sklearn}.
 
 \subsubsection{\textit{Ridge}}
 \label{subsubsec:ridge}
