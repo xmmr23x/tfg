@@ -2,7 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('resultados/svm_bin.csv', index_col = 0)
+df = pd.read_csv('resultados/ridge_bin.csv', index_col = 0)
 
 # df_clean = df.drop(index=["Mean", "STD"], errors="ignore")
 
@@ -36,5 +36,5 @@ sns.boxplot(
     zorder=3
 )
 
-plt.title("Distribución de accuracy (train vs test) en SVC", fontsize=14)
+plt.title("Distribución de accuracy (train vs test) en RidgeClassifier", fontsize=14)
 plt.show()

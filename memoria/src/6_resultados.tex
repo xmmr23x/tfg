@@ -262,8 +262,15 @@ Aunque no se han obtenido los mejores resultados con las máquinas de vectores d
 	\label{fig:svm_bin}
 \end{figure}
 
+\newpage
 \subsection{\textit{Ridge}}
 \label{subsec:ridge_bin}
+
+En los resultados obtenidos con el clasificador \textit{RidgeClassifier}, las métricas de entrenamiento muestran valores estables. La precisión se mantiene en un rango estrecho entre 0.645 y 0.652, con una media de 0.649 y una desviación estándar de 0.002. La mínima sensibilidad presenta mayor variabilidad, con valores comprendidos entre 0.549 y 0.573, alcanzando una media de 0.564 y una desviación estándar de 0.008.
+
+\vspace{1em}
+
+En el conjunto de generalización, la precisión presenta una media de 0.648, muy próxima a la de entrenamiento, y oscila entre 0.639 y 0.655, con una desviación estándar de 0.005. La mínima sensibilidad alcanza una media de 0.561, con valores entre 0.530 y 0.573 y una desviación estándar de 0.014.
 
 \begin{table}[H]
 	\centering
@@ -293,6 +300,18 @@ Aunque no se han obtenido los mejores resultados con las máquinas de vectores d
 	\label{tabla:ridge_bin}
 \end{table}
 
+En el gráfico \ref{fig:ridge_bin}, se observa que ambos conjuntos presentan valores muy próximos. Las cajas muestran una dispersión reducida, con rangos estrechos tanto en entrenamiento como en test. Esto se traduce en que el modelo ofrece resultados consistentes sin grandes fluctuaciones entre diferentes semillas.
+
+\vspace{1em}
+
+La forma del \texttt{violinplot} refleja estabilidad en el rendimiento, con pequeñas variaciones entre ejecuciones.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Imagenes/ridge_bin}
+	\caption[Boxplot con violinplot para \textit{RidgeClassifier}]{Boxplot con violinplot para \textit{RidgeClassifier}}
+	\label{fig:ridge_bin}
+\end{figure}
 
 \subsection{Perceptrón multicapa}
 \label{subsec:mlp_bin}

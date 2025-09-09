@@ -280,16 +280,13 @@ Por último, se han considerado otras opciones para mejorar la clasificación de
 	\item Utilizar métodos jerárquicos que primero clasifiquen usando la categoría \textit{otros}, para después dividirla en sus diferentes clases y entrenar un modelo específico.
 \end{itemize}
 
-\section{Preparación del entorno}
-\label{sec:prep_entornos}
-
-\subsection{Protocolo de experimentación y validación}
-\label{subsec:protocolo_exper}
+\section{Protocolo de experimentación y validación}
+\label{sec:protocolo_exper}
 
 En esta sección se establecen las condiciones de evaluación del rendimiento de los modelos utilizados y se explican los procedimientos seguidos, las técnicas de validación usadas y los criterios que permiten medir de forma objetiva la calidad de las predicciones. Todo esto tiene objetivo de minimizar posibles sesgos, evitar el sobreajuste y obtener conclusiones fiables.
 
-\subsubsection{Diseño experimental}
-\label{subsubsec:diseño}
+\subsection{Diseño experimental}
+\label{subsec:diseño}
 
 Inicialmente se han planteado tres formas de estructurar el diseño experimental y como se evaluarán posteriormente las pruebas. La primera ha sido comparar distintos modelos para cada tipo de clasificación. La segunda, comparar, clasificación binaria y multiclase para cada clasificador. Por último, se ha planteado la posibilidad de una combinación de ambas comparaciones. Este último caso se ha descarta porque, aunque puede ser interesante la comparación combinada por proporcionar una amplia visión del problema, duplica la carga de trabajo y puede exceder la complejidad del proyecto.
 
@@ -302,8 +299,8 @@ La segunda opción planteada puede servir para comparar el rendimiento de uno o 
 Finalmente se ha seleccionado la primera opción. Aunque el problema de la detección de \textit{malware} puede enfocarse tanto para la simple detección de un programa malicioso como para identificar a que tipo pertenece, los problemas de clasificación binaria y multiclase tienen enfoques muy diferentes. Por otro lado, el conjunto de datos usado para clasificación multiclase contiene varias clases con muy pocos patrones y la comparación podría no ser justa.
 
 \newpage
-\subsubsection{Validación de resultados}
-\label{subsubsec:validacion}
+\subsection{Validación de resultados}
+\label{subsec:validaction}
 
 Para evitar sesgos y resultados poco concluyentes se han empleado varias técnicas.
 
@@ -318,8 +315,8 @@ Para evitar sesgos y resultados poco concluyentes se han empleado varias técnic
 A pesar de todas estas técnicas, es bastante probable que las clases extremadamente minoritarias del conjunto de datos para la clasificación multiclase pueden tener una influencia muy limitada.
 
 \newpage
-\subsubsection{Reproducibilidad}
-\label{subsubsec:reproducibilidad}
+\subsection{Reproducibilidad}
+\label{subsec:reproducibilidad}
 
 Durante el desarrollo del código y de las pruebas, se han adoptado diferentes medidas para garantizar que las comparaciones entre modelos sean justas.
 
@@ -339,8 +336,8 @@ Durante el desarrollo del código y de las pruebas, se han adoptado diferentes m
 
 Estas medidas permiten obtener los mismo resultados si se usan las mismas semillas, configuraciones y conjunto de datos.
 
-\subsubsection{Control de parámetros}
-\label{subsubsec:control}
+\subsection{Control de parámetros}
+\label{subsec:control}
 
 Para la optimización de hiperparámetros hemos usado búsqueda en rejilla de \texttt{GridSearchCV}. Esta técnica hace pruebas con todas las combinaciones posibles de los parámetros proporcionados y usa validación cruzada para garantizar la robustez de los resultados. El problema con esta técnica es el elevado número de pruebas, ya que se prueban todas las combinaciones de parámetros posibles en cada uno de los conjuntos de la validación cruzada, lo que eleva el tiempo necesario de manera considerable.
 
