@@ -6,12 +6,12 @@ En este último capítulo del proyecto se expondrán las conclusiones, recomenda
 \section{Conclusiones de investigación}
 \label{sec:conc_investigacion}
 
-En cuanto a los resultados obtenidos en la investigación y dado el enfoque seleccionado en el capítulo \ref{ch:metodologia}, es necesario hacer una diferenciación entre clasificación binaria y clasificación multiclase
+En cuanto a los resultados obtenidos en la investigación y dado el enfoque seleccionado en el capítulo \ref{ch:metodologia}, es necesario hacer una diferenciación entre clasificación binaria y clasificación multiclase.
 
 \subsection{Clasificación binaria}
 \label{subsec:conc_bin}
 
-Si bien es cierto que los resultados obtenidos por los clasificadores más sencillos son muy altos en cuanto a precisión, todos ellos presentan una caída apreciable en la métrica de sensibilidad mínima. Esto significa que es bastante probable un sobreajuste de los modelos y una mala generalización, lo que puede llevar a demasiados fallos en una situación real. Por otro lado, \textit{LGBMClassifier} tiene una precisión ligeramente inferior pero mayor estabilidad entre las métricas de entrenamiento y clasificación. A pesar de ser más complejo a la hora de entrenar e interpretar esta consistencia hace que sea una muy buena opción a tener en cuenta.
+Si bien es cierto que los resultados obtenidos por los clasificadores más sencillos son muy altos en cuanto a precisión, todos ellos presentan una caída apreciable en la métrica de sensibilidad mínima. Esto significa que es bastante probable un sobreajuste de los modelos y una mala generalización, lo que puede llevar a demasiados fallos en una situación real. Por otro lado, \texttt{LGBMClassifier} tiene una precisión ligeramente inferior pero mayor estabilidad entre las métricas de entrenamiento y clasificación. A pesar de ser más complejo a la hora de entrenar e interpretar esta consistencia hace que sea una muy buena opción a tener en cuenta.
 
 \newpage
 \subsection{Clasificación multiclase}
@@ -21,7 +21,7 @@ Este tipo de clasificación ha presentado varios problemas además del aumento n
 
 \vspace{1em}
 
-Por otro lado, algunos modelos como \textit{LGBMClassifier} presentan una alta varianza entre semillas. Esto implica que el conjunto de datos está fuertemente afectado por el desbalanceo, y que los modelos probados no garantizan una generalización. Además, algunos modelos presentan una sensibilidad mínima de 0, es decir, hay clases que directamente no se predicen en absoluto.
+Por otro lado, algunos modelos como \texttt{LGBMClassifier} presentan una alta varianza entre semillas. Esto implica que el conjunto de datos está fuertemente afectado por el desbalanceo, y que los modelos probados no garantizan una generalización. Además, algunos modelos presentan una sensibilidad mínima de 0, es decir, hay clases que directamente no se predicen en absoluto.
 
 \section{Recomendaciones}
 \label{sec:recomendaciones}
@@ -30,4 +30,4 @@ Las principales recomendaciones referentes a este estudio tienen su origen en la
 
 \vspace{1em}
 
-En cuanto al conjunto de datos, si bien es cierto que es amplio y en clasificación binaria funciona muy bien, para clasificación multiclase es insuficiente. Su principal problema se encuentra en la cantidad de clases desbalanceadas. Como podemos ver en la tabla \ref{tabla:nueva_codificacion_malware}, la cuarta clase más poblada contiene más de diez veces menos patrones que la primera. Esto implica que a la hora de entrenar, la clase más poblada influye mucho en el entrenamiento incluso aplicando varias técnicas para evitarlo. Sería recomendable hacer pruebas con distintos conjuntos de datos que dispongan de una mayor cantidad de muestras en clases minoritarias para poder hacer un entrenamiento equilibrado.
+En cuanto al conjunto de datos, si bien es cierto que es amplio y en clasificación binaria funciona muy bien, para clasificación multiclase es insuficiente. Su principal problema se encuentra en el desbalanceo de clases. Como podemos ver en la tabla \ref{tabla:nueva_codificacion_malware}, en la cuarta clase más poblada el número de patrones es aproximadamente diez veces menos que en la más poblada. Esto implica que a la hora de entrenar, la clase más poblada influye mucho en el entrenamiento incluso aplicando varias técnicas para evitarlo. Sería recomendable hacer pruebas con distintos conjuntos de datos que dispongan de una mayor cantidad de muestras en clases minoritarias para poder hacer un entrenamiento equilibrado.

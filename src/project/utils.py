@@ -17,6 +17,7 @@ from lightgbm import LGBMClassifier
 
 # matriz de confusion
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -24,7 +25,6 @@ import seaborn as sns
 # metricas
 from sklearn.metrics import accuracy_score
 from dlordinal.metrics import minimum_sensitivity
-from dlordinal.metrics import accuracy_off1
 
 def load(filename):
 	data = np.load(filename)
@@ -142,8 +142,8 @@ def scores(y_train, y_pred_train, y_test, y_pred_test):
 	return [
 		accuracy_score(y_train, y_pred_train),
 		minimum_sensitivity(y_train, y_pred_train),
-		accuracy_off1(y_train, y_pred_train),
+		f1_score(y_train, y_pred_train, average = 'weighted'),
 		accuracy_score(y_test, y_pred_test),
 		minimum_sensitivity(y_test, y_pred_test),
-		accuracy_off1(y_test, y_pred_test)
+		f1_score(y_test, y_pred_test, average = 'weighted')
 	]

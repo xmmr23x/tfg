@@ -2,14 +2,12 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('prueba.csv', index_col = 0)
+df = pd.read_csv('resultados/svm_bin.csv', index_col = 0)
 
-# Supongamos que tu DataFrame se llama df
-# Primero eliminamos las filas "Mean" y "STD" si están como índices
-df_clean = df.drop(index=["Mean", "STD"], errors="ignore")
+# df_clean = df.drop(index=["Mean", "STD"], errors="ignore")
 
 # Convertir de formato ancho a largo
-df_long = df_clean.melt(
+df_long = df.melt(
     value_vars=["acc train", "acc test"],
     var_name="tipo",
     value_name="valor"
@@ -38,5 +36,5 @@ sns.boxplot(
     zorder=3
 )
 
-plt.title("Distribución de accuracy (train vs test)", fontsize=14)
+plt.title("Distribución de accuracy (train vs test) en SVC", fontsize=14)
 plt.show()

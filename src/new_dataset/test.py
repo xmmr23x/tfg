@@ -7,17 +7,17 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import RidgeClassifier
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
 from dlordinal.metrics import minimum_sensitivity
-from dlordinal.metrics import accuracy_off1
 
 from lib.utils import load
 from lib.utils import confussionMatrix
 
 def main():
 	# file = {"pca_binary", "under_pca_binary", "pca_multiclass"}
-	file = {"under_pca_binary"}
+	file = {"menos_clases"}
 	clf  = None
 
 	print("clasificador,dataset,n patrones,n caracteristicas,tiempo,accuracy train,ms train,f1 train,accuracy test,ms test,f1 test")
@@ -46,12 +46,12 @@ def main():
 			# Evaluar entrenamiento
 			accuracy_train = accuracy_score(y_train, y_pred_train)
 			ms_train       = minimum_sensitivity(y_train, y_pred_train)
-			f1_train       = accuracy_off1(y_train, y_pred_train)
+			f1_train       = f1_score(y_train, y_pred_train, average = 'weighted')
 
 			# Evaluar test
 			accuracy_test = accuracy_score(y_test, y_pred_test)
 			ms_test       = minimum_sensitivity(y_test, y_pred_test)
-			f1_test       = accuracy_off1(y_test, y_pred_test)
+			f1_test       = f1_score(y_test, y_pred_test, average = 'weighted')
 
 			print(f"{i},{train_file},{X.shape},{tiempo:.5f},{accuracy_train:.5f},{ms_train:.5f},{f1_train:.5f},{accuracy_test:.5f},{ms_test:.5f},{f1_test:.5f}")
 

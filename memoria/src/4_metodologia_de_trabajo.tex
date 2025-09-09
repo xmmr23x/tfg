@@ -6,66 +6,77 @@ Este capítulo describe la metodología seguida para el desarrollo del proyecto.
 \section{Enfoque metodológico}
 \label{sec:enfoque}
 
-Existen varios enfoques aplicables al tipo de proyecto que estamos tratando, pero dado el carácter planteado inicialmente en los objetivos, se centrará en un estudio comparativo y experimental de distintos algoritmos de aprendizaje automático en la detección de \textit{malware}. Se combina la experimentación práctica sobre conjuntos de datos reales con análisis estadísticos sobre los resultado obtenidos en las distintas pruebas realizadas. Cada modelo se somete a unas pruebas controladas en escenarios de clasificación binaria y multiclase, utilizando conjuntos de datos públicos y representativos.
+Existen varios enfoques aplicables a este tipo de proyecto, pero dado el carácter planteado inicialmente en los objetivos, se centrará en un estudio comparativo y experimental de distintos algoritmos de aprendizaje automático en la detección de \textit{malware}. Se combina la experimentación práctica sobre conjuntos de datos reales con análisis estadísticos sobre los resultado obtenidos en las distintas pruebas realizadas. Cada modelo se somete a pruebas controladas en escenarios de clasificación binaria y multiclase, utilizando conjuntos de datos públicos y representativos.
 
 \vspace{1em}
 
-Esta metodología permite identificar los algoritmos que presentan mejor equilibrio y adaptación a nuevos patrones de datos. También se podrán detectar posibles limitaciones y áreas de mejora para futuras investigaciones. Este enfoque proporciona un marco sistemático para el análisis comparativo de modelos, facilitando la interpretación de resultados y la toma de decisiones fundamentadas sobre el rendimiento de cada algoritmo.
+Esta metodología permite identificar los algoritmos con mejor equilibrio y adaptación a nuevos patrones. También se podrán detectar posibles limitaciones y áreas de mejora para futuras investigaciones. Este enfoque proporciona un marco sistemático para el análisis comparativo de modelos, facilitando la interpretación de resultados y la toma de decisiones fundamentadas sobre el rendimiento de cada algoritmo.
 
-\section{Técnicas y herramientas empleadas}
-\label{sec:herramientas}
+\section{Preparación del entorno}
+\label{sec:prep_entorno}
 
-En esta sección se describe el software, bibliotecas y lenguajes de programación, así como su función específica dentro del desarrollo del proyecto.
+En esta sección se describe el entorno de trabajo utilizado por el alumno para la implementación de los modelos y la realización de las pruebas. El entorno se debe preparar de forma correcta, ya que puede afectar a la ejecución de los algoritmos y a la reproducibilidad de los experimentos. A continuación, se explican elementos del entorno como el lenguaje de programación, las bibliotecas y las características del equipo.
 
-\subsubsection{\textit{Python}}
-\label{subsubsec:python}
+\subsection{Herramientas y bibliotecas}
+\label{subsec:herramientas}
 
-Se ha elegido \textit{Python} como lenguaje para este proyecto ya que ofrece una fácil implementación de modelos, manipulación de datos y visualización de resultados, además de una amplia variedad de modelos y bibliotecas orientadas al aprendizaje automático y el estudio estadístico de conjuntos de datos. Una de las principales ventajas de \textit{Python} es que la mayor parte de sus modelos se aprendizaje automático están desarrolladas en lenguajes compilados y optimizadas para usar los recursos de la mejor forma posible. Por ejemplo, muchos de los modelos permiten la paralelización de sus tareas o incluso procesamiento en \textit{GPU}, si el modelo disponible está soportado, para reducir el tiempo necesario de entrenamiento. Se ha elegido la versión 3.12, ya que garantiza la compatibilidad con las bibliotecas empleadas y un menor numero de errores, a diferencia de otras versiones que presentan fallos en la paralelización.
+El desarrollo y la experimentación de este proyecto se han llevado a cabo empleando un conjunto de herramientas y bibliotecas muy utilizadas en la ciencia de datos. \textit{Python} ha sido el lenguaje de programación de este trabajo, ya que ofrece una fácil implementación de modelos, manipulación de datos y visualización de resultados. Su popularidad en se debe a su sintaxis sencilla, escalabilidad y amplia variedad de herramientas y bibliotecas \cite{python_ml}.
 
-\subsubsection{\textit{Scikit-learn}}
-\label{subsubsec:sklearn}
+\vspace{1em}
 
-\textit{Scikit-learn} es un paquete de código abierto en \textit{Python} que ofrece una gran variedad de métodos de aprendizaje automático rápidos y eficientes, gracias a que usan bibliotecas compiladas en lenguajes como \textit{C++}, \textit{C} o \textit{Fortran}. Tiene detrás una comunidad activa que mantiene la documentación, corrige errores y asegura la calidad. Aunque no incluye todos los algoritmos usados en este proyecto, es una herramienta muy recomendable si necesitamos: transformación de datos, aprendizaje supervisado o evaluación de modelos \cite{hao2019scikit}.
-
-\subsubsection{\textit{DLOrdinal}}
-\label{subsubsec:dlordinal}
-
-La biblioteca dlordinal incluye muchas de las metodologías más recientes de clasificación ordinal usando técnicas avanzadas de aprendizaje profundo. El enfoque ordinal de esta herramienta tiene el objetivo de aprovechar la información de orden presente en la variable objetivo usando funciones de pérdida, diversas capas de salida y otras estrategias \cite{dlordinal}. El módulo de dlordinal que nos ha resultado de utilidad para este proyecto ha sido la el conjunto de métricas que incluye para evaluar los modelos utilizados, ya que cuenta con algunas de las métricas que finalmente hemos usado: mínima sensibilidad y valor-F.
-
-\subsubsection{\textit{Matplotlib}}
-\label{subsubsec:matplotlib}
-
-Para una mejor visualización de los datos obtenidos en los modelos utilizados, se ha usado la biblioteca Matplotlib, ya que incluye una gran cantidad de recursos para la representación gráfica de la información \cite{matplotlib}. Se ha usado, en combinación con \textit{Seaborn}, descrita en la sección \ref{subsubsec:seaborn}.
-
-\subsubsection{\textit{NumPy}}
-\label{subsubsec:numpy}
-
-La biblioteca \textit{NumPy} tiene como objetivo principal dar soporte a la creación de vectores y matrices de grandes dimensiones, junto con una colección de funciones matemáticas con las que operar \cite{numpy}. Ha sido de gran utilidad en el desarrollo del proyecto, ya que el conjunto de datos con el que se ha trabajado es de un tamaño considerable, aunque no ha sido necesario hacer uso de las funciones que proporciona porque la mayor parte de los cálculos necesarios se hacen de manera interna en los modelos utilizados.
-
-\subsubsection{\textit{Pandas}}
-\label{subsubsec:pandas}
-
-Pandas es una herramienta muy potente para el manejo, análisis y manipulación de datos. Incluye una amplia variedad de herramientas para: leer y escribir datos, reestructuración y segmentación, inserción y eliminación de columnas, mezcla y unión de datos y muchas funcionalidades más \cite{pandas}. Varias de ellas se han utilizado durante el desarrollo y la preparación del conjunto de datos.
-
-\subsubsection{\textit{LightGBM}}
-\label{subsubsec:lightgbm}
-
-La biblioteca \textit{Light Gradient-Boosting Machine} por su nombre en inglés, es una infraestructura de aprendizaje automático basada en modelos de árboles de decisión \cite{lgbm}. Se puede usar en diferentes tareas, pero la importante para el análisis realizado el la de clasificación. Los principales algoritmos soportados son: \textit{Gradient Boosting Decision Trees (GBDT)}, el cual utiliza \textit{LGBMClassifier}, clasificador usado durante la experimentación, \textit{Dropouts meet Multiple Additive Regression Trees (Dart)} y \textit{Gradient-based One-Side Sampling (Goss)} \cite{lgbm_alg}.
+En este proyecto se ha utilizado la versión 3.12 de \textit{Python}, elegida principalmente por su compatibilidad con las bibliotecas empleadas, en particular, con \textit{GridSearchCV}, que aprovechan la paralelización de procesos para mejorar el rendimiento. El problema encontrado es que los hilos no se cierran correctamente, es un comportamiento típico asociado a lo que en programación concurrente se denomina \textit{thread leakage} o hilos huérfanos. provoca que la memoria \textit{RAM} y la \textit{CPU} sigan siendo consumidas incluso después de que la ejecución haya terminado. En teoría, este problema no afecta al rendimiento de los clasificadores, pero puede afectar al tiempo de ejecución.
 
 \newpage
-\subsubsection{\textit{Seaborn}}
+\subsubsection{\texttt{Scikit-learn}}
+\label{subsubsec:sklearn}
+
+\texttt{Scikit-learn} es un paquete de código abierto en \texttt{Python} que ofrece una gran variedad de métodos de aprendizaje automático rápidos y eficientes, gracias a que usan bibliotecas compiladas en lenguajes como \texttt{C++}, \texttt{C} o \texttt{Fortran}. Tiene detrás una comunidad activa que mantiene la documentación, corrige errores y asegura la calidad. Aunque no incluye todos los algoritmos usados en este proyecto, es una herramienta muy recomendable si necesitamos: transformación de datos, aprendizaje supervisado o evaluación de modelos \cite{hao2019scikit}.
+
+\subsubsection{\texttt{DLOrdinal}}
+\label{subsubsec:dlordinal}
+
+La biblioteca \texttt{dlordinal} incluye muchas de las metodologías más recientes de clasificación ordinal usando técnicas avanzadas de aprendizaje profundo. El enfoque ordinal de esta herramienta tiene el objetivo de aprovechar la información de orden presente en la variable objetivo usando funciones de pérdida, diversas capas de salida y otras estrategias \cite{dlordinal}. El módulo de \texttt{dlordinal} que nos ha resultado de utilidad para este proyecto ha sido la el conjunto de métricas que incluye para evaluar los modelos utilizados, ya que cuenta con una de las métricas que finalmente hemos usado: mínima sensibilidad.
+
+\subsubsection{\texttt{Matplotlib}}
+\label{subsubsec:matplotlib}
+
+Para una mejor visualización de los datos obtenidos en los modelos utilizados, se ha usado la biblioteca \texttt{Matplotlib}, ya que incluye una gran cantidad de recursos para la representación gráfica de la información \cite{matplotlib}. Se ha usado, en combinación con \texttt{Seaborn}, descrita en la sección \ref{subsubsec:seaborn}.
+
+\newpage
+\subsubsection{\texttt{NumPy}}
+\label{subsubsec:numpy}
+
+La biblioteca \texttt{NumPy} tiene como objetivo principal dar soporte a la creación de vectores y matrices de grandes dimensiones, junto con una colección de funciones matemáticas con las que operar \cite{numpy}. Ha sido de gran utilidad en el desarrollo del proyecto, ya que el conjunto de datos con el que se ha trabajado es de un tamaño considerable, aunque no ha sido necesario hacer uso de las funciones que proporciona porque la mayor parte de los cálculos necesarios se hacen de manera interna en los modelos utilizados.
+
+\subsubsection{\texttt{Pandas}}
+\label{subsubsec:pandas}
+
+\texttt{Pandas} es una herramienta muy potente para el manejo, análisis y manipulación de datos. Incluye una amplia variedad de herramientas para: leer y escribir datos, reestructuración y segmentación, inserción y eliminación de columnas, mezcla y unión de datos y muchas funcionalidades más \cite{pandas}. Varias de ellas se han utilizado durante el desarrollo y la preparación del conjunto de datos.
+
+\subsubsection{\texttt{LightGBM}}
+\label{subsubsec:lightgbm}
+
+La biblioteca \textit{Light Gradient-Boosting Machine} por su nombre en inglés, es una infraestructura de aprendizaje automático basada en modelos de árboles de decisión \cite{lgbm}. Se puede usar en diferentes tareas, pero la importante para el análisis realizado el la de clasificación. Los principales algoritmos soportados son: \textit{Gradient Boosting Decision Trees (GBDT)}, el cual utiliza \texttt{LGBMClassifier}, clasificador usado durante la experimentación, \textit{Dropouts meet Multiple Additive Regression Trees (Dart)} y \textit{Gradient-based One-Side Sampling (Goss)} \cite{lgbm_alg}.
+
+\newpage
+\subsubsection{\texttt{Seaborn}}
 \label{subsubsec:seaborn}
 
-Basada en \textit{Matplotlib}, \textit{Seaborn} proporciona una interfaz de alto nivel para generar gráficos estadísticos \cite{seaborn}. Es posible usar ambas bibliotecas de forma combinada para una mayor capacidad de visualización. Mientras que \textit{Matplotlib} ofrece un control detallado sobre cada elemento de la figura, \textit{Seaborn} simplifica la creación de visualizaciones complejas, incorporando estilos predefinidos y funciones específicas para el análisis de datos.
+Basada en \texttt{Matplotlib}, \texttt{Seaborn} proporciona una interfaz de alto nivel para generar gráficos estadísticos \cite{seaborn}. Es posible usar ambas bibliotecas de forma combinada para una mayor capacidad de visualización. Mientras que \texttt{Matplotlib} ofrece un control detallado sobre cada elemento de la figura, \texttt{Seaborn} simplifica la creación de visualizaciones complejas, incorporando estilos predefinidos y funciones específicas para el análisis de datos.
+
+\subsection{\textit{Hardware}}
+\label{subsec:hw_usado}
+
+El entrenamiento y evaluación de los modelos se ha realizado en el equipo del estudiante con las siguientes características: procesador \textit{Intel Core i7-4712MQ}, tarjeta gráfica \textit{NVIDIA GeForce 920M}, 16 GB de \textit{RAM} DDR3 y almacenamiento compuesto por un \textit{SSD Crucial MX500} de 250 GB y un \textit{HDD} de 1 TB. Este hardware permite la paralelización de los algoritmos en múltiples núcleos del procesador, lo que reduce significativamente los tiempos de entrenamiento, pero se encuentra muy limitado respecto al conjunto utilizado para clasificación multiclase y modelos más costosos como puede ser \textit{SVM}.
 
 \subsection{Conjunto de datos}
 \label{subsec:select_dataset}
 
-En lo que a \textit{malware} se refiere, \textit{BODMAS} \cite{bodmas} es uno de los conjuntos de datos más completos en la actualidad, con la ventaja para este proyecto de ya estar procesado y tener una amplia bibliografía. Otra opción interesante puede ser \textit{VirusShare} \cite{virusshare}, ya que cuenta con más de 99 millones de muestras de \textit{malware} actualizadas pero tiene varios inconvenientes para este proyecto. El primero, es que no incluye muestras de \textit{software} no malicioso y el segundo, que necesita un procesamiento previo para extraer las características. Todo esto conlleva un aumento de tiempo considerable para la realización del proyecto. Otra de las opciones estudiadas ha sido \textit{theZoo} \cite{thezoo}. En cuanto a este repositorio hemos podido observar que tiene los mismos inconvenientes que \textit{VirusShare} y no tiene sus ventajas. Por último tenemos \textit{Microsoft Malware Classification} \cite{malware-classification}. En este caso tenemos un conjunto de datos muy amplio con casi medio \textit{terabyte}, pero además de los inconvenientes ya comentados en los anteriores conjuntos, solo incluye \textit{malware} que afecta a equipos \textit{Windows}, lo que limitaría considerablemente el alcance del estudio.
+En lo que a \textit{malware} se refiere, \textit{BODMAS} \cite{bodmas} es uno de los conjuntos de datos más completos en la actualidad, con la ventaja para este proyecto de ya estar procesado y tener una amplia bibliografía. Otra opción interesante puede ser \textit{VirusShare} \cite{virusshare}, ya que cuenta con más de 99 millones de muestras de \textit{malware} actualizadas pero tiene varios inconvenientes para este proyecto. El primero, es que no incluye muestras de \textit{software} no malicioso y el segundo, que necesita un procesamiento previo para extraer las características. Todo esto conlleva un aumento de tiempo considerable para la realización del proyecto. Otra de las opciones estudiadas ha sido \textit{theZoo} \cite{thezoo}. En cuanto a este repositorio hemos podido observar que tiene los mismos inconvenientes que \textit{VirusShare} y no tiene sus ventajas. Por último tenemos \textit{Microsoft Malware Classification} \cite{malware-classification}. En este caso tenemos un conjunto de datos muy amplio con casi medio \textit{terabyte} de información, pero además de los inconvenientes ya comentados en los anteriores conjuntos, solo incluye \textit{malware} que afecta a equipos \textit{Windows}, lo que limitaría considerablemente el alcance del estudio.
 
 \vspace{1em}
 
-Teniendo en cuenta todo lo comentado hasta ahora sobre los distintos conjuntos de datos considerados, hemos decidido usar \textit{BODMAS}, ya que es el que mejor se adapta a las necesidades del estudio
+Teniendo en cuenta todo lo comentado hasta ahora sobre los distintos conjuntos de datos considerados, hemos decidido usar \textit{BODMAS}, ya que es el que mejor se adapta a las necesidades del estudio.
 
 \subsection{Modelos}
 \label{subsec:select_model}
@@ -75,42 +86,35 @@ Existe una gran variedad de modelos de aprendizaje automático implementados en 
 \begin{itemize}
 	\item Diversidad en los enfoques de aprendizaje: Modelos rápidos como los árboles, otros más robustos, modelos lineales como referencia, métodos basados en distancia, redes neuronales y máquinas de vectores soporte por su capacidad de trabajar la optimización de márgenes.
 	\item Equilibrio entre interpretabilidad y complejidad, usando modelos simples y algunos complejos pero que suelen ofrecer mejores resultados.
-	\item Se han incluido tanto modelos que toleran bien el desbalanceo y otros más sensibles.
+	\item Se han incluido tanto modelos que toleran bien el desbalanceo como otros más sensibles.
 	\item Escalabilidad y coste computacional, usando desde algunos modelos ligeros a otros más costosos. Esto permite evaluar la viabilidad práctica de cada modelo en escenarios reales
 \end{itemize}
 
-\subsubsection{\textit{DecisionTreeClassifier}}
-\label{subsubsec:decisiontreeclassifier}
-
-\textit{DecisionTreeClassifier} es un clasificador basado en árboles de decisión. Se incluido en este estudio por ser sencillo, interpretable y rápido a la hora de entrenar. Este modelo es una buena referencia inicial a pesar de que los tienden a sobreajustar los datos si no se aplican mecanismos de regularización adecuados. Su bajo coste computacional y capacidad para manejar tanto variables categóricas como continuas lo convierten en una herramienta útil para contrastar con modelos más complejos y ofrece un punto de partida sencillo para identificar patrones relevantes.
-
-\subsubsection{\textit{RandomForestClassifier}}
-\label{subsubsec:randomforestclassifier}
-
-Este clasificador se destaca por su robustez y capacidad de generalización frente al sobreajuste. \textit{RandomForestClassifier} es un conjunto de árboles de decisión entrenados sobre subconjuntos aleatorios de datos y características. Esto aprovecha la diversidad entre los distintos árboles para reducir la varianza del modelo y mejorar su rendimiento en comparación con un único árbol de decisión. Tiene la ventaja de ser uno de los algoritmos de aprendizaje más certeros para un conjunto de datos lo suficientemente grande, pero puede sobreajustar para tareas ruidosas \cite{rf}. Para problemas de clasificación de alta dimensionalidad ofrece un equilibrio entre precisión, estabilidad y coste computacional moderado.
-
-\subsubsection{\textit{KNeighborsClassifier}}
-\label{subsubsec:kneighborsclassifier}
-
-El clasificador \textit{KNeighborsClassifier} tiene un enfoque diferente al de los modelos anteriores. Su funcionamiento se basa en la proximidad entre muestras en el espacio de características, asignando la clase mayoritaria de los vecinos más cercanos. Aunque no realiza un proceso de entrenamiento tradicional, requiere el uso del conjunto de entrenamiento para almacenar las instancias y calcular las distancias durante la predicción.
-
 \newpage
-\subsubsection{\textit{RidgeClassifier}}
-\label{subsubsec:ridgeclassifier}
+En este proyecto se han empleado diversos algoritmos de aprendizaje automático, seleccionados en función de los criterios mencionados en el capitulo \ref{ch:metodologia} y con el objetivo de representar diferentes enfoques. Se han utilizado los siguientes modelos implementados en \textit{scikit-learn} y \textit{LightGBM}:
 
-El clasificador \textit{RidgeClassifier} es un modelo lineal, aportando un enfoque interpretable y computacionalmente eficiente. A diferencia de otros algoritmos más complejos, este clasificador aplica una regularización de tipo L2 que penaliza los coeficientes de gran magnitud, lo cual ayuda a mitigar el sobreajuste.
+\begin{spacing}{1}
+	\begin{itemize}
+		\item \textit{DecisionTreeClassifier}
+		\item \textit{RandomForestClassifier}
+		\item \textit{KNeighborsClassifier}
+		\item \textit{RidgeClassifier}
+		\item \textit{MLPClassifier}
+		\item \textit{SVC}
+		\item \textit{LGBMClassifier} (de \textit{LightGBM})
+	\end{itemize}
+\end{spacing}
+Todos los modelos se han ajustado y evaluado utilizando \textit{GridSearchCV}, lo que permite explorar sistemáticamente distintas combinaciones de hiperparámetros y asegurar comparaciones consistentes entre los distintos métodos de clasificación. La descripción teórica de estos modelos se presenta en el capítulo \ref{ch:estado_tecnica}.
 
-\subsubsection{\textit{MLPClassifier}}
-\label{subsubsec:mlpclassifier}
+\subsection{Criterios de evaluación}
+\label{subsec:evaluacion}
 
-Este clasificador se basa en el perceptrón multicapa y funciona como red neuronal. Es capaz de capturar relaciones no lineales y complejas en los datos, lo que lo hace interesante en problemas donde los patrones pueden ser heterogéneos. Requiere un mayor coste computacional y un ajuste más cuidadoso de hiperparámetros pero es flexible y puede aproximar funciones no lineales que permiten explorar enfoques más avanzados frente a métodos tradicionales. Además, facilita analizar la diferencia de rendimiento entre modelos simples y redes neuronales.
+Para evaluar la efectividad de los modelos implementados, de las métricas comentadas en la sección \ref{subsec:2_metricas}, se han utilizado las siguientes métricas:
 
-\subsubsection{\textit{SVC}}
-\label{subsubsec:svc}
+\begin{itemize}
+	\item \textbf{\textit{Accuracy}}: proporción de predicciones correctas sobre el total de patrones.
+	\item \textbf{Mínima Sensibilidad}: sensibilidad de la clase peor clasificada.
+	\item \textbf{\textit{F1-score}}: media armónica entre precisión y sensibilidad. En este documento se ha hecho referencia a ella como valor-F.
+\end{itemize}
 
-\textit{SVC} (\textit{Support Vector Classifier}) permite optimizar los márgenes de separación entre clases y funciona muy bien en problemas de clasificación complejos. Su fortaleza reside en el uso de funciones \textit{kernel}, que permiten transformar los datos en espacios de mayor dimensión y separar clases que no son linealmente separables. En la detección de \textit{malware}, donde las fronteras entre software benigno y malicioso pueden ser difusas, esto resulta especialmente útil. El principal inconveniente es que su coste computacional puede ser elevado en conjuntos de datos grandes.
-
-\subsubsection{\textit{LGBMClassifier}}
-\label{subsubsec:lgbmclassifier}
-
-El clasificador \textit{LGBMClassifier}, perteneciente a la biblioteca \textit{LightGBM}, es muy eficiente en problemas de clasificación con grandes volúmenes de datos y un número elevado de características. Se basa en el método de \textit{gradient boosting}, pero introduce optimizaciones como el uso de histogramas y técnicas de reducción de memoria que lo hacen más rápido y escalable que otros métodos similares. \textit{LightGBM} ha mostrado resultados competitivos estudios recientes \cite{estudio_lgbm}.
+Estas métricas han sido seleccionadas porque permiten evaluar de forma equilibrada tanto el rendimiento global del modelo como su capacidad para identificar correctamente las clases menos representadas, evitando que los resultados se vean sesgados por un posible desbalanceo en los datos. Esta combinación ofrece una visión complementaria que facilita la comparación objetiva entre diferentes enfoques.

@@ -33,6 +33,8 @@
 \usepackage[nottoc]{tocbibind}
 \usepackage{glossaries}
 
+\usepackage{setspace}
+\onehalfspacing
 
 \usepackage{tikz} % Diagramas de flujo
 \usetikzlibrary{shapes.geometric, arrows} %Libería de flechas
@@ -115,7 +117,7 @@
 % Para que ponga ANEXO en vez de APENDICE
  \addto\captionsspanish{\renewcommand{\appendixname}{Anexo}} %para que ponga anexo y no apéndice.
 
-\makeglossaries
+%\makeglossaries
 \raggedbottom  % Quita huecos grandes en blanco
 \begin{document}
 
@@ -123,8 +125,8 @@
 % PORTADA %
 %%%%%%%%%%%
 \input{Portada/cover}
-\newpage
-\thispagestyle{empty}   % Página en blanco entre la portada y el comienzo del documento
+%\newpage
+%\thispagestyle{empty}   % Página en blanco entre la portada y el comienzo del documento
 \mbox{}
 $\ $
 \thispagestyle{empty} % para que no se numere esta pagina
@@ -186,10 +188,10 @@ $\ $
 %	CUERPO DE TEXTO   %
 %---------------------%
 
-\afterpage{\null\newpage}
+%\afterpage{\null\newpage}
 
 \newpage
-\newpage
+%\newpage
 
 \pagestyle{cuerpo}
 \thispagestyle{cuerpo}

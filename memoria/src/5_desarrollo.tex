@@ -5,37 +5,31 @@ En esta fase se lleva a cabo la implementación práctica del estudio, haciendo 
 
 \vspace{1em}
 
-La parte experimental se aborda desde dos perspectivas complementarias. En primer lugar, se evalúa la capacidad de los modelos para la detección de \textit{malware} mediante pruebas de clasificación binaria, determinando si un patrón corresponde a software malicioso o legítimo. En segundo lugar, se analiza la viabilidad de realizar una clasificación multinivel sobre esos mismos patrones, identificando el tipo específico de \textit{malware} al que pertenecen, lo que permite un análisis más detallado y aplicable a entornos de ciberseguridad avanzada.
+La parte experimental se aborda desde dos perspectivas complementarias. En primer lugar, se evalúa la capacidad de los modelos para la detección de \textit{malware} mediante pruebas de clasificación binaria, determinando si un patrón corresponde a software malicioso o legítimo. En segundo lugar, se analiza la viabilidad de realizar una clasificación multiclase sobre esos mismos patrones, identificando el tipo específico de \textit{malware} al que pertenecen, lo que permite un análisis más detallado y aplicable a entornos de ciberseguridad avanzada.
 
 \newpage
-\section{Modelos utilizados}
-\label{sec:modelos_utilizados}
-
-En este proyecto se han empleado diversos algoritmos de aprendizaje automático, seleccionados en función de los criterios mencionados en el capitulo \ref{ch:metodologia} y con el objetivo de representar diferentes enfoques.
-
-Se han utilizado los siguientes modelos implementados en \textit{scikit-learn} y \textit{LightGBM}:
-
-\begin{itemize}
-	\item \textit{DecisionTreeClassifier}
-	\item \textit{RandomForestClassifier}
-	\item \textit{KNeighborsClassifier}
-	\item \textit{RidgeClassifier}
-	\item \textit{MLPClassifier}
-	\item \textit{SVC}
-	\item \textit{LGBMClassifier} (de \textit{LightGBM})
-\end{itemize}
-
-Todos los modelos se han ajustado y evaluado utilizando \textit{GridSearchCV}, lo que permite explorar sistemáticamente distintas combinaciones de hiperparámetros y asegurar comparaciones consistentes entre los distintos métodos de clasificación. La descripción teórica de estos modelos se presenta en el capítulo \ref{ch:estado_tecnica}.
-
-
 \section{Procesamiento del conjunto de datos}
 \label{sec:proc_dataset}
 
-Dadas las limitaciones \textit{hardware} y la cantidad de datos, aproximadamente 135000 patrones y 2400 atributos por cada patrón, es necesario hacer un procesamiento previo del conjunto de datos. Para ello hemos tenido en cuenta varios enfoques. Por un lado, \textit{BODMAS} nos permite hacer una distinción entre clasificación binaria y clasificación multiclase, pero para ello es necesario reordenar los datos, ya que se encuentran distribuidos en varios archivos. Por otro lado, es necesario reducir la cantidad de datos. A continuación veremos los distintos enfoques.
+Dadas las limitaciones \textit{hardware} y la cantidad de datos, aproximadamente 135000 patrones y 2400 atributos, es necesario hacer un procesamiento previo del conjunto de datos. Para ello hemos tenido en cuenta varios enfoques. Por un lado, \textit{BODMAS} nos permite hacer una distinción entre clasificación binaria y clasificación multiclase, pero para ello es necesario reordenar los datos, ya que se encuentran distribuidos en varios archivos. Por otro lado, es necesario reducir la cantidad de datos. A continuación veremos los distintos enfoques.
+
+\vspace{1em}
+
+Las pruebas que se realizaran en las secciones \ref{subsubsec:eleccion_dataset_bin} y \ref{subsubsec:eleccion_dataset_multi} tienen el objetivo de comprobar como se comportan los métodos de \textit{undersamplig} y \textit{PCA}. Teniendo esto en cuenta, solo se han realizado unas pruebas simples con los métodos más sencillos para poder elegir una configuración adecuada para los conjuntos de datos. El resto de métodos de clasificación, así como los de validación, se usarán en el capítulo \ref{ch:resultados}.
+
+\subsection{Etiquetado de los datos}
+\label{subsec:etiquetado}
+
+En esta sección se describe el tratamiento necesario de los archivos disponibles para poder etiquetar cada patrón correctamente.
+
+\subsubsection{Clasificación binaria}
+\label{subsubsec:bin}
+
+El conjunto de datos para la clasificación binaria no necesita ningún tratamiento previo como pasa en el que usaremos para la clasificación multiclase. En el caso de la clasificación binaria, las clases que usaremos ya se encuentran etiquetadas y almacenadas junto con los patrones en el archivo \textit{bodmas.npz}, por lo que el procesamiento se explicará en la sección \ref{subsec:red_dataset}.
 
 \newpage
-\subsection{Clasificación multiclase}
-\label{subsec:multiclass}
+\subsubsection{Clasificación multiclase}
+\label{subsubsec:multiclass}
 
 El conjunto de datos seleccionado se divide en varios archivos:
 
@@ -51,41 +45,42 @@ Dado que las distintas categorías se encuentran en formato texto, es necesario 
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |m{4cm}|c|c| }
+	\begin{tabular}{ |m{4cm}|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Categoría                   & Codificación & Nº de patrones \\
+		Categoría                   & Codificación & Nº de patrones & Porcentaje \\
 		\hline
-		\textit{benign}             & 0            & 77142 \\
-		\textit{trojan}             & 1            & 29972 \\
-		\textit{worm}               & 2            & 16697 \\
-		\textit{backdoor}           & 3            & 7331  \\
-		\textit{downloader}         & 4            & 1031  \\
-		\textit{informationstealer} & 5            & 448   \\
-		\textit{dropper}            & 6            & 715   \\
-		\textit{ransomware}         & 7            & 821   \\
-		\textit{rootkit}            & 8            & 3     \\
-		\textit{cryptominer}        & 9            & 20    \\
-		\textit{pua}                & 10           & 29    \\
-		\textit{exploit}            & 11           & 12    \\
-		\textit{virus}              & 12           & 192   \\
-		\textit{p2p-worm}           & 13           & 16    \\
-		\textit{trojan-gamethief}   & 14           & 6     \\
+		\textit{benign}             & 0  & 77142 & 53.26\% \\
+		\textit{trojan}             & 1  & 29972 & 20.69\% \\
+		\textit{worm}               & 2  & 16697 & 11.53\% \\
+		\textit{backdoor}           & 3  & 7331  & 5.06\% \\
+		\textit{downloader}         & 4  & 1031  & 0.71\% \\
+		\textit{informationstealer} & 5  & 448   & 0.31\% \\
+		\textit{dropper}            & 6  & 715   & 0.49\% \\
+		\textit{ransomware}         & 7  & 821   & 0.57\% \\
+		\textit{rootkit}            & 8  & 3     & 0.00\% \\
+		\textit{cryptominer}        & 9  & 20    & 0.01\% \\
+		\textit{pua}                & 10 & 29    & 0.02\% \\
+		\textit{exploit}            & 11 & 12    & 0.01\% \\
+		\textit{virus}              & 12 & 192   & 0.13\% \\
+		\textit{p2p-worm}           & 13 & 16    & 0.01\% \\
+		\textit{trojan-gamethief}   & 14 & 6     & 0.00\% \\
 		\hline
 	\end{tabular}
 	\caption{Codificación de las clases \textit{malware}.}
 	\label{tabla:codificacion_malware}
 \end{table}
 
-Para obtener una nueva matriz de salidas deseadas que incluya los tipos de \textit{malware}, una vez cargados los datos en sus correspondiente variables de \textit{python}, usamos la función \textit{merge} \cite{merge} perteneciente a la clase \textit{pandas.DataFrame} para incluir en \textit{metadata} los datos de \textit{mw\_category['category']} en las entradas donde coincide la columna \textit{sha}.
+\newpage
+Para poder trabajar con las categorías de \textit{malware} en nuestros datos, primero combinamos dos conjuntos de información: uno que contiene detalles sobre cada muestra y otro que indica a qué tipo de \textit{malware} pertenece cada una. Para unir esta información, usamos una herramienta que nos permite combinar ambas fuentes de datos en función de una columna común. Así logramos que, para cada muestra, se indique también su categoría si la tiene.
 
 \vspace{1em}
 
-Antes de codificar necesitamos darle una etiqueta a los datos vacíos, los cuales significan que esa muestra es benigna. Para ello usamos la función \textit{pandas.DataFrame.fillna} \cite{fillna}, que nos permite completar datos vacíos de distintas formas. Para nuestro caso usamos la etiqueta \textit{benign}. También eliminamos las columnas que no vamos a necesitar, dejando solo la categoría a la que pertenece cada muestra.
+Sin embargo, hay algunas muestras que no tienen asignada ninguna categoría de \textit{malware}. Esto significa que simplemente esas muestras no son maliciosas. Para dejar esto claro en los datos, rellenamos esos espacios vacíos con la etiqueta \textit{benign}. Además, eliminamos cualquier otra información que no fuera relevante para el análisis, y nos quedamos solo con la categoría de cada muestra.
 
 \vspace{1em}
 
-Ahora podemos codificar los datos usando la función \textit{pandas.DataFrame.map} \cite{map}. Este método aplica una función que acepta y devuelve un valor escalar a cada elemento del DataFrame, lo que permite asignar un valor numérico a cada clase.
+Finalmente, para poder trabajar de manera más cómoda con estas categorías, las transformamos en números. Esto facilita el procesamiento posterior, ya que los modelos de aprendizaje automático trabajan mejor con valores numéricos que con texto.
 
 \vspace{1em}
 
@@ -94,28 +89,28 @@ El código utilizado para esta tarea se encuentra en el Anexo \ref{sec:codificac
 \subsection{Reducción del conjunto de datos}
 \label{subsec:red_dataset}
 
-Reducir el número de datos con el que vamos a trabajar tiene el objetivo de principal de disminuir el tiempo que los algoritmos van a necesitar para procesar la información sin perjudicar la integridad de los datos, ya que los resultados del estudio podrían verse afectados y llevar a unas conclusiones erróneas. Esta tarea se puede enfrentar desde dos planteamientos distintos: condensar el número de patrones o el número de características. Ambos planteamientos se han estudiado de forma teórica en esta memoria en las secciones \ref{subsec:balanceo} y \ref{subsec:red_dim} respectivamente. Las técnicas elegidas son \textit{undersampling} por simplicidad y \textit{PCA} porque según el estudio \textit{A Low Complexity ML-Based Methods for Malware Classification} \cite{red_dim_pca} se obtienen unos resultados algo más precisos que con otros métodos.
+Esto se hace con el objetivo de disminuir el tiempo que los algoritmos van a necesitar para procesar la información sin perjudicar la integridad de los datos, ya que los resultados del estudio podrían verse afectados y llevar a unas conclusiones erróneas. Esta tarea se puede enfrentar desde dos planteamientos distintos: condensar el número de patrones o el número de características. Ambos planteamientos se han estudiado de forma teórica en esta memoria en las secciones \ref{subsec:balanceo} y \ref{subsec:red_dim} respectivamente. Las técnicas elegidas son \textit{undersampling} por simplicidad y \textit{PCA} porque según el estudio \textit{A Low Complexity ML-Based Methods for Malware Classification} \cite{red_dim_pca} se obtienen unos resultados algo más precisos que con otros métodos.
 
 \vspace{1em}
 
 El código utilizado se encuentra en el anexo \ref{sec:red_dim}. A continuación se explicarán los pasos seguidos.
 
-\subsubsection{Número de patrones}
+\subsubsection{Balanceo de datos: submuestreo}
 \label{subsubsec:num_patrones}
 
-Como ya hemos estudiado en la sección \ref{subsubsec:undersampling}, el submuestreo o \textit{undersampling} en inglés, es una técnica para abordar el desbalance de clases en un conjunto de datos, especialmente cuando una de las clases tiene muchos más patrones que la otra. En nuestro caso, el desbalance no es demasiado grande ya que \textit{BODMAS} contiene 57293 muestras \textit{malware} y 77142 muestras benignas.
+Como ya hemos estudiado en la sección \ref{subsubsec:undersampling}, el submuestreo o \textit{undersampling} en inglés, es una técnica para abordar el desbalance de clases en un conjunto de datos, especialmente cuando una de las clases tiene muchos más patrones que la otra. Por simplicidad, este tipo de procesamiento se ha aplicado solo al conjunto de datos utilizado para la clasificación binaria. En nuestro caso, el desbalance no es demasiado grande ya que \textit{BODMAS} contiene 57293 muestras \textit{malware} y 77142 muestras benignas.
 
 \vspace{1em}
 
 El método \textit{RandomUnderSampler} \cite{randundersampler} de la biblioteca \textit{Imbalanced learn} nos permite varias formas de actuar, siendo la que nos interesa para este estudio la que nos permite elegir manualmente el número de patrones de cada clase. Hemos elegido una cantidad de 15000 patrones en por clase.
 
-\subsubsection{Número de características}
+\subsubsection{Reducción de la dimensionalidad: \textit{PCA}}
 \label{subsubsec:num_caract}
 
-Este método, también conocido como reducción de la dimensionalidad, consiste en reducir el número de variables de las que consta el problema. Para aplicar el método matemático-estadístico de análisis de componentes principales, \textit{PCA} por sus siglas en inglés, usamos la clase \textit{PCA} \cite{sklearn_pca} perteneciente a \textit{sklearn.decomposition}. Esta clase nos permite entrenar el modelo y transformar el conjunto de datos tanto para el conjunto de entrenamiento como para el de test. Para ello será necesario separar previamente los datos, ya que \textit{BODMAS} no cuenta con esta división.
+Este método, consiste en reducir el número de variables de las que consta el problema. Para aplicar el método matemático-estadístico de análisis de componentes principales, \textit{PCA} por sus siglas en inglés, usamos la clase \textit{PCA} \cite{sklearn_pca}. Esta clase nos permite entrenar el modelo y transformar el conjunto de datos tanto para el conjunto de entrenamiento como para el de test. Para ello será necesario separar previamente los datos, ya que \textit{BODMAS} no cuenta con esta división.
 
-\subsubsection{Elección final del nuevo conjunto de datos}
-\label{subsubsec:eleccion_dataset}
+\subsection{Elección final del nuevo conjunto de datos}
+\label{subsec:eleccion_dataset}
 
 Para poder decidir como será el conjunto de entrenamiento final se han hecho distintos conjuntos de datos sobre los que se probarán algunos algoritmos. Los conjuntos son los siguientes:
 
@@ -125,21 +120,25 @@ Para poder decidir como será el conjunto de entrenamiento final se han hecho di
 	\item Clasificación multiclase con \textit{PCA}.
 \end{itemize}
 
-Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca}, \ref{tabla:binary_under} y \ref{tabla:multi_pca} respectivamente.
+\newpage
+\subsubsection{Elección del conjunto final para clasificación binaria}
+\label{subsubsec:eleccion_dataset_bin}
+
+Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca} y \ref{tabla:binary_under}.
 
 \begin{table}[th]
 	\centering
 	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
+		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Generalización} \\
 		\hline
 		\rowcolor{LightCyan}
 		&            & Acc & MS & F1 & Acc & MS & F1 \\
 		\hline
-		\textit{Decission tree} & 0.885 & 1.000 & 1.000 & 1.000 & 0.972 & 0.971 & 1.000 \\
+		\textit{Decision tree}  & \textit{0.885} & 1.000 & 1.000 & 1.000 & 0.972 & 0.971 & 1.000 \\
 		\textit{Random forest}  & 25.91 & 1.000 & 1.000 & 1.000 & 0.984 & 0.976 & 1.000 \\
-		\textit{K-NN}           & 0.095 & 0.973 & 0.970 & 1.000 & 0.963 & 0.963 & 1.000 \\
+		\textit{K-NN}           & \textbf{0.095} & 0.973 & 0.970 & 1.000 & 0.963 & 0.963 & 1.000 \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación binaria con \textit{PCA}.}
@@ -151,54 +150,63 @@ Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca}, \ref{
 	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
+		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Generalización} \\
 		\hline
 		\rowcolor{LightCyan}
 		&            & Acc & MS & F1 & Acc & MS & F1 \\
 		\hline
-		\textit{Decission tree} & 0.184 & 1.000 & 1.000 & 1.000 & 0.945 & 0.936 & 1.000 \\
+		\textit{Decision tree}  & \textit{0.184} & 1.000 & 1.000 & 1.000 & 0.945 & 0.936 & 1.000 \\
 		\textit{Random forest}  & 4.926 & 1.000 & 1.000 & 1.000 & 0.963 & 0.957 & 1.000 \\
-		\textit{K-NN}           & 0.016 & 0.954 & 0.948 & 1.000 & 0.938 & 0.931 & 1.000 \\
+		\textit{K-NN}           & \textbf{0.016} & 0.954 & 0.948 & 1.000 & 0.938 & 0.931 & 1.000 \\
 		\hline
 	\end{tabular}
-	\caption{Clasificación binaria con \textit{PCA} y \textit{Undersampling}.}
+	\caption{Clasificación binaria con \textit{PCA} y \textit{undersampling}.}
 	\label{tabla:binary_under}
 \end{table}
+
+Hemos decidido usar el conjunto de datos en el que se ha aplicado tanto \textit{PCA} como \textit{undersampling}, ya que, aunque los resultados son similares en ambos conjuntos, el tiempo es considerablemente más bajo y dadas las limitaciones del equipo disponible puede ser beneficioso a la hora de probar algoritmos más complejos.
+
+\subsubsection{Elección del conjunto final para clasificación multiclase}
+\label{subsubsec:eleccion_dataset_multi}
+
+Los resultados obtenidos se reflejan en la tabla \ref{tabla:multi_pca}.
 
 \begin{table}[th]
 	\centering
 	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
+		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Generalización} \\
 		\hline
 		\rowcolor{LightCyan}
 		& & Acc & MS & F1 & Acc & MS & F1 \\
 		\hline
-		\textit{Decission tree} & 1.059 & 0.999 & 0.895 & 0.999 & 0.939 & 0.000 & 0.976 \\
+		\textit{Decision tree}  & \textit{1.059} & 0.999 & 0.895 & 0.999 & 0.939 & 0.000 & 0.976 \\
 		\textit{Random forest}  & 30.04 & 0.999 & 0.895 & 0.999 & 0.955 & 0.000 & 0.981 \\
-		\textit{K-NN}           & 0.088 & 0.951 & 0.000 & 0.981 & 0.936 & 0.000 & 0.975 \\
+		\textit{K-NN}           & \textbf{0.088} & 0.951 & 0.000 & 0.981 & 0.936 & 0.000 & 0.975 \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación multiclase con \textit{PCA}}
 	\label{tabla:multi_pca}
 \end{table}
 
-En cuanto a la clasificación binaria, hemos decidido usar el conjunto de datos en el que se ha aplicado tanto \textit{PCA} como \textit{undersampling}, ya que, aunque los resultados son similares en ambos conjuntos, el tiempo es considerablemente más bajo y dadas las limitaciones del equipo disponible puede ser beneficioso a la hora de probar algoritmos más complejos.
+\vspace{1em}
+
+Hay varios métodos que podemos usar para reducir el tamaño del conjunto de datos, como el \textit{clustering} o variantes del método de \textit{undersampling} ya utilizado en clasificación binaria. A pesar de ello, estos métodos tienen una mayor complejidad de aplicación y la reducción de las dimensiones no es el objeto de este estudio. Por otro lado, esta decisión puede suponer algunos problemas al usar técnicas como \textit{GridSearchCV} o la validación cruzada, ya que incrementan considerablemente el tiempo de entrenamiento.
 
 \vspace{1em}
 
-Para la clasificación multiclase hay varios métodos que podemos usar para reducir el tamaño del conjunto de datos, como el \textit{clustering} o variantes del método de \textit{undersampling} ya utilizado en clasificación binaria. A pesar de ello, estos métodos tienen una mayor complejidad de aplicación y la reducción de las dimensiones no es el objeto de este estudio. Por otro lado, esta decisión puede suponer algunos problemas al usar técnicas como \textit{GridSearchCV} o la validación cruzada, ya que incrementan considerablemente el tiempo de entrenamiento.
+Podemos ver en la tabla \ref{tabla:multi_pca} que la métrica de mínima sensibilidad es 0 para todos los casos de test. Como ya se ha explicado en esta memoria, mide cómo de bien se clasifica la clase peor clasificada y un valor de 0 indica que alguna de las clases no se ha clasificado bien.
 
 \vspace{1em}
 
-También en referencia a la clasificación multiclase, podemos ver en la tabla \ref{tabla:multi_pca} que la métrica de mínima sensibilidad es 0 para todos los casos de test. Como ya se ha explicado en esta memoria, mide cómo de bien se clasifica la clase peor clasificada y un valor de 0 indica que alguna de las clases no se ha clasificado bien. Como podemos ver en la matriz de confusión representada en la imagen \ref{fig:confusion}, algunas de las clases con menos patrones tienen dificultades para obtener una buena clasificación debido a la falta de información en el entrenamiento. Algunos clasificadores tienen la opción de asignar un peso a los patrones de cada clase inversamente proporcional al número de patrones de la clase, de manera que todas las clases tengan el mismo peso en el entrenamiento, pero no se consiguen mejores resultados.
+Como podemos ver en la matriz de confusión representada en la imagen \ref{fig:confusion}, algunas de las clases con menos patrones tienen dificultades para obtener una buena clasificación debido a la falta de información en el entrenamiento. Algunos clasificadores tienen la opción de asignar un peso a los patrones de cada clase inversamente proporcional al número de patrones de la clase, de manera que todas las clases tengan el mismo peso en el entrenamiento, pero no se consiguen mejores resultados.
 
 \begin{figure}[H]
 	\centering
 	% include first image
 	\includegraphics[width=1.2\linewidth]{Imagenes/confusion_multiclase}
-	\caption[Matriz de confusión para la clasificación multicase]{Matriz de confusión para la clasificación multicase}
+	\caption[Matriz de confusión para la clasificación multiclase]{Matriz de confusión para la clasificación multiclase}
 	\label{fig:confusion}
 \end{figure}
 
@@ -215,32 +223,36 @@ Por otro lado, se han planteado dos formas de solucionar este problema, aunque a
 
 \vspace{1em}
 
-Finalmente hemos decidido agrupar las clases con menos de 30 patrones en una nueva categoría \textit{otros}. Por número de patrones sería recomendable agrupar también la clase \textit{virus}, pero podría tener demasiado peso en la categoría otros y hemos considerado que es lo suficientemente relevante como para estudiarla por separado. En la tabla \ref{tabla:multi_new} podemos ver que, aunque mejoramos la mínima sensibilidad, no se producen unas mejoras significativas en la precisión de clasificación pero dada la alta precisión presentada por los modelos y la mejora en la mínima sensibilidad puede considerarse una buena actualización. Podemos ver la nueva codificación en la tabla \ref{tabla:nueva_codificacion_malware}
+Finalmente hemos decidido agrupar las clases con menos de 30 patrones en una nueva categoría \textit{otros}. Por número de patrones sería recomendable agrupar también la clase \textit{virus}, pero podría tener demasiado peso en la categoría otros y hemos considerado que es lo suficientemente relevante como para estudiarla por separado.
 
-\begin{table}[th]
+\vspace{1em}
+
+En la tabla \ref{tabla:multi_new} podemos ver que, aunque mejoramos la mínima sensibilidad, no se producen unas mejoras significativas en la precisión de clasificación pero dada la alta precisión presentada por los modelos y la mejora en la mínima sensibilidad puede considerarse una buena actualización. Podemos ver la nueva codificación en la tabla \ref{tabla:nueva_codificacion_malware}
+
+\begin{table}[H]
 	\centering
-	\begin{tabular}{ |m{4cm}|c|c| }
+	\begin{tabular}{ |m{4cm}|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Categoría                   & Codificación & Nº de patrones \\
+		Categoría                   & Codificación & Nº de patrones & Porcentaje \\
 		\hline
-		\textit{benign}             & 0            & 77142 \\
-		\textit{trojan}             & 1            & 29978 \\
-		\textit{worm}               & 2            & 16713 \\
-		\textit{backdoor}           & 3            & 7331  \\
-		\textit{downloader}         & 4            & 1031  \\
-		\textit{informationstealer} & 5            & 448   \\
-		\textit{dropper}            & 6            & 715   \\
-		\textit{ransomware}         & 7            & 821   \\
-		\textit{virus}              & 8            & 192   \\
-		\textit{otros}              & 9            & 64    \\
+		\textit{benign}             & 0  & 77142 & 53.78\% \\
+		\textit{trojan}             & 1  & 29978 & 20.90\% \\
+		\textit{worm}               & 2  & 16713 & 11.65\% \\
+		\textit{backdoor}           & 3  & 7331  & 5.11\% \\
+		\textit{downloader}         & 4  & 1031  & 0.72\% \\
+		\textit{informationstealer} & 5  & 448   & 0.31\% \\
+		\textit{dropper}            & 6  & 715   & 0.50\% \\
+		\textit{ransomware}         & 7  & 821   & 0.57\% \\
+		\textit{virus}              & 8  & 192   & 0.13\% \\
+		\textit{otros}              & 9  & 64    & 0.04\% \\
 		\hline
 	\end{tabular}
-	\caption{Nueva codificación de las clases \textit{malware}.}
+	\caption{Nueva codificación de las clases de \textit{malware}.}
 	\label{tabla:nueva_codificacion_malware}
 \end{table}
 
-\begin{table}[th]
+\begin{table}[H]
 	\centering
 	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
 		\hline
@@ -269,32 +281,12 @@ Por último, se han considerado otras opciones para mejorar la clasificación de
 \end{itemize}
 
 \section{Preparación del entorno}
-\label{sec:prep_entorno}
-
-En esta sección se describe el entorno de trabajo utilizado por el alumno para la implementación de los modelos y la realización de las pruebas. El entorno se debe preparar de forma correcta, ya que puede afectar a la ejecución de los algoritmos y a la reproducibilidad de los experimentos. A continuación, se explican elementos del entorno como el lenguaje de programación, las bibliotecas y las características del equipo.
-
-\subsection{Herramientas y bibliotecas}
-\label{subsec:herramientas}
-
-El desarrollo y la experimentación de este proyecto se han llevado a cabo empleando un conjunto de herramientas y bibliotecas muy utilizadas en la ciencia de datos. \textit{Python} ha sido el lenguaje de programación de este trabajo, ya que ofrece una fácil implementación de modelos, manipulación de datos y visualización de resultados. Su popularidad en se debe a su sintaxis sencilla, escalabilidad y amplia variedad de herramientas y bibliotecas \cite{python_ml}.
-
-\vspace{1em}
-
-En este proyecto se ha utilizado la versión 3.12 de \textit{Python}, elegida principalmente por su compatibilidad con las bibliotecas empleadas, en particular, con \textit{GridSearchCV}, que aprovechan la paralelización de procesos para mejorar el rendimiento. El problema encontrado es que los hilos no se cierran correctamente, es un comportamiento típico asociado a lo que en programación concurrente se denomina \textit{thread leakage} o hilos huérfanos. provoca que la memoria \textit{RAM} y la \textit{CPU} sigan siendo consumidas incluso después de que la ejecución haya terminado. En teoría, este problema no afecta al rendimiento de los clasificadores, pero puede afectar al tiempo de ejecución.
-
-\vspace{1em}
-
-Las bibliotecas utilizadas para construir un modelo y analizar los datos son \textit{Scikit-learn}, \textit{DLOrdinal}, \textit{Matplotlib}, \textit{NumPy}, \textit{Pandas}, \textit{LightGBM} y \textit{Seaborn}. Se ha hablado de todas ellas con mayor profundidad en la sección \ref{sec:herramientas}
-
-\subsection{Hardware}
-\label{subsec:hw_usado}
-
-El entrenamiento y evaluación de los modelos se ha realizado en el equipo del estudiante con las siguientes características: procesador \textit{Intel Core i7-4712MQ}, tarjeta gráfica \textit{NVIDIA GeForce 920M}, 16 GB de \textit{RAM} DDR3 y almacenamiento compuesto por un \textit{SSD Crucial MX500} de 250 GB y un \textit{HDD} de 1 TB. Este hardware permite la paralelización de los algoritmos en múltiples núcleos del procesador, lo que reduce significativamente los tiempos de entrenamiento, pero se encuentra muy limitado respecto al conjunto utilizado para clasificación multiclase y modelos más costosos como puede ser \textit{SVM}.
+\label{sec:prep_entornos}
 
 \subsection{Protocolo de experimentación y validación}
 \label{subsec:protocolo_exper}
 
-En esta sección se establecen las condiciones de evaluación del rendimiento de los modelos mencionados en la sección \ref{sec:modelos_utilizados} y se explican los procedimientos seguidos, las técnicas de validación usadas y los criterios que permiten medir de forma objetiva la calidad de las predicciones. Todo esto tiene objetivo de minimizar posibles sesgos, evitar el sobreajuste y obtener conclusiones fiables.
+En esta sección se establecen las condiciones de evaluación del rendimiento de los modelos utilizados y se explican los procedimientos seguidos, las técnicas de validación usadas y los criterios que permiten medir de forma objetiva la calidad de las predicciones. Todo esto tiene objetivo de minimizar posibles sesgos, evitar el sobreajuste y obtener conclusiones fiables.
 
 \subsubsection{Diseño experimental}
 \label{subsubsec:diseño}
@@ -307,23 +299,25 @@ La segunda opción planteada puede servir para comparar el rendimiento de uno o 
 
 \vspace{1em}
 
-Finalmente se ha seleccionado la primera opción. Aunque el problema de la detección de malware puede enfocarse tanto para la simple detección de un programa malicioso como para identificar a que tipo pertenece, los problemas de clasificación binaria y multiclase tienen enfoques muy diferentes. Por otro lado, el conjunto de datos usado para clasificación multiclase contiene varias clases con muy pocos patrones y la comparación podría no ser justa.
+Finalmente se ha seleccionado la primera opción. Aunque el problema de la detección de \textit{malware} puede enfocarse tanto para la simple detección de un programa malicioso como para identificar a que tipo pertenece, los problemas de clasificación binaria y multiclase tienen enfoques muy diferentes. Por otro lado, el conjunto de datos usado para clasificación multiclase contiene varias clases con muy pocos patrones y la comparación podría no ser justa.
 
+\newpage
 \subsubsection{Validación de resultados}
 \label{subsubsec:validacion}
 
 Para evitar sesgos y resultados poco concluyentes se han empleado varias técnicas.
 
 \begin{itemize}
-	\item \textbf{Validación cruzada}: Se ha usado el parámetro \textit{cv} de \textit{GridSearchCV}. En general se han usado 5, aunque en algunos casos ha sido necesario ajustarlo por tiempo.
-	\item \textbf{Validación cruzada estratificada adaptativa}: la función \textit{cv()} que encontramos en el Anexo \ref{sec:func_cv} ajusta el numero de particiones en caso de que una clase tenga menos muestras que particiones indicadas.
-	\item \textbf{Particion entrenamiento/prueba}: se ha dividido el conjunto de datos en un 75-25 para entrenamiento y pruebas respectivamente usando la variable \textit{random\_state} con la semilla usada en las pruebas.
-	\item \textbf{Repetición con semillas aleatorias}: para repetir los experimentos y tener una visión más amplia.
+	\item \textbf{Validación cruzada}: Se ha usado el parámetro \texttt{cv} de \texttt{GridSearchCV}. En general se han usado 5, aunque en algunos casos ha sido necesario ajustarlo por tiempo.
+	\item \textbf{Validación cruzada estratificada adaptativa}: la función \texttt{cv()} que encontramos en el Anexo \ref{sec:func_cv} ajusta el numero de particiones en caso de que una clase tenga menos muestras que particiones indicadas.
+	\item \textbf{Particion entrenamiento/prueba}: se ha dividido el conjunto de datos en un 75-25 para entrenamiento y pruebas respectivamente usando la variable \texttt{random\_state} con la semilla usada en las pruebas.
+	\item \textbf{Repetición con semillas aleatorias}: para repetir los experimentos con 10 semillas y tener una visión más amplia.
 	\item \textbf{Ajuste de pesos de clase}: mediante \texttt{class\_weight = "balanced"} en los clasificadores en los que se encuentra disponible.
 \end{itemize}
 
 A pesar de todas estas técnicas, es bastante probable que las clases extremadamente minoritarias del conjunto de datos para la clasificación multiclase pueden tener una influencia muy limitada.
 
+\newpage
 \subsubsection{Reproducibilidad}
 \label{subsubsec:reproducibilidad}
 
@@ -335,12 +329,12 @@ Durante el desarrollo del código y de las pruebas, se han adoptado diferentes m
 
 		\begin{itemize}
 			\item La partición aleatoria de test y entrenamiento.
-			\item la inicialización interna de los clasificadores que aceptan \textit{randon\_state}.
+			\item la inicialización interna de los clasificadores que aceptan \texttt{randon\_state}.
 		\end{itemize}
 	\item \textbf{Número de repeticiones:}\\
 		Si bien el número de repeticiones es ajustable dentro del código utilizado, para asegurar una justa comparación y por las limitaciones del equipo, se han usado 10 semillas en todos los experimentos. Esto permite obtener la media y la desviación típica de las métricas y reducir la variabilidad.
 	\item \textbf{Control de parámetros:}\\
-		Los hiperparámetros se optimizan con \textit{GridSearchCV} usando la misma rejilla para todas las semillas para poder tener una comparación coherente.
+		Los hiperparámetros se optimizan con \texttt{GridSearchCV} usando la misma rejilla para todas las semillas para poder tener una comparación coherente.
 \end{enumerate}
 
 Estas medidas permiten obtener los mismo resultados si se usan las mismas semillas, configuraciones y conjunto de datos.
@@ -348,43 +342,40 @@ Estas medidas permiten obtener los mismo resultados si se usan las mismas semill
 \subsubsection{Control de parámetros}
 \label{subsubsec:control}
 
-Para la optimización de hiperparámetros hemos usado búsqueda en rejilla de \textit{GridSearchCV}. Esta técnica hace pruebas con todas las combinaciones posibles de los parámetros proporcionados y usa validación cruzada para garantizar la robustez de los resultados. El problema con esta técnica es el elevado número de pruebas, ya que se prueban todas las combinaciones de parámetros posibles en cada uno de los conjuntos de la validación cruzada, lo que eleva el tiempo necesario de manera considerable.
+Para la optimización de hiperparámetros hemos usado búsqueda en rejilla de \texttt{GridSearchCV}. Esta técnica hace pruebas con todas las combinaciones posibles de los parámetros proporcionados y usa validación cruzada para garantizar la robustez de los resultados. El problema con esta técnica es el elevado número de pruebas, ya que se prueban todas las combinaciones de parámetros posibles en cada uno de los conjuntos de la validación cruzada, lo que eleva el tiempo necesario de manera considerable.
 
 \vspace{1em}
 
-Una opción considerada y probada para evitar esta limitación es la búsqueda aleatoria de \textit{RandomizedSearchCV}, que permite establecer un número máximo de combinaciones a probar y puede reducir considerablemente el número de combinaciones evaluadas. El inconveniente que ha surgido con esta técnica es que al disponer de un \textit{Hardware} muy limitado, la cantidad de combinaciones usadas es pequeña y limitar aun más con la búsqueda aleatoria puede suponer que los resultados sean menos representativos.
+Una opción considerada y probada para evitar esta limitación es la búsqueda aleatoria de \texttt{RandomizedSearchCV}, que permite establecer un número máximo de combinaciones a probar y puede reducir considerablemente el número de combinaciones evaluadas. El inconveniente que ha surgido con esta técnica es que al disponer de un \textit{hardware} muy limitado, la cantidad de combinaciones usadas es pequeña y limitar aún más con la búsqueda aleatoria puede suponer que los resultados sean menos representativos.
 
 \vspace{1em}
 
 La rejilla se ha establecido para cada modelo en función de las limitaciones del equipo, el tiempo necesario para el entrenamiento de cada modelo y cuanto influye ese parámetro en el tiempo de entrenamiento y el peso que tiene en los resultados.
 
-\subsubsection{Criterios de evaluación}
-\label{subsubsec:evaluacion}
-
-Para evaluar la efectividad de los modelos implementados, se han utilizado las siguientes métricas, cuya descripción teórica se encuentra en la sección \ref{subsec:2_metricas}:
-
-\begin{itemize}
-	\item \textbf{\textit{Accuracy}}: proporción de predicciones correctas sobre el total de patrones.
-	\item \textbf{Mínima Sensibilidad}: sensibilidad de la clase peor clasificada.
-	\item \textbf{\textit{F1-score}}: media armónica entre precisión y sensibilidad. En este documento se ha hecho referencia a ella como valor-F.
-\end{itemize}
-
 \section{Implementación y pruebas}
 \label{sec:implementacion}
 
-En esta sección se describe, principalmente, la estructura del código empleado para realizar los experimentos y el procedimiento seguido dentro del mismo para entrenar y evaluar los modelos seleccionados. Además se va a tratar la preparación del conjunto de datos, es decir, cómo se cargan y cómo se divide la información para realizar el entrenamiento y las pruebas. Por último, se tratará la forma que hemos seguido para presentar los resultados y las métricas que se han mencionado en la sección \ref{subsubsec:evaluacion}.
+En esta sección se describe, principalmente, la estructura del código empleado para realizar los experimentos y el procedimiento seguido dentro del mismo para entrenar y evaluar los modelos seleccionados. Además se va a tratar la preparación del conjunto de datos, es decir, cómo se cargan y cómo se divide la información para realizar el entrenamiento y las pruebas. Por último, se tratará la forma que hemos seguido para presentar los resultados y las métricas que se han mencionado en la sección \ref{subsec:evaluacion}.
 
 \subsection{Procedimiento de entrenamiento y evaluación}
 \label{subsec:procedimiento}
 
-El planteamiento seguido para entrenar los diferentes modelos ha sido usar \textit{GridSearchCV} para ajustar los modelos de clasificación con los mejores parámetros posibles. Para obtener una visión más amplia y más justa del problema, se ha repetido el entrenamiento, con las mismas 10 semillas para todos los modelos. Con esto conseguimos que el experimento sea controlado y reproducible, ya que para un mismo modelo, una misma semilla y la misma rejilla de parámetros, obtendremos siempre los mismos resultados. Una vez calculadas las métricas seleccionadas en la sección \ref{subsubsec:evaluacion}, se calcula la media y la desviación típica de todas ellas para usarlas como valor final de comparación entre modelos.
+El planteamiento seguido para entrenar los diferentes modelos ha sido usar \texttt{GridSearchCV} para ajustar los modelos de clasificación con los mejores parámetros posibles. Para obtener una visión más amplia y más justa del problema, se ha repetido el entrenamiento, con las mismas 10 semillas para todos los modelos. Con esto conseguimos que el experimento sea controlado y reproducible, ya que para un mismo modelo, una misma semilla y la misma rejilla de parámetros, obtendremos siempre los mismos resultados. Una vez calculadas las métricas seleccionadas en la sección \ref{subsec:evaluacion}, se calcula la media y la desviación típica de todas ellas para usarlas como valor final de comparación entre modelos.
 
 \subsection{Preparación y uso de los conjuntos de datos}
 \label{subsec:datos_experimentales}
 
-Además del tratamiento previo del conjunto de datos realizado en la sección \ref{sec:proc_dataset}, es necesario procesar la información antes de entrenar. Con la función \textit{load}, cargamos el conjunto de datos en dos matrices de \textit{Numpy}, la matriz de información y la matriz de clases. La matriz de patrones de entrada se normaliza haciendo uso de la clase \textit{MinMaxScaler} del módulo \textit{preprocessing} de \textit{Scikit-Learn}. Por último, haciendo uso de la función \textit{train\_test\_split}, dividimos el conjunto de datos en test y entrenamiento. Esto se hace dentro del bucle y para cada semilla con el objetivo de tener una evaluación más robusta, ya que permite tener una división distinta y controlada para cada semilla.
+Además del tratamiento previo del conjunto de datos realizado en la sección \ref{sec:proc_dataset}, es necesario procesar la información antes de entrenar. Con la función \texttt{load}, cargamos el conjunto de datos en dos matrices de \texttt{Numpy}, la matriz de información y la matriz de clases. La matriz de patrones de entrada se normaliza haciendo uso de la clase \texttt{MinMaxScaler} del módulo \texttt{preprocessing} de \texttt{Scikit-Learn}.
+
+\vspace{1em}
+
+Por último, haciendo uso de la función \texttt{train\_test\_split}, dividimos el conjunto de datos en test y entrenamiento. Esto se hace dentro del bucle y para cada semilla con el objetivo de tener una evaluación más robusta, ya que permite tener una división distinta y controlada para cada semilla.
 
 \subsection{Métricas y análisis de resultados}
 \label{subsec:metricas_pruebas}
 
-Para calcular las métricas se han usado las funciones \textit{accuracy\_off1} y \textit{minimum\_sensitivity} para las métricas valor-F y mínima sensibilidad respectivamente. Estas se encuentran disponibles en el módulo \textit{metrics} de la librería \textit{dlordinal}. Para calcular la exactitud o \textit{accuracy} del entrenamiento, se ha usado la función \textit{accuracy\_score} disponible en el módulo \textit{metrics} de la librería \textit{Scikit-Learn}. Finalmente, una vez calculados los resultados para todas las semillas, se guardan en un objeto \textit{DataFrame} de \textit{Pandas} con el formato que se muestra en el ejemplo del Anexo \ref{sec:info}. Haciendo uso de los métodos \textit{mean} y \textit{std} de esta clase, se obtiene la media y la desviación típica de todas las semillas.
+Para calcular las métricas se ha usado la función \texttt{minimum\_sensitivity} para la métrica mínima sensibilidad. Esta se encuentra disponible en el módulo \texttt{metrics} de la librería \texttt{dlordinal}. Para calcular la exactitud o \textit{accuracy} del entrenamiento, se ha usado la función \texttt{accuracy\_score} disponible en el módulo \texttt{metrics} de la librería \texttt{Scikit-Learn}, en el que también encontramos \texttt{f1\_score} para calcular el Valor-F1.
+
+\vspace{1em}
+
+Finalmente, una vez calculados los resultados para todas las semillas, se guardan en un objeto \texttt{DataFrame} de \texttt{Pandas} con el formato que se muestra en el ejemplo del Anexo \ref{sec:info}. Haciendo uso de los métodos \texttt{mean} y \texttt{std} de esta clase, se obtiene la media y la desviación típica de todas las semillas.
