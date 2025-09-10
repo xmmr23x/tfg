@@ -17,11 +17,11 @@ Si bien es cierto que los resultados obtenidos por los clasificadores más senci
 \subsection{Clasificación multiclase}
 \label{subsec:conc_multi}
 
-Este tipo de clasificación ha presentado varios problemas además del aumento necesario de tiempo por la configuración del conjunto de datos con todos los patrones. Por un lado, la fuerte caída de la mínima sensibilidad indica que los clasificadores tienden a priorizar las clases mayoritarias, dejando sin apenas capacidad de detección a las minoritarias. Esto provoca que, aunque la precisión o el valor-F1 puedan mantenerse razonablemente altos, el rendimiento real frente a todas las clases no es confiable.
+Este tipo de clasificación ha presentado varios problemas además del aumento necesario de tiempo por la configuración del conjunto de datos con todos los patrones. Por un lado, la fuerte caída de la mínima sensibilidad indica que los clasificadores tienden a priorizar las clases mayoritarias, dejando sin apenas capacidad de detección a las minoritarias. Esto provoca que, aunque la precisión pueda mantenerse razonablemente alta, el rendimiento real frente a todas las clases no es confiable.
 
 \vspace{1em}
 
-Por otro lado, algunos modelos como \texttt{LGBMClassifier} presentan una alta varianza entre semillas. Esto implica que el conjunto de datos está fuertemente afectado por el desbalanceo, y que los modelos probados no garantizan una generalización. Además, algunos modelos presentan una sensibilidad mínima de 0, es decir, hay clases que directamente no se predicen en absoluto.
+Por otro lado, algunos modelos como \texttt{LGBMClassifier} presentan una alta varianza entre semillas. Esto implica que el conjunto de datos está afectado por el desbalanceo, y que los modelos probados no garantizan una generalización. Además, algunos modelos presentan una sensibilidad mínima de 0, es decir, hay clases que directamente no se predicen en absoluto.
 
 \section{Recomendaciones}
 \label{sec:recomendaciones}
@@ -31,3 +31,6 @@ Las principales recomendaciones referentes a este estudio tienen su origen en la
 \vspace{1em}
 
 En cuanto al conjunto de datos, si bien es cierto que es amplio y en clasificación binaria funciona muy bien, para clasificación multiclase es insuficiente. Su principal problema se encuentra en el desbalanceo de clases. Como podemos ver en la tabla \ref{tabla:nueva_codificacion_malware}, en la cuarta clase más poblada el número de patrones es aproximadamente diez veces menos que en la más poblada. Esto implica que a la hora de entrenar, la clase más poblada influye mucho en el entrenamiento incluso aplicando varias técnicas para evitarlo. Sería recomendable hacer pruebas con distintos conjuntos de datos que dispongan de una mayor cantidad de muestras en clases minoritarias para poder hacer un entrenamiento equilibrado.
+
+%\section{Conclusiones respecto a los objetivos}
+%\label{sec:conc_obj}

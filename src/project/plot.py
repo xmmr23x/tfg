@@ -2,11 +2,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('resultados/ridge_bin.csv', index_col = 0)
+df = pd.read_csv('resultados/lgbm_multi.csv', index_col = 0)
 
-# df_clean = df.drop(index=["Mean", "STD"], errors="ignore")
-
-# Convertir de formato ancho a largo
 df_long = df.melt(
     value_vars=["acc train", "acc test"],
     var_name="tipo",
@@ -15,7 +12,6 @@ df_long = df.melt(
 
 plt.figure(figsize=(8, 6))
 
-# Violinplot
 sns.violinplot(
     x="tipo",
     y="valor",
@@ -24,7 +20,6 @@ sns.violinplot(
     color="skyblue"
 )
 
-# Boxplot encima
 sns.boxplot(
     x="tipo",
     y="valor",
@@ -36,5 +31,5 @@ sns.boxplot(
     zorder=3
 )
 
-plt.title("Distribución de accuracy (train vs test) en RidgeClassifier", fontsize=14)
+#plt.title("Distribución de accuracy (train vs test) en RidgeClassifier", fontsize=14)
 plt.show()

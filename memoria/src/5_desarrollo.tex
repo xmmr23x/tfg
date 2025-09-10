@@ -15,7 +15,7 @@ Dadas las limitaciones \textit{hardware} y la cantidad de datos, aproximadamente
 
 \vspace{1em}
 
-Las pruebas que se realizaran en las secciones \ref{subsubsec:eleccion_dataset_bin} y \ref{subsubsec:eleccion_dataset_multi} tienen el objetivo de comprobar como se comportan los métodos de \textit{undersamplig} y \textit{PCA}. Teniendo esto en cuenta, solo se han realizado unas pruebas simples con los métodos más sencillos para poder elegir una configuración adecuada para los conjuntos de datos. El resto de métodos de clasificación, así como los de validación, se usarán en el capítulo \ref{ch:resultados}.
+Las pruebas que se realizaran en las secciones \ref{subsubsec:eleccion_dataset_bin} y \ref{subsubsec:eleccion_dataset_multi} tienen el objetivo de comprobar cómo se comportan los métodos de \textit{undersamplig} y \textit{PCA}. Teniendo esto en cuenta, solo se han realizado unas pruebas simples con los métodos más sencillos para poder elegir una configuración adecuada para los conjuntos de datos. El resto de métodos de clasificación, así como los de validación, se usarán en el capítulo \ref{ch:resultados}.
 
 \subsection{Etiquetado de los datos}
 \label{subsec:etiquetado}
@@ -50,21 +50,21 @@ Dado que las distintas categorías se encuentran en formato texto, es necesario 
 		\rowcolor{LightCyan}
 		Categoría                   & Codificación & Nº de patrones & Porcentaje \\
 		\hline
-		\textit{benign}             & 0  & 77142 & 53.26\% \\
-		\textit{trojan}             & 1  & 29972 & 20.69\% \\
-		\textit{worm}               & 2  & 16697 & 11.53\% \\
-		\textit{backdoor}           & 3  & 7331  & 5.06\% \\
-		\textit{downloader}         & 4  & 1031  & 0.71\% \\
-		\textit{informationstealer} & 5  & 448   & 0.31\% \\
-		\textit{dropper}            & 6  & 715   & 0.49\% \\
-		\textit{ransomware}         & 7  & 821   & 0.57\% \\
-		\textit{rootkit}            & 8  & 3     & 0.00\% \\
-		\textit{cryptominer}        & 9  & 20    & 0.01\% \\
-		\textit{pua}                & 10 & 29    & 0.02\% \\
-		\textit{exploit}            & 11 & 12    & 0.01\% \\
-		\textit{virus}              & 12 & 192   & 0.13\% \\
-		\textit{p2p-worm}           & 13 & 16    & 0.01\% \\
-		\textit{trojan-gamethief}   & 14 & 6     & 0.00\% \\
+		\textit{benign}             & 0  & 77142 & 53.26\%  \\
+		\textit{trojan}             & 1  & 29972 & 20.69\%  \\
+		\textit{worm}               & 2  & 16697 & 11.53\%  \\
+		\textit{backdoor}           & 3  & 7331  & 5.06\%   \\
+		\textit{downloader}         & 4  & 1031  & 0.71\%   \\
+		\textit{informationstealer} & 5  & 448   & 0.31\%   \\
+		\textit{dropper}            & 6  & 715   & 0.49\%   \\
+		\textit{ransomware}         & 7  & 821   & 0.57\%   \\
+		\textit{rootkit}            & 8  & 3     & 0.00\%   \\
+		\textit{cryptominer}        & 9  & 20    & 0.01\%   \\
+		\textit{pua}                & 10 & 29    & 0.02\%   \\
+		\textit{exploit}            & 11 & 12    & 0.01\%   \\
+		\textit{virus}              & 12 & 192   & 0.13\%   \\
+		\textit{p2p-worm}           & 13 & 16    & 0.01\%   \\
+		\textit{trojan-gamethief}   & 14 & 6     & < 0.01\% \\
 		\hline
 	\end{tabular}
 	\caption{Codificación de las clases \textit{malware}.}
@@ -89,7 +89,7 @@ El código utilizado para esta tarea se encuentra en el Anexo \ref{sec:codificac
 \subsection{Reducción del conjunto de datos}
 \label{subsec:red_dataset}
 
-Esto se hace con el objetivo de disminuir el tiempo que los algoritmos van a necesitar para procesar la información sin perjudicar la integridad de los datos, ya que los resultados del estudio podrían verse afectados y llevar a unas conclusiones erróneas. Esta tarea se puede enfrentar desde dos planteamientos distintos: condensar el número de patrones o el número de características. Ambos planteamientos se han estudiado de forma teórica en esta memoria en las secciones \ref{subsec:balanceo} y \ref{subsec:red_dim} respectivamente. Las técnicas elegidas son \textit{undersampling} por simplicidad y \textit{PCA} porque según el estudio \textit{A Low Complexity ML-Based Methods for Malware Classification} \cite{red_dim_pca} se obtienen unos resultados algo más precisos que con otros métodos.
+Esto se hace con el objetivo de disminuir el tiempo que los algoritmos van a necesitar para procesar la información sin perjudicar la integridad de los datos. Esta tarea se puede enfrentar desde dos planteamientos distintos: condensar el número de patrones o el número de características. Ambos planteamientos se han estudiado de forma teórica en esta memoria en las secciones \ref{subsec:balanceo} y \ref{subsec:red_dim} respectivamente. Las técnicas elegidas son \textit{undersampling} por simplicidad y \textit{PCA} porque según el estudio \textit{A Low Complexity ML-Based Methods for Malware Classification} \cite{red_dim_pca} se obtienen unos resultados algo más precisos que con otros métodos.
 
 \vspace{1em}
 
@@ -98,7 +98,7 @@ El código utilizado se encuentra en el anexo \ref{sec:red_dim}. A continuación
 \subsubsection{Balanceo de datos: submuestreo}
 \label{subsubsec:num_patrones}
 
-Como ya hemos estudiado en la sección \ref{subsubsec:undersampling}, el submuestreo o \textit{undersampling} en inglés, es una técnica para abordar el desbalance de clases en un conjunto de datos, especialmente cuando una de las clases tiene muchos más patrones que la otra. Por simplicidad, este tipo de procesamiento se ha aplicado solo al conjunto de datos utilizado para la clasificación binaria. En nuestro caso, el desbalance no es demasiado grande ya que \textit{BODMAS} contiene 57293 muestras \textit{malware} y 77142 muestras benignas.
+Como ya hemos estudiado en la sección \ref{subsubsec:undersampling}, el submuestreo o \textit{undersampling} en inglés, es una técnica para abordar el desbalanceo de clases en un conjunto de datos, especialmente cuando una de las clases tiene muchos más patrones que la otra. Por simplicidad, este tipo de procesamiento se ha aplicado solo al conjunto de datos utilizado para la clasificación binaria. En nuestro caso, el desbalanceo no es demasiado grande ya que \textit{BODMAS} contiene 57293 muestras \textit{malware} y 77142 muestras benignas.
 
 \vspace{1em}
 
@@ -112,11 +112,11 @@ Este método, consiste en reducir el número de variables de las que consta el p
 \subsection{Elección final del nuevo conjunto de datos}
 \label{subsec:eleccion_dataset}
 
-Para poder decidir como será el conjunto de entrenamiento final se han hecho distintos conjuntos de datos sobre los que se probarán algunos algoritmos. Los conjuntos son los siguientes:
+Para poder decidir cómo será el conjunto de entrenamiento final se han hecho distintos conjuntos de datos sobre los que se probarán algunos algoritmos. Los conjuntos son los siguientes:
 
 \begin{itemize}
 	\item Clasificación binaria con \textit{PCA}.
-	\item Clasificación binaria con \textit{PCA} y \textit{Undersampling} con 15000 patrones por clase.
+	\item Clasificación binaria con \textit{PCA} y \textit{undersampling} con 15000 patrones por clase.
 	\item Clasificación multiclase con \textit{PCA}.
 \end{itemize}
 
@@ -128,17 +128,17 @@ Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca} y \ref
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
+	\begin{tabular}{ |c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Generalización} \\
+		Clasificador & Tiempo (s) & \multicolumn{2}{c|}{Entrenamiento} & \multicolumn{2}{c|}{Generalización} \\
 		\hline
 		\rowcolor{LightCyan}
-		&            & Acc & MS & F1 & Acc & MS & F1 \\
+		&            & Acc & MS  & Acc & MS  \\
 		\hline
-		\textit{Decision tree}  & \textit{0.885} & 1.000 & 1.000 & 1.000 & 0.972 & 0.971 & 1.000 \\
-		\textit{Random forest}  & 25.91 & 1.000 & 1.000 & 1.000 & 0.984 & 0.976 & 1.000 \\
-		\textit{K-NN}           & \textbf{0.095} & 0.973 & 0.970 & 1.000 & 0.963 & 0.963 & 1.000 \\
+		\textit{Decision tree}  & 0.885          & \textbf{1.000} & \textbf{1.000} & 0.972          & 0.971          \\
+		\textit{Random forest}  & 25.91          & 1.000          & 1.000          & \textbf{0.984} & \textbf{0.976} \\
+		\textit{K-NN}           & \textbf{0.095} & 0.973          & 0.970          & 0.963          & 0.963          \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación binaria con \textit{PCA}.}
@@ -147,17 +147,17 @@ Los resultados obtenidos se reflejan en las tablas \ref{tabla:binary_pca} y \ref
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
+	\begin{tabular}{ |c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Generalización} \\
+		Clasificador & Tiempo (s) & \multicolumn{2}{c|}{Entrenamiento} & \multicolumn{2}{c|}{Generalización} \\
 		\hline
 		\rowcolor{LightCyan}
-		&            & Acc & MS & F1 & Acc & MS & F1 \\
+		&            & Acc & MS & Acc & MS \\
 		\hline
-		\textit{Decision tree}  & \textit{0.184} & 1.000 & 1.000 & 1.000 & 0.945 & 0.936 & 1.000 \\
-		\textit{Random forest}  & 4.926 & 1.000 & 1.000 & 1.000 & 0.963 & 0.957 & 1.000 \\
-		\textit{K-NN}           & \textbf{0.016} & 0.954 & 0.948 & 1.000 & 0.938 & 0.931 & 1.000 \\
+		\textit{Decision tree}  & 0.184          & 1.000          & 1.000          & 0.945          & 0.936          \\
+		\textit{Random forest}  & 4.926          & \textbf{1.000} & \textbf{1.000} & \textbf{0.963} & \textbf{0.957} \\
+		\textit{K-NN}           & \textbf{0.016} & 0.954          & 0.948          & 0.938          & 0.931          \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación binaria con \textit{PCA} y \textit{undersampling}.}
@@ -173,17 +173,17 @@ Los resultados obtenidos se reflejan en la tabla \ref{tabla:multi_pca}.
 
 \begin{table}[th]
 	\centering
-	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
+	\begin{tabular}{ |c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Generalización} \\
+		Clasificador & Tiempo (s) & \multicolumn{2}{c|}{Entrenamiento} & \multicolumn{2}{c|}{Generalización} \\
 		\hline
 		\rowcolor{LightCyan}
-		& & Acc & MS & F1 & Acc & MS & F1 \\
+		& & Acc & MS & Acc & MS \\
 		\hline
-		\textit{Decision tree}  & \textit{1.059} & 0.999 & 0.895 & 0.999 & 0.939 & 0.000 & 0.976 \\
-		\textit{Random forest}  & 30.04 & 0.999 & 0.895 & 0.999 & 0.955 & 0.000 & 0.981 \\
-		\textit{K-NN}           & \textbf{0.088} & 0.951 & 0.000 & 0.981 & 0.936 & 0.000 & 0.975 \\
+		\textit{Decision tree}  & 1.059          & 0.999          & 0.895          & 0.939          & 0.000          \\
+		\textit{Random forest}  & 30.04          & \textbf{0.999} & \textbf{0.895} & \textbf{0.955} & \textbf{0.000} \\
+		\textit{K-NN}           & \textbf{0.088} & 0.951          & 0.000          & 0.936          & 0.000          \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación multiclase con \textit{PCA}}
@@ -200,7 +200,7 @@ Podemos ver en la tabla \ref{tabla:multi_pca} que la métrica de mínima sensibi
 
 \vspace{1em}
 
-Como podemos ver en la matriz de confusión representada en la imagen \ref{fig:confusion}, algunas de las clases con menos patrones tienen dificultades para obtener una buena clasificación debido a la falta de información en el entrenamiento. Algunos clasificadores tienen la opción de asignar un peso a los patrones de cada clase inversamente proporcional al número de patrones de la clase, de manera que todas las clases tengan el mismo peso en el entrenamiento, pero no se consiguen mejores resultados.
+Como podemos ver en la matriz de confusión representada en la figura \ref{fig:confusion}, algunas de las clases con menos patrones tienen dificultades para obtener una buena clasificación debido a la falta de información en el entrenamiento. Algunos clasificadores tienen la opción de asignar un peso a los patrones de cada clase inversamente proporcional al número de patrones de la clase, de manera que todas las clases tengan el mismo peso en el entrenamiento, pero no se consiguen mejores resultados.
 
 \begin{figure}[H]
 	\centering
@@ -227,7 +227,7 @@ Finalmente hemos decidido agrupar las clases con menos de 30 patrones en una nue
 
 \vspace{1em}
 
-En la tabla \ref{tabla:multi_new} podemos ver que, aunque mejoramos la mínima sensibilidad, no se producen unas mejoras significativas en la precisión de clasificación pero dada la alta precisión presentada por los modelos y la mejora en la mínima sensibilidad puede considerarse una buena actualización. Podemos ver la nueva codificación en la tabla \ref{tabla:nueva_codificacion_malware}
+En la tabla \ref{tabla:multi_new} podemos ver que, aunque mejoramos la mínima sensibilidad, no se producen unas mejoras significativas en la precisión de clasificación. Pero dada la alta precisión presentada por los modelos y la mejora en la mínima sensibilidad puede considerarse una buena actualización. Podemos ver la nueva codificación en la tabla \ref{tabla:nueva_codificacion_malware}.
 
 \begin{table}[H]
 	\centering
@@ -254,17 +254,17 @@ En la tabla \ref{tabla:multi_new} podemos ver que, aunque mejoramos la mínima s
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{ |c|c|c|c|c|c|c|c| }
+	\begin{tabular}{ |c|c|c|c|c|c| }
 		\hline
 		\rowcolor{LightCyan}
-		Clasificador & Tiempo (s) & \multicolumn{3}{c|}{Entrenamiento} & \multicolumn{3}{c|}{Test} \\
+		Clasificador & Tiempo (s) & \multicolumn{2}{c|}{Entrenamiento} & \multicolumn{2}{c|}{Test} \\
 		\hline
 		\rowcolor{LightCyan}
-		&            & Acc & MS & F1 & Acc & MS & F1 \\
+		&            & Acc & MS & Acc & MS \\
 		\hline
-		\textit{Decission tree} & 1.220  & 0.998 & 0.992 & 0.998 & 0.938 & 0.670 & 0.975 \\
-		\textit{Random forest}  & 31.201 & 0.998 & 0.993 & 0.998 & 0.953 & 0.670 & 0.980 \\
-		\textit{K-NN}           & 0.083  & 0.951 & 0.431 & 0.980 & 0.936 & 0.333 & 0.974 \\
+		\textit{Decission tree} & 1.220  & 0.998 & 0.992 & 0.938 & 0.670 \\
+		\textit{Random forest}  & 31.201 & 0.998 & 0.993 & 0.953 & 0.670 \\
+		\textit{K-NN}           & 0.083  & 0.951 & 0.431 & 0.936 & 0.333 \\
 		\hline
 	\end{tabular}
 	\caption{Clasificación multiclase con la nueva codificación.}
@@ -280,19 +280,20 @@ Por último, se han considerado otras opciones para mejorar la clasificación de
 	\item Utilizar métodos jerárquicos que primero clasifiquen usando la categoría \textit{otros}, para después dividirla en sus diferentes clases y entrenar un modelo específico.
 \end{itemize}
 
+\newpage
 \section{Protocolo de experimentación y validación}
 \label{sec:protocolo_exper}
 
-En esta sección se establecen las condiciones de evaluación del rendimiento de los modelos utilizados y se explican los procedimientos seguidos, las técnicas de validación usadas y los criterios que permiten medir de forma objetiva la calidad de las predicciones. Todo esto tiene objetivo de minimizar posibles sesgos, evitar el sobreajuste y obtener conclusiones fiables.
+En esta sección se establecen las condiciones de evaluación del rendimiento de los modelos utilizados y se explican los procedimientos seguidos, las técnicas de validación usadas y los criterios que permiten medir de forma objetiva la calidad de las predicciones. Todo esto tiene el objetivo de minimizar posibles sesgos, evitar el sobreajuste y obtener conclusiones fiables.
 
 \subsection{Diseño experimental}
 \label{subsec:diseño}
 
-Inicialmente se han planteado tres formas de estructurar el diseño experimental y como se evaluarán posteriormente las pruebas. La primera ha sido comparar distintos modelos para cada tipo de clasificación. La segunda, comparar, clasificación binaria y multiclase para cada clasificador. Por último, se ha planteado la posibilidad de una combinación de ambas comparaciones. Este último caso se ha descarta porque, aunque puede ser interesante la comparación combinada por proporcionar una amplia visión del problema, duplica la carga de trabajo y puede exceder la complejidad del proyecto.
+Inicialmente se han planteado tres formas de estructurar el diseño experimental y cómo se evaluarán posteriormente las pruebas. La primera ha sido comparar distintos modelos para cada tipo de clasificación. La segunda, comparar, clasificación binaria y multiclase para cada clasificador. Por último, se ha planteado la posibilidad de una combinación de ambas comparaciones. Este último caso se ha descartado porque, aunque puede ser interesante la comparación combinada por proporcionar una amplia visión del problema, duplica la carga de trabajo y puede exceder la complejidad del proyecto.
 
 \vspace{1em}
 
-La segunda opción planteada puede servir para comparar el rendimiento de uno o varios modelos según la naturaleza del problema y realizar un análisis de coste computacional. Son aspectos interesantes a estudiar, pero no entran dentro de los objetivos de este estudio.
+La segunda opción planteada puede servir para comparar el rendimiento de uno o varios modelos según la naturaleza del problema y realizar un análisis de coste computacional. Son aspectos interesantes a estudiar, pero no entran dentro de los objetivos de este trabajo.
 
 \vspace{1em}
 
@@ -305,14 +306,14 @@ Finalmente se ha seleccionado la primera opción. Aunque el problema de la detec
 Para evitar sesgos y resultados poco concluyentes se han empleado varias técnicas.
 
 \begin{itemize}
-	\item \textbf{Validación cruzada}: Se ha usado el parámetro \texttt{cv} de \texttt{GridSearchCV}. En general se han usado 5, aunque en algunos casos ha sido necesario ajustarlo por tiempo.
+	\item \textbf{Validación cruzada}: se ha usado el parámetro \texttt{cv} de \texttt{GridSearchCV}. En general se han usado 5, aunque en algunos casos ha sido necesario ajustarlo por tiempo.
 	\item \textbf{Validación cruzada estratificada adaptativa}: la función \texttt{cv()} que encontramos en el Anexo \ref{sec:func_cv} ajusta el numero de particiones en caso de que una clase tenga menos muestras que particiones indicadas.
-	\item \textbf{Particion entrenamiento/prueba}: se ha dividido el conjunto de datos en un 75-25 para entrenamiento y pruebas respectivamente usando la variable \texttt{random\_state} con la semilla usada en las pruebas.
+	\item \textbf{Partición entrenamiento/prueba}: se ha dividido el conjunto de datos en un 75-25 para entrenamiento y pruebas respectivamente usando la variable \texttt{random\_state} con la semilla usada en las pruebas.
 	\item \textbf{Repetición con semillas aleatorias}: para repetir los experimentos con 10 semillas y tener una visión más amplia.
 	\item \textbf{Ajuste de pesos de clase}: mediante \texttt{class\_weight = "balanced"} en los clasificadores en los que se encuentra disponible.
 \end{itemize}
 
-A pesar de todas estas técnicas, es bastante probable que las clases extremadamente minoritarias del conjunto de datos para la clasificación multiclase pueden tener una influencia muy limitada.
+A pesar de todas estas técnicas, es bastante probable que las clases extremadamente minoritarias del conjunto de datos para la clasificación multiclase puedan tener una influencia muy limitada.
 
 \newpage
 \subsection{Reproducibilidad}
@@ -326,7 +327,7 @@ Durante el desarrollo del código y de las pruebas, se han adoptado diferentes m
 
 		\begin{itemize}
 			\item La partición aleatoria de test y entrenamiento.
-			\item la inicialización interna de los clasificadores que aceptan \texttt{randon\_state}.
+			\item La inicialización interna de los clasificadores que aceptan \texttt{random\_state}.
 		\end{itemize}
 	\item \textbf{Número de repeticiones:}\\
 		Si bien el número de repeticiones es ajustable dentro del código utilizado, para asegurar una justa comparación y por las limitaciones del equipo, se han usado 10 semillas en todos los experimentos. Esto permite obtener la media y la desviación típica de las métricas y reducir la variabilidad.
@@ -334,7 +335,7 @@ Durante el desarrollo del código y de las pruebas, se han adoptado diferentes m
 		Los hiperparámetros se optimizan con \texttt{GridSearchCV} usando la misma rejilla para todas las semillas para poder tener una comparación coherente.
 \end{enumerate}
 
-Estas medidas permiten obtener los mismo resultados si se usan las mismas semillas, configuraciones y conjunto de datos.
+Estas medidas permiten obtener los mismos resultados si se usan las mismas semillas, configuraciones y conjunto de datos.
 
 \subsection{Control de parámetros}
 \label{subsec:control}
@@ -343,7 +344,7 @@ Para la optimización de hiperparámetros hemos usado búsqueda en rejilla de \t
 
 \vspace{1em}
 
-Una opción considerada y probada para evitar esta limitación es la búsqueda aleatoria de \texttt{RandomizedSearchCV}, que permite establecer un número máximo de combinaciones a probar y puede reducir considerablemente el número de combinaciones evaluadas. El inconveniente que ha surgido con esta técnica es que al disponer de un \textit{hardware} muy limitado, la cantidad de combinaciones usadas es pequeña y limitar aún más con la búsqueda aleatoria puede suponer que los resultados sean menos representativos.
+Una opción considerada y probada para evitar esta limitación es la búsqueda aleatoria de \texttt{RandomizedSearchCV} \cite{randomized}, que permite establecer un número máximo de combinaciones a probar y puede reducir considerablemente el número de combinaciones evaluadas. El inconveniente que ha surgido con esta técnica es que al disponer de un \textit{hardware} muy limitado, la cantidad de combinaciones usadas es pequeña, a veces menos de 10 combinaciones y limitar aún más el espacio de búsqueda no aportaba una mejora significativa de tiempo. Por este motivo, se ha decidido no usar esta opción.
 
 \vspace{1em}
 
@@ -366,12 +367,12 @@ Además del tratamiento previo del conjunto de datos realizado en la sección \r
 
 \vspace{1em}
 
-Por último, haciendo uso de la función \texttt{train\_test\_split}, dividimos el conjunto de datos en test y entrenamiento. Esto se hace dentro del bucle y para cada semilla con el objetivo de tener una evaluación más robusta, ya que permite tener una división distinta y controlada para cada semilla.
+Por último, haciendo uso de la función \texttt{train\_test\_split} de \texttt{Scikit-Learn}, dividimos el conjunto de datos en test y entrenamiento. Esto se hace dentro del bucle y para cada semilla con el objetivo de tener una evaluación más robusta, ya que permite tener una división distinta y controlada para cada semilla.
 
 \subsection{Métricas y análisis de resultados}
 \label{subsec:metricas_pruebas}
 
-Para calcular las métricas se ha usado la función \texttt{minimum\_sensitivity} para la métrica mínima sensibilidad. Esta se encuentra disponible en el módulo \texttt{metrics} de la librería \texttt{dlordinal}. Para calcular la exactitud o \textit{accuracy} del entrenamiento, se ha usado la función \texttt{accuracy\_score} disponible en el módulo \texttt{metrics} de la librería \texttt{Scikit-Learn}, en el que también encontramos \texttt{f1\_score} para calcular el Valor-F1.
+Para calcular las métricas se ha usado la función \texttt{minimum\_sensitivity} para la métrica mínima sensibilidad. Esta se encuentra disponible en el módulo \texttt{metrics} de la librería \texttt{dlordinal}. Para calcular la precisión o \textit{accuracy} del entrenamiento, se ha usado la función \texttt{accuracy\_score} disponible en el módulo \texttt{metrics} de la librería \texttt{Scikit-Learn}.
 
 \vspace{1em}
 
