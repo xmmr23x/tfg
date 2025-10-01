@@ -1,10 +1,11 @@
 anteproyecto/
 documentos/
-memoria/build/
+memoria/
 __pycache__/
 src/dataset/*
 category
 resultados/
+presentacion.odp
 
 !src/dataset/resampling_binary_train.npz
 !src/dataset/resampling_binary_test.npz
