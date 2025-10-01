@@ -19,51 +19,37 @@
 > Este proyecto se centra en la aplicación de técnicas de aprendizaje automático para la detección de \textit{malware}. El objetivo principal es comparar distintos algoritmos, tanto los estudiados en el plan de estudios de Ingeniería Informática como otros que no forman parte de la formación académica, con el fin de determinar cuáles se adaptan mejor a este problema.  
 > Para ello, se utilizan bases de datos públicas de *malware*, adaptadas mediante técnicas de preprocesamiento, balanceo y reducción de la dimensionalidad. Posteriormente, se implementa un protocolo experimental que incluye la optimización de hiperparámetros, la validación cruzada estratificada y la repetición de experimentos con diferentes semillas para garantizar la reproducibilidad.
 > Finalmente, se analizan los resultados obtenidos en términos de precisión, eficiencia y viabilidad computacional, destacando las ventajas e inconvenientes de cada enfoque y aportando una visión comparativa que pueda servir de referencia para futuros estudios en la detección automática de *malware*.
-> **Palabras clave:** Aprendizaje automático, Detección de *malware*, Clasificación, Ciberseguridad
 
 ---
 
 ## 🎯 Objetivos
-- Objetivo 1
-- Objetivo 2
-- Objetivo 3
-*(Enumera los objetivos principales del TFG de forma clara y concisa)*
+- Comparar distintos algoritmos de aprendizaje automático haciendo uso de conjuntos de datos de *malware*
+- Obtención y análisis de bases de datos públicas
+- Evaluar el rendimiento, eficiencia, precisión y viabilidad computacional de los algoritmos
 
 ---
 
 ## 🛠️ Tecnologías y Herramientas Utilizadas
-- Lenguajes de programación: `Python`, `JavaScript`, etc.
-- Frameworks: `Django`, `React`, etc.
-- Otras herramientas: `Git`, `Figma`, `PostgreSQL`, etc.
-
----
-
-## 📊 Metodología
-Explica brevemente la metodología empleada:  
-- Tipo de investigación (cuantitativa, cualitativa, experimental, etc.)
-- Enfoque de desarrollo (cascada, ágil, SCRUM, etc.)
-
----
-
-## 📈 Resultados y Conclusiones
-- Resultado destacado 1
-- Resultado destacado 2
-- Conclusión general sobre los objetivos alcanzados
+- Lenguaje de programación: `Python`.
+- Bibliotecas: `Scikit-learn`, `Numpy`, `Pandas`, `Matplotlib`, `LightGBM`, `Seaborn`.
+- Modelos: `DecisionTreeClassifier`, `RandomForestClassifier`, `KNeighborsClassifier`, `RidgeClassifier`, `MLPClassifier`, `SVC`, `LGBMClassifier`.
 
 ---
 
 ## 📚 Palabras clave
-`palabra_clave_1`, `palabra_clave_2`, `palabra_clave_3`, `palabra_clave_4`
+`Aprendizaje automático`, `Detección de *malware*`, `Clasificación`, `Ciberseguridad`
 
 ---
 
-## 🔗 Enlaces (si aplica)
-- [Repositorio GitHub](https://github.com/usuario/repositorio)
-- [Demo en línea](https://url-de-demo.com)
-- [Memoria completa (PDF)](https://url-de-documento.com)
+## 🔗 Enlaces
+- [Repositorio GitHub](https://github.com/xmmr23x/tfg)
 
 ---
 
 ## 📅 Fecha de entrega
-**DD / MM / AAAA**
+**10 / 09 / 2025**
 
+---
+
+## 🏅 Nota Final
+**Calificación obtenida:** _9,5 sobre 10_
